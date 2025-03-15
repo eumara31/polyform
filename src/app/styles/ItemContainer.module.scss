@@ -1,0 +1,13 @@
+@import 'fonts';
+@import 'colors';
+
+#item-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-rows: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+    height: fit-content;
+    border-radius: 1rem;
+    display: grid;
+}

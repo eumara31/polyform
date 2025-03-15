@@ -1,0 +1,154 @@
+@import 'fonts';
+@import 'colors';
+
+
+	#header-container {
+		width: 100%;
+		background-color: $white;
+		border-radius: 0 0 10px 10px;
+
+		#header {
+			background-color: $header-color;
+			display: flex;
+			gap: 1rem;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			width: 100%;
+			height: 70%;
+			border-radius: 0 0 1rem 1rem;
+			padding: 1rem;
+
+			position: relative;
+
+			#logo {
+				// position: absolute;
+				// left: 2rem;
+
+				font-family: $logo-font;
+				font-weight: bold;
+				font-size: 2rem;
+				color: $logo-color;
+				user-select: none;
+			}
+
+			#header-category-button {
+				background-color: white;
+				border: 2px $logo-color solid;
+				border-radius: 0.5rem;
+				max-height: 32px;
+				font-family: $default-font;
+				font-size: 16px;
+
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				gap: 0.2rem;
+				padding: 0.2rem 0.4rem 0.2rem 0.3rem;
+				// padding-left: 0.3rem;
+				// padding-right: 0.4rem;
+				justify-content: space-around;
+				user-select: none;
+			}
+
+			#header-category-img {
+				padding: 0rem;
+			}
+
+			#search-bar {
+				background-color: white;
+				min-height: calc(24px + rem);
+				width: 70%;
+				height: 32px;
+				border: 2px $logo-color solid;
+				border-radius: 0.5rem;
+				padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+				font-family: $default-font;
+				font-size: 16px;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				overflow-x: hidden;
+				overflow-y: hidden;
+				
+				#search-img{
+					user-select: none;
+				}
+			}
+
+			#change-lang {
+				color: $white;
+				font-family: $default-font;
+				font-size: 24px;
+
+				user-select: none;
+			}
+
+			#dark-mode-img {
+				user-select: none;
+			}
+		}
+
+		#header-underline {
+			background-color: $white;
+			width: 100%;
+			height: 30%;
+			border-radius: 0 0 1rem 1rem;
+			display: flex;
+			gap: 1rem;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0.3rem 1rem 0.3rem 1rem;
+			font-family: $default-font;
+			font-size: 14px;
+
+			position: relative;
+
+			user-select: none;
+
+			#header-underline-lsubcontainer {
+				display: flex;
+				gap: 1rem;
+				flex-direction: row;
+				justify-content: start;
+				align-items: center;
+
+				#discounts-href {
+					color: $header-discount-text-color
+				}
+			}
+
+			#header-underline-itemsfound {
+				display: flex;
+				gap: 1rem;
+				flex-direction: row;
+				justify-content: space-around;
+				align-items: center;
+				position: absolute;
+				left: 50%;
+			}
+
+			#header-underline-rsubcontainer {
+				display: flex;
+				gap: 1rem;
+				flex-direction: row;
+				justify-content: end;
+				align-items: center;
+
+				#login-href {
+					color: $logo-color;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					gap: 4px;
+
+					Image {
+						position: relative;
+						top: 1px;
+					}
+				}
+			}
+		}
+	}

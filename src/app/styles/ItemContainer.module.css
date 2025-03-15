@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/Unbounded-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+#item-container {
+  display: grid;
+  gap: 15px;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  border-radius: 1rem;
+}/*# sourceMappingURL=ItemContainer.module.css.map */
