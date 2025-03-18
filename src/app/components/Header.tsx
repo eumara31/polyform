@@ -10,33 +10,29 @@ type Props = {};
 gsap.registerPlugin(useGSAP);
 
 export default function Header({}: Props) {
+  const [headerHeight, setHeaderHeight] = useState('')
+  const [lastScrollY, setLastScrollY] = useState(0)
   const headerRef = useRef(null);
   const headerUnderlineRef = useRef(null);
 
-  // useEffect(() => {
-  //   let lastScrollTop = 0;
-  //   window.addEventListener("scroll", ()=>{
-  //     let currentScroll = window.scrollY || document.documentElement.scrollTop;
+  function changeHeaderHeight(){
+    if (window.scrollY > lastScrollY) {
+      setHeaderHeight("0rem");
+    } else {
+      setHeaderHeight("2rem");  
+    }
 
-  //     if (currentScroll > lastScrollTop) {
-  //       console.log('down')
-  //       gsap.to(headerRef.current, {
-  //         height: "30%", // Используем "auto" для полной высоты
-  //         duration: 0.1, // Длительность анимации
-  //         ease: "power2.inOut", // Функция плавности
-  //        });
-  //     } else if (currentScroll < lastScrollTop) {
-  //       console.log('down')
-  //       gsap.to(headerRef.current, {
-  //         height: "70%", // Используем "auto" для полной высоты
-  //         duration: 0.1, // Длительность анимации
-  //         ease: "power2.inOut", // Функция плавности
-  //        });
-  //     }
-    
-  //     lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-  //   })
-  // }, [])
+    setLastScrollY(window.scrollY); 
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', changeHeaderHeight);
+
+    return () => {
+       window.removeEventListener('scroll', changeHeaderHeight);
+    };
+  }, [lastScrollY]);
+
 
   return (
     <>
