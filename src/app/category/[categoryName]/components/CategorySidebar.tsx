@@ -168,7 +168,53 @@ export default function CategorySidebar({ children }: Props) {
         <h1 className={styles["sidebar-h1"]}>Цена</h1>
         <PriceSlider></PriceSlider>
         <h1 className={styles["sidebar-h1"]}>Функциональность</h1>
+        <div className={styles['checkbox-container']}>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Многосоставная</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Подвижная</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Жёсткая</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Гибкая</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Эластичная</div>
+          </div>
+        </div>
+
         <h1 className={styles["sidebar-h2"]}>Рекомендованный материал</h1>
+
+        <div className={styles['checkbox-container']}>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>PLA</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>ABS</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>PETG</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>TPU</div>
+          </div>
+          <div className={styles['checkbox-subcontainer']}>
+            <input type="checkbox" />
+            <div className={styles['checkbox-text']}>Resin</div>
+          </div>
+        </div>
       </div>
       <div id={styles["item-container"]}>{children}</div>
     </div>

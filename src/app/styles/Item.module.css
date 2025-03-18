@@ -48,6 +48,9 @@
   position: relative;
   font-weight: lighter;
 }
+.item .item-subcontainer .item-rating-container .item-rating-number {
+  font-weight: 300;
+}
 .item .item-subcontainer .item-rating-container Image {
   position: absolute;
   bottom: 10px;

@@ -42,6 +42,10 @@
             gap: 0.3rem;
             position: relative;
             font-weight: lighter;
+            
+            .item-rating-number{
+                font-weight: 300;
+            }
 
             Image{
                 position: absolute;

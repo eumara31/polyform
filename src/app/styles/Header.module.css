@@ -14,6 +14,9 @@
   width: 100%;
   background-color: #FFFFFF;
   border-radius: 0 0 10px 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 #header-container #header {
   background-color: #363537;
@@ -23,7 +26,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 70%;
+  height: 60px;
   border-radius: 0 0 1rem 1rem;
   padding: 1rem;
   position: relative;
@@ -95,7 +98,7 @@
 #header-container #header-underline {
   background-color: #FFFFFF;
   width: 100%;
-  height: 30%;
+  height: 30px;
   border-radius: 0 0 1rem 1rem;
   display: flex;
   gap: 1rem;
