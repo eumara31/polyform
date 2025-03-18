@@ -1,0 +1,47 @@
+@import 'fonts';
+@import 'colors';
+
+#container {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem 0 1rem;
+
+    #slider-track {
+        height: 3px;
+        width: 100%;
+        background-color: $white;
+    }
+
+    #slider-thumb {
+        height: 10px;
+        width: 10px;
+        border-radius: 100px;
+        background-color: $white;
+    }
+
+    #numerical-fields {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin: 1rem 0 0 0;
+        gap: 2rem;
+
+        input {
+            text-align: center;
+            align-items: center;
+            width: 33%;
+            font-family: $default-font;
+            font-weight: 400;
+            font-size: 12px;
+            color: $white;
+            padding: 0.3rem;
+            background-color: $header-color;
+            border: 2px solid $white;
+            border-radius: 5px;
+        }
+    }
+}

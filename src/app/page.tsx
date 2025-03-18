@@ -13,20 +13,20 @@ export default function Home() {
         <Header />
         <NavigationBeam name="Лучшие модели" logo="trophy.svg"/>
         <ItemCarousel>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
           </ItemCarousel>
           <NavigationBeam name="Топ продаж" logo="bookmark_star.svg"/>
         <ItemContainer>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
-          <Item></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
+          <Item modelName={""}></Item>
         </ItemContainer>
       </WidthContainer>
     </>

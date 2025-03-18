@@ -10,12 +10,15 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.0.4",
     "@react-three/fiber": "^9.1.0",
     "@types/three": "^0.174.0",
+    "gsap": "^3.12.7",
     "next": "15.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-range": "^1.10.0",
     "swiper": "^11.2.5",
     "three": "^0.174.0"
   },

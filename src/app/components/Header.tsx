@@ -13,7 +13,7 @@ export default function Header({}: Props) {
             <button id={styles["header-category-button"]}>
               <Image
                 id={styles["header-category-img"]}
-                src="img/dashboard_customize.svg"
+                src="../img/dashboard_customize.svg"
                 width={24}
                 height={24}
                 alt=""
@@ -24,7 +24,7 @@ export default function Header({}: Props) {
               placeholder
               <Image
                 id={styles["search-img"]}
-                src="img/search.svg"
+                src="../img/search.svg"
                 width={24}
                 height={24}
                 alt=""
@@ -33,7 +33,7 @@ export default function Header({}: Props) {
             <div id={styles["change-lang"]}>en</div>
             <Image
               id={styles["dark-mode-img"]}
-              src="img/dark_mode.svg"
+              src="../img/dark_mode.svg"
               width={32}
               height={32}
               alt=""
@@ -52,7 +52,7 @@ export default function Header({}: Props) {
               <div id={styles["login-href"]}>
                 <Image
                   id={styles["login-image"]}
-                  src="img/login.svg"
+                  src="../img/login.svg"
                   width={24}
                   height={24}
                   alt=""

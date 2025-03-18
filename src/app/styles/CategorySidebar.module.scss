@@ -1,0 +1,40 @@
+@import 'fonts';
+@import 'colors';
+
+#category-layout {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    #category-sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        padding: 0.5rem;
+        background-color: $header-color;
+        border-radius: 1rem;
+        align-self: start;
+        font-family: $default-font;
+
+        .sidebar-h1 {
+            font-family: $default-font;
+            font-weight: 500;
+            padding: 0 0 0 0.5rem;
+            font-size: 18px;
+            color: $white;
+        }
+
+        .sidebar-h2 {
+            font-family: $default-font;
+            font-weight: 400;
+            font-size: 18px;
+            color: $white;
+        }
+    }
+
+    #item-container {
+        width: 100%;
+    }
+}
