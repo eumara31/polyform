@@ -17,7 +17,7 @@
   border-radius: 0 0 10px 10px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 3;
 }
 #header-container #header {
   background-color: #363537;
@@ -146,6 +146,7 @@
   flex-direction: row;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
 }
 #header-container #header-underline #header-underline-rsubcontainer #login-href Image {
   position: relative;

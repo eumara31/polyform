@@ -1,44 +1,52 @@
 "use client"
-import React, {use, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Image from "next/image";
 import styles from "../styles/Header.module.css";
+import PopupOverlay from "./PopupOverlay";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 type Props = {};
 
 gsap.registerPlugin(useGSAP);
 
 export default function Header({}: Props) {
-  const [headerHeight, setHeaderHeight] = useState('')
-  const [lastScrollY, setLastScrollY] = useState(0)
-  const headerRef = useRef(null);
-  const headerUnderlineRef = useRef(null);
+  const [popupStatus, setPopupStatus] = useState(false);
 
-  function changeHeaderHeight(){
-    if (window.scrollY > lastScrollY) {
-      setHeaderHeight("0rem");
-    } else {
-      setHeaderHeight("2rem");  
-    }
-
-    setLastScrollY(window.scrollY); 
+  function changePopupStatus(){
+    setPopupStatus(!popupStatus)
   }
 
-  useEffect(() => {
-    window.addEventListener('scroll', changeHeaderHeight);
+  // const [headerHeight, setHeaderHeight] = useState('')
+  // const [lastScrollY, setLastScrollY] = useState(0)
+  // const headerRef = useRef(null);
+  // const headerUnderlineRef = useRef(null);
 
-    return () => {
-       window.removeEventListener('scroll', changeHeaderHeight);
-    };
-  }, [lastScrollY]);
+  // function changeHeaderHeight(){
+  //   if (window.scrollY > lastScrollY) {
+  //     setHeaderHeight("0rem");
+  //   } else {
+  //     setHeaderHeight("2rem");  
+  //   }
+
+  //   setLastScrollY(window.scrollY); 
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', changeHeaderHeight);
+
+  //   return () => {
+  //      window.removeEventListener('scroll', changeHeaderHeight);
+  //   };
+  // }, [lastScrollY]);
 
 
   return (
     <>
         <div id={styles["header-container"]}>
-          <div id={styles["header"]}
-          ref={headerRef}>
+          <div id={styles["header"]}>
             <div id={styles["logo"]}>Полиформ</div>
             <button id={styles["header-category-button"]}>
               <Image
@@ -69,8 +77,7 @@ export default function Header({}: Props) {
               alt=""
             />
           </div>
-          <div id={styles["header-underline"]}
-          ref={headerUnderlineRef}>
+          <div id={styles["header-underline"]}>
             <div id={styles["header-underline-lsubcontainer"]}>
               <div id={styles["discounts-href"]}>Скидки</div>
               <div id={styles["weekly-items-href"]}>Модели недели</div>
@@ -80,7 +87,8 @@ export default function Header({}: Props) {
             <div id={styles["header-underline-itemsfound"]}></div>
             <div>По запросу "" найдено n товаров</div>
             <div id={styles["header-underline-rsubcontainer"]}>
-              <div id={styles["login-href"]}>
+              <div id={styles["login-href"]} 
+              onClick={changePopupStatus}>
                 <Image
                   id={styles["login-image"]}
                   src="../img/login.svg"
@@ -93,6 +101,9 @@ export default function Header({}: Props) {
             </div>
           </div>
         </div>
+        <PopupOverlay isOpen={popupStatus}>
+          <LoginForm></LoginForm>
+        </PopupOverlay>
     </>
   );
 }

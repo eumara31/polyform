@@ -1,0 +1,150 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/Unbounded-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+#login-form {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: center;
+  position: absolute;
+  top: 10%;
+  width: 15%;
+  min-width: -moz-min-content;
+  min-width: min-content;
+  height: 50%;
+  min-height: -moz-min-content;
+  min-height: min-content;
+  border: 1px #363537 solid;
+  border-radius: 1rem;
+  background-color: white;
+  z-index: 6;
+}
+#login-form #logo {
+  font-family: "Unbounded", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  color: #F3C33F;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+#login-form button {
+  min-width: 100%;
+  height: 2.5rem;
+  border: 2px black solid;
+  border-radius: 0.4rem;
+  line-height: 0;
+  padding: 0.7rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #FFFFFF;
+  background-color: black;
+  cursor: pointer;
+}
+#login-form #textinput-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#login-form #textinput-container input {
+  width: 100%;
+  height: 2.5rem;
+  border: 2px black solid;
+  border-radius: 0.4rem;
+  line-height: 0;
+  padding: 0.7rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: black;
+}
+#login-form #checkbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+#login-form #checkbox-container .checkbox-subcontainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: black;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+}
+#login-form #checkbox-container .checkbox-subcontainer input[type=checkbox] {
+  display: none;
+}
+#login-form #checkbox-container .checkbox-subcontainer span {
+  position: relative;
+  padding-left: 24px;
+}
+#login-form #checkbox-container .checkbox-subcontainer span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid black;
+  border-radius: 0.2rem;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+#login-form #checkbox-container .checkbox-subcontainer input:checked + span::before {
+  background-color: black;
+}
+#login-form #login-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+#login-form #login-container #google-auth-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 0.7rem;
+  position: relative;
+  font-size: 20px;
+}
+#login-form #login-container button {
+  width: 100%;
+  height: 2.5rem;
+  border: 2px black solid;
+  border-radius: 0.4rem;
+  line-height: 0;
+  padding: 0.7rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #FFFFFF;
+  background-color: black;
+  cursor: pointer;
+}
+#login-form #login-container p {
+  color: gray;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  margin: 0;
+  font-size: 14px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}/*# sourceMappingURL=RegisterForm.module.css.map */
