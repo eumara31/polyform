@@ -6,7 +6,7 @@ import AccountNavbar from "@/app/account/components/AccountNavbar";
 
 type Props = {};
 
-export default function page({}: Props) {
+export default function page({ }: Props) {
   return (
     <WidthContainer>
       <Header />
@@ -17,6 +17,13 @@ export default function page({}: Props) {
           2: { tabName: "Снято с продажи", isActive: false, url: "/account/models/removed" },
         }}
       />
+      {/* грид на 4 ячейки, во всех  */}
+      <div id={styles["new-model-container"]}>
+        <div></div>
+        <div id={styles['new-model-upload-container']}></div>
+        <div></div>
+        <div></div>
+      </div>
     </WidthContainer>
   );
 }
