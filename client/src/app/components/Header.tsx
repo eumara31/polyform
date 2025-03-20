@@ -1,12 +1,12 @@
 "use client"
-import React, {useEffect, useRef, useState} from "react";
+import React, {useState} from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Image from "next/image";
 import styles from "../styles/Header.module.css";
 import PopupOverlay from "./PopupOverlay";
 import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import Head from 'next/head';
 
 type Props = {};
 
@@ -51,7 +51,7 @@ export default function Header({}: Props) {
             <button id={styles["header-category-button"]}>
               <Image
                 id={styles["header-category-img"]}
-                src="../img/dashboard_customize.svg"
+                src="/img/dashboard_customize.svg"
                 width={24}
                 height={24}
                 alt=""
@@ -62,7 +62,7 @@ export default function Header({}: Props) {
               placeholder
               <Image
                 id={styles["search-img"]}
-                src="../img/search.svg"
+                src="/img/search.svg"
                 width={24}
                 height={24}
                 alt=""
@@ -71,7 +71,7 @@ export default function Header({}: Props) {
             <div id={styles["change-lang"]}>en</div>
             <Image
               id={styles["dark-mode-img"]}
-              src="../img/dark_mode.svg"
+              src="/img/dark_mode.svg"
               width={32}
               height={32}
               alt=""
@@ -91,7 +91,7 @@ export default function Header({}: Props) {
               onClick={changePopupStatus}>
                 <Image
                   id={styles["login-image"]}
-                  src="../img/login.svg"
+                  src="/img/login.svg"
                   width={24}
                   height={24}
                   alt=""

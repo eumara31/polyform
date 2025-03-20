@@ -1,0 +1,37 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/Unbounded-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+#account-navbar {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 1.5rem;
+  padding: 0 1rem 0 1rem;
+}
+#account-navbar .account-navbar-tab {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+#account-navbar a {
+  text-decoration: none;
+  color: black;
+}/*# sourceMappingURL=AccountPage.Module.css.map */
