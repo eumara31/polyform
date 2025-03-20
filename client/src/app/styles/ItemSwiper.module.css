@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/Unbounded-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+#item-swiper {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+}/*# sourceMappingURL=ItemSwiper.module.css.map */

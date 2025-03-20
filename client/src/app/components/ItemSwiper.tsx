@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import styles from "../styles/ItemCarousel.module.css";
+import styles from "../styles/ItemSwiper.module.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
@@ -8,7 +8,7 @@ type Props = {
     children: React.ReactNode;
   };
   
-  export default function ItemCarousel({ children }: Props) {
+  export default function ItemSwiper({ children }: Props) {
     return (
         <Swiper id={styles["item-swiper"]}
         spaceBetween={30}
