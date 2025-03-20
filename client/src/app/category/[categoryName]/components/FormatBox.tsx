@@ -47,12 +47,20 @@ export default function FormatBox({ children }: Props) {
     setFormatRefDict(initialDict);
   }, [])
 
+  useEffect(() =>{
+    console.log(formatRefDict)
+  }, [formatRefDict])
+
 
   const handleFormatClick = (format: string) => {
     setFormatRefDict((prevDict) => {
-      const updatedDict = { ...prevDict };
-      updatedDict[format].isActive = !updatedDict[format].isActive;
-      return updatedDict;
+      return {
+        ...prevDict,
+        [format]: {
+          ...prevDict[format],
+          isActive: !prevDict[format].isActive,
+        },
+      };
     });
   };
 
