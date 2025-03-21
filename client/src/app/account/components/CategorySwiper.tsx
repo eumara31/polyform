@@ -1,0 +1,95 @@
+import React, { ReactNode, useEffect, useState } from "react";
+import { Image } from "@react-three/drei";
+import ItemSwiper from "@/app/components/ItemSwiper";
+import { toArray } from "gsap";
+
+type Props = {
+  imageSize: number;
+  swiperDirection: "vertical" | "horizontal";
+  spaceBetweenItems: number;
+  itemsPerView: number;
+  wheelControl: boolean;
+  scrollControl: boolean;
+  keyboardControl: boolean;
+  children: React.ReactNode;
+};
+
+export default function CategorySwiper({
+  swiperDirection,
+  spaceBetweenItems,
+  itemsPerView,
+  wheelControl,
+  scrollControl,
+  keyboardControl,
+  children,
+}: Props) {
+  const [categoryRefDict, setCategoryRefDict] = useState<{
+    [index: number]: {
+      ref: React.RefObject<HTMLDivElement | null>;
+      isActive: boolean;
+    };
+  }>({});
+
+  useEffect(() => {
+    const initialDict: {
+      [key: string]: {
+        ref: React.RefObject<HTMLDivElement | null>;
+        isActive: boolean;
+      };
+    } = {};
+
+    React.Children.toArray(children).forEach((child, index) => {
+      initialDict[index] = {
+        ref: React.createRef<HTMLDivElement>(),
+        isActive: false,
+      };
+    });
+    setCategoryRefDict(initialDict);
+  }, []);
+
+  function handleCategoryClick(childIndex: number) {
+    const tmpDict = structuredClone(categoryRefDict);
+    for (let i = 0; i<Object.entries(tmpDict).length; i++) {
+      if (i == childIndex) {
+        tmpDict[i].isActive = true;
+      } else {
+        tmpDict[i].isActive = false;
+      }
+    }
+    setCategoryRefDict(tmpDict);
+  }
+
+  useEffect(() => {
+    console.log("categoryRefDict обновился:", categoryRefDict);
+  }, [categoryRefDict]);
+
+  return (
+    <ItemSwiper
+      swiperDirection={swiperDirection}
+      spaceBetweenItems={spaceBetweenItems}
+      itemsPerView={itemsPerView}
+      wheelControl={wheelControl}
+      scrollControl={scrollControl}
+      keyboardControl={keyboardControl}
+    >
+      {React.Children.map(children, (child, index) => {
+        return (
+          <li
+            onClick={() => {
+              handleCategoryClick(index);
+            }}
+            key={index}
+            style={{
+                background: categoryRefDict[index]?.isActive ? "black" : "#363537",
+              border: categoryRefDict[index]?.isActive ? "silver solid 1px" : "#363537",
+              borderRadius: "100px",
+            }}
+          >
+            {child}
+          </li>
+        );
+      })}
+      {children}
+    </ItemSwiper>
+  );
+}

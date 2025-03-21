@@ -12,7 +12,7 @@ export default function Home() {
       <WidthContainer>
         <Header />
         <NavigationBeam name="Лучшие модели" logo="trophy.svg"/>
-        <BestModelSwiper>
+        <BestModelSwiper swiperDirection="horizontal" spaceBetweenItems={30} itemsPerView={3}>
           <Item modelName={""}></Item>
           <Item modelName={""}></Item>
           <Item modelName={""}></Item>
