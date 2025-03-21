@@ -43,7 +43,6 @@ export default function Page({}: Props) {
           },
         }}
       />
-      {/* грид на 4 ячейки, во всех  */}
       <div id={styles["new-model-container"]}>
         <div id={styles["new-model-text-container"]}>
           <input
@@ -57,7 +56,6 @@ export default function Page({}: Props) {
           ></textarea>
         </div>
         <div id={styles["new-model-upload-container"]}></div>
-        {/* категория|функциональность & рекомендованный материал| формат| */}
         <div id={styles["new-model-category-container"]}>
           <div ref={newModelCategorySubcontainer} className={styles["new-model-category-subcontainer"]}>
             <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>Категории</h1>
@@ -99,7 +97,36 @@ export default function Page({}: Props) {
               ))}
             </CategorySwiper>
           </div>
-          <div className={styles["new-model-category-subcontainer"]}></div>
+          <div className={styles["new-model-category-subcontainer"]}>
+          <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>
+            Функциональность
+          </h1>
+          <div className={styles["checkbox-container"]}>
+          {[
+            "Многосоставная",
+            "Подвижная",
+            "Жёсткая",
+            "Гибкая",
+            "Эластичная",
+          ].map((label) => (
+            <label key={label} className={styles["checkbox-subcontainer"]}>
+              <input type="checkbox" />
+              <span className={styles["checkbox-text"]}>{label}</span>
+            </label>
+          ))}
+        </div>
+        <h1 ref={newModelCategoryH1} id={styles['material']} className={styles["new-model-category-h1"]}>
+            Материал
+          </h1>
+        <div className={styles["checkbox-container"]}>
+          {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
+            <label key={label} className={styles["checkbox-subcontainer"]}>
+              <input type="checkbox" />
+              <span className={styles["checkbox-text"]}>{label}</span>
+            </label>
+          ))}
+        </div>
+          </div>
           <div className={styles["new-model-category-subcontainer"]}></div>
           <div className={styles["new-model-category-subcontainer"]}></div>
         </div>

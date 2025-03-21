@@ -98,15 +98,58 @@
   font-size: 18px;
   color: white;
   margin: 0;
+  text-align: center;
+}
+#new-model-category-container .new-model-category-subcontainer #material {
+  text-align: left;
 }
 #new-model-category-container .new-model-category-subcontainer li {
   font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: row;
   gap: 0.6rem;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
   align-items: center;
   justify-content: left;
   color: #FFFFFF;
   font-size: 16px;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.3rem;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container .checkbox-subcontainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container .checkbox-subcontainer input[type=checkbox] {
+  display: none;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container .checkbox-subcontainer span {
+  position: relative;
+  padding-left: 24px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container .checkbox-subcontainer span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #FFFFFF;
+  border-radius: 0.2rem;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+#new-model-category-container .new-model-category-subcontainer .checkbox-container .checkbox-subcontainer input:checked + span::before {
+  background-color: #FFFFFF;
 }/*# sourceMappingURL=AccountPage.module.css.map */
