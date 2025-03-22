@@ -88,7 +88,6 @@ export default function CategorySwiper({
           </li>
         );
       })}
-      {children}
     </ItemSwiper>
   );
 }

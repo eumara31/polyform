@@ -79,14 +79,18 @@
 #category-layout #category-sidebar .checkbox-container .checkbox-subcontainer input:checked + span::before {
   background-color: #FFFFFF;
 }
-#category-layout #category-sidebar #format-container {
+#category-layout #item-container {
+  width: 100%;
+}
+
+#format-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   width: 100%;
   padding: 0 1rem 0 1rem;
 }
-#category-layout #category-sidebar #format-container .format {
+#format-container .format {
   font-family: "Inter", sans-serif;
   font-size: 14px;
   color: #FFFFFF;
@@ -98,7 +102,4 @@
           user-select: none;
   transition: background-color 0.2s ease, color 0.2s ease;
   transition: color 0.2s ease, color 0.2s ease;
-}
-#category-layout #item-container {
-  width: 100%;
 }/*# sourceMappingURL=CategorySidebar.module.css.map */

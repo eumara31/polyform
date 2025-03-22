@@ -1,23 +1,24 @@
 "use client";
 import Header from "@/app/components/Header";
 import WidthContainer from "@/app/components/WidthContainer";
-import React, {useRef, useEffect, useState} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
+import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
 import Image from "next/image";
 
 type Props = {};
 
-export default function Page({}: Props) {
+export default function Page({ }: Props) {
   const [itemsPerView, setItemsPerView] = useState(8);
   const newModelCategorySubcontainer = useRef(null);
   const newModelCategoryH1 = useRef(null)
   const categoryImageSize = 24;
 
-  useEffect(()=>{
+  useEffect(() => {
     setItemsPerView(
-      (newModelCategorySubcontainer.current.offsetHeight-newModelCategoryH1.current.offsetHeight)/40
+      (newModelCategorySubcontainer.current.offsetHeight - newModelCategoryH1.current.offsetHeight) / 40
     )
   }, [])
 
@@ -98,39 +99,51 @@ export default function Page({}: Props) {
             </CategorySwiper>
           </div>
           <div className={styles["new-model-category-subcontainer"]}>
-          <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>
-            Функциональность
-          </h1>
-          <div className={styles["checkbox-container"]}>
-          {[
-            "Многосоставная",
-            "Подвижная",
-            "Жёсткая",
-            "Гибкая",
-            "Эластичная",
-          ].map((label) => (
-            <label key={label} className={styles["checkbox-subcontainer"]}>
-              <input type="checkbox" />
-              <span className={styles["checkbox-text"]}>{label}</span>
-            </label>
-          ))}
-        </div>
-        <h1 ref={newModelCategoryH1} id={styles['material']} className={styles["new-model-category-h1"]}>
-            Материал
-          </h1>
-        <div className={styles["checkbox-container"]}>
-          {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
-            <label key={label} className={styles["checkbox-subcontainer"]}>
-              <input type="checkbox" />
-              <span className={styles["checkbox-text"]}>{label}</span>
-            </label>
-          ))}
-        </div>
+            <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>
+              Свойства
+            </h1>
+            <div className={styles["checkbox-container"]}>
+              {[
+                "Многосоставная",
+                "Подвижная",
+                "Жёсткая",
+                "Гибкая",
+                "Эластичная",
+              ].map((label) => (
+                <label key={label} className={styles["checkbox-subcontainer"]}>
+                  <input type="checkbox" />
+                  <span className={styles["checkbox-text"]}>{label}</span>
+                </label>
+              ))}
+            </div>
+            <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>
+              Материал
+            </h1>
+            <div className={styles["checkbox-container"]}>
+              {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
+                <label key={label} className={styles["checkbox-subcontainer"]}>
+                  <input type="checkbox" />
+                  <span className={styles["checkbox-text"]}>{label}</span>
+                </label>
+              ))}
+            </div>
           </div>
-          <div className={styles["new-model-category-subcontainer"]}></div>
-          <div className={styles["new-model-category-subcontainer"]}></div>
+          <div id={styles['format-price']} className={styles["new-model-category-subcontainer"]}>
+            <div className={styles['new-model-category-subcontainer-l2']}>
+              <h1 className={styles['new-model-category-h1']}>
+                Форматы
+              </h1>
+              <FormatBox/>
+            </div>
+            <div className={styles['new-model-category-subcontainer-l2']}>
+              <input type="text" placeholder="цена">
+              
+              </input>
+              <button>Добавить</button>
+            </div>
+          </div>
         </div>
-        <div id={styles["new-model-price-container"]}></div>
+        <div></div>
       </div>
     </WidthContainer>
   );

@@ -75,29 +75,30 @@
                 }
             }
         }
-
-        #format-container{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            width: 100%;
-            padding: 0 1rem 0 1rem;
-
-            .format{
-                font-family: $default-font;
-                font-size: 14px;
-                color: $white;
-                border: 1px white solid;
-                border-radius: 5px;
-                padding: 0.1rem 0.3rem 0.1rem 0.3rem;
-                user-select: none;
-                transition: background-color 0.2s ease, color 0.2s ease;
-                transition: color 0.2s ease, color 0.2s ease;
-            }
-        }
     }
 
     #item-container {
         width: 100%;
+    }
+}
+
+
+#format-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 1rem 0 1rem;
+
+    .format{
+        font-family: $default-font;
+        font-size: 14px;
+        color: $white;
+        border: 1px white solid;
+        border-radius: 5px;
+        padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+        user-select: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        transition: color 0.2s ease, color 0.2s ease;
     }
 }
