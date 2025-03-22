@@ -5,6 +5,7 @@ import React, { useRef, useEffect, useState } from "react";
 import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
+import ImageSwiper from '@/app/components/ItemSwiper';
 import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
 import Image from "next/image";
 
@@ -56,7 +57,6 @@ export default function Page({ }: Props) {
             placeholder="Описание"
           ></textarea>
         </div>
-        <div id={styles["new-model-upload-container"]}></div>
         <div id={styles["new-model-category-container"]}>
           <div ref={newModelCategorySubcontainer} className={styles["new-model-category-subcontainer"]}>
             <h1 ref={newModelCategoryH1} className={styles["new-model-category-h1"]}>Категории</h1>
@@ -133,15 +133,45 @@ export default function Page({ }: Props) {
               <h1 className={styles['new-model-category-h1']}>
                 Форматы
               </h1>
-              <FormatBox/>
+              <FormatBox />
             </div>
             <div className={styles['new-model-category-subcontainer-l2']}>
               <input type="text" placeholder="цена">
-              
+
               </input>
               <button>Добавить</button>
             </div>
           </div>
+        </div>
+        <div id={styles["new-model-upload-container"]}>
+          <div>
+          <input id='model-upload' type="file"></input>
+          <label htmlFor='model-upload' id={styles['custom-model-upload']}>
+            <div style={{
+              fontSize: '48px'
+            }}>+</div>
+            <div>загрузить модель</div>
+          </label>
+          </div>
+          {/* <canvas id={styles["new-model-upload-canvas"]}></canvas> */}
+          <ImageSwiper
+              swiperDirection={"horizontal"}
+              spaceBetweenItems={5}
+              itemsPerView={3}
+              wheelControl={true}
+              scrollControl={true}
+              keyboardControl={true}
+            >
+              <div>
+              <input id='photo-upload' type="file"></input>
+          <label htmlFor='photo-upload' id={styles['custom-model-upload']}>
+            <div style={{
+              fontSize: '48px'
+            }}>+</div>
+            <div>загрузить модель</div>
+          </label>
+              </div>
+            </ImageSwiper>
         </div>
         <div></div>
       </div>

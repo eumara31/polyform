@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
@@ -199,6 +198,30 @@
 }
 
 #new-model-upload-container {
-  grid-row: 1/3; /* С первого по третий (занимает две строки) */
-  grid-column: 2/3; /* Остаётся в одной колонке */
+  grid-row: 1/3;
+  grid-column: 2/3;
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+#new-model-upload-container #new-model-upload-canvas {
+  width: 100%;
+}
+#new-model-upload-container input[type=file] {
+  display: none;
+}
+#new-model-upload-container #custom-model-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 3/2;
+  border: 2px solid #363537;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #363537;
 }/*# sourceMappingURL=AccountPage.module.css.map */
