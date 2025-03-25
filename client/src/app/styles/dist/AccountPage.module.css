@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter-VariableFont_opsz,wght.ttf") format("truetype");
@@ -49,15 +50,17 @@
   flex-direction: column;
   gap: 1rem;
   flex-shrink: 1;
-  height: 100%;
+  height: 80vh;
   width: fit-content;
 }
 #new-model-flex #text-category-flex #text-flex {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  height: 100%;
-  width: 100%;
+  flex: 1 1 auto;
+  /* Может расти и сжиматься */
+  min-height: 0;
+  /* Важно для правильного сжатия textarea */
 }
 #new-model-flex #text-category-flex #text-flex input {
   width: auto;
@@ -72,7 +75,10 @@
   color: black;
 }
 #new-model-flex #text-category-flex #text-flex textarea {
-  height: 100%;
+  flex: 1;
+  /* Занимает все доступное пространство */
+  min-height: 0;
+  /* Критически важно для сжатия */
   padding: 1rem;
   font-family: "Inter", sans-serif;
   font-weight: 400;
@@ -85,12 +91,15 @@
 #new-model-flex #text-category-flex #category-flex {
   display: flex;
   flex-direction: row;
+  flex: 1 0 25%;
+  /* Начальная высота 50%, но может расти */
+  height: auto;
+  min-height: 0;
+  /* Важно для правильного сжатия */
   gap: 0.5rem;
   padding: 1rem;
   background-color: #363537;
   border-radius: 1rem;
-  grid-row: 2/2;
-  grid-column: 1/1;
 }
 #new-model-flex #text-category-flex #category-flex .category-column {
   display: flex;
@@ -119,10 +128,109 @@
   color: #FFFFFF;
   font-size: 16px;
 }
-#new-model-flex #model-upload-flex {
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  width: 50%;
-  aspect-ratio: 1/1;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.3rem;
+}
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex .checkbox-subflex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex .checkbox-subflex input[type=checkbox] {
+  display: none;
+}
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex .checkbox-subflex span {
+  position: relative;
+  padding-left: 24px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex .checkbox-subflex span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #FFFFFF;
+  border-radius: 0.2rem;
+  background-color: transparent;
+  transition: background-color 0.2s ease-in-out;
+}
+#new-model-flex #text-category-flex #category-flex .category-column .checkbox-flex .checkbox-subflex input:checked + span::before {
+  background-color: #FFFFFF;
+}
+#new-model-flex #text-category-flex #category-flex #format-price-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+#new-model-flex #text-category-flex #category-flex #format-price-column .format-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: left;
+}
+#new-model-flex #text-category-flex #category-flex #format-price-column .format-flex input {
+  width: 100%;
+  height: 2.5rem;
+  border: 1px #201F21 solid;
+  border-radius: 0.4rem;
+  line-height: 0;
+  padding: 0.3rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+  text-align: center;
+}
+#new-model-flex #text-category-flex #category-flex #format-price-column .format-flex button {
+  min-width: 100%;
+  height: 2.5rem;
+  border-radius: 0.4rem;
+  line-height: 0;
+  border: 2px #201F21 solid;
+  padding: 0.7rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #FFFFFF;
+  background-color: #201F21;
+  cursor: pointer;
+}
+#new-model-flex #model-upload-flex {
+  flex-grow: 1;
+  max-height: 100%;
+  width: 100%;
+}
+#new-model-flex #model-upload-flex #model-input {
+  width: 100%;
+  height: 100%;
+}
+#new-model-flex #model-upload-flex #model-input input[type=file] {
+  display: none;
+}
+#new-model-flex #model-upload-flex #model-input #custom-model-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border: 2px solid #363537;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #363537;
 }

@@ -10,6 +10,7 @@ var CategorySwiper_1 = require("@/app/account/components/CategorySwiper");
 var FormatBox_1 = require("@/app/category/[categoryName]/components/FormatBox");
 var image_1 = require("next/image");
 function Page(_a) {
+    var _b = react_1.useState(false), showCanvas = _b[0], setShowCanvas = _b[1];
     var categoryImageSize = 24;
     return (react_1["default"].createElement(WidthContainer_1["default"], null,
         react_1["default"].createElement(Header_1["default"], null),
@@ -69,19 +70,28 @@ function Page(_a) {
                             "Жёсткая",
                             "Гибкая",
                             "Эластичная",
-                        ].map(function (label) { return (react_1["default"].createElement("label", { key: label, className: AccountPage_module_css_1["default"]["checkbox-subcontainer"] },
+                        ].map(function (label) { return (react_1["default"].createElement("label", { key: label, className: AccountPage_module_css_1["default"]["checkbox-subflex"] },
                             react_1["default"].createElement("input", { type: "checkbox" }),
                             react_1["default"].createElement("span", { className: AccountPage_module_css_1["default"]["checkbox-text"] }, label))); })),
                         react_1["default"].createElement("h1", null, "\u041C\u0430\u0442\u0435\u0440\u0438\u0430\u043B"),
-                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["checkbox-container"] }, ["PLA", "ABS", "PETG", "TPU", "Resin"].map(function (label) { return (react_1["default"].createElement("label", { key: label, className: AccountPage_module_css_1["default"]["checkbox-subcontainer"] },
+                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["checkbox-flex"] }, ["PLA", "ABS", "PETG", "TPU", "Resin"].map(function (label) { return (react_1["default"].createElement("label", { key: label, className: AccountPage_module_css_1["default"]["checkbox-subflex"] },
                             react_1["default"].createElement("input", { type: "checkbox" }),
                             react_1["default"].createElement("span", { className: AccountPage_module_css_1["default"]["checkbox-text"] }, label))); }))),
-                    react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["format-price"], className: AccountPage_module_css_1["default"]["category-column"] },
-                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["new-model-category-subcontainer-l2"] },
-                            react_1["default"].createElement("h1", { className: AccountPage_module_css_1["default"]["new-model-category-h1"] }, "\u0424\u043E\u0440\u043C\u0430\u0442\u044B"),
+                    react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["format-price-column"], className: AccountPage_module_css_1["default"]["category-column"] },
+                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
+                            react_1["default"].createElement("h1", null, "\u0424\u043E\u0440\u043C\u0430\u0442\u044B"),
                             react_1["default"].createElement(FormatBox_1["default"], null)),
-                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["new-model-category-subcontainer-l2"] },
+                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
                             react_1["default"].createElement("input", { type: "text", placeholder: "\u0446\u0435\u043D\u0430" }),
-                            react_1["default"].createElement("button", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))))))));
+                            react_1["default"].createElement("button", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))))),
+            react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-upload-flex"] },
+                react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-input"] }, showCanvas ? (react_1["default"].createElement("div", null, "1")) : (react_1["default"].createElement(react_1["default"].Fragment, null,
+                    react_1["default"].createElement("input", { id: "model-upload", type: "file" }),
+                    react_1["default"].createElement("label", { htmlFor: "model-upload", id: AccountPage_module_css_1["default"]["custom-model-input"] },
+                        react_1["default"].createElement("div", { style: {
+                                fontSize: "48px"
+                            } },
+                            react_1["default"].createElement(image_1["default"], { src: "/img/add_model.svg", width: 32, height: 32, alt: "" })),
+                        react_1["default"].createElement("div", null, "\u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u043C\u043E\u0434\u0435\u043B\u044C")))))))));
 }
 exports["default"] = Page;

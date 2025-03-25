@@ -11,8 +11,8 @@ import Image from "next/image";
 
 type Props = {};
 
-export default function Page({ }: Props) {
-  const [showCanvas, setShowCanvas] = useState(false)
+export default function Page({}: Props) {
+  const [showCanvas, setShowCanvas] = useState(false);
   const categoryImageSize = 24;
 
   return (
@@ -95,10 +95,7 @@ export default function Page({ }: Props) {
                   "Гибкая",
                   "Эластичная",
                 ].map((label) => (
-                  <label
-                    key={label}
-                    className={styles["checkbox-subflex"]}
-                  >
+                  <label key={label} className={styles["checkbox-subflex"]}>
                     <input type="checkbox" />
                     <span className={styles["checkbox-text"]}>{label}</span>
                   </label>
@@ -107,10 +104,7 @@ export default function Page({ }: Props) {
               <h1>Материал</h1>
               <div className={styles["checkbox-flex"]}>
                 {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
-                  <label
-                    key={label}
-                    className={styles["checkbox-subflex"]}
-                  >
+                  <label key={label} className={styles["checkbox-subflex"]}>
                     <input type="checkbox" />
                     <span className={styles["checkbox-text"]}>{label}</span>
                   </label>
@@ -134,48 +128,28 @@ export default function Page({ }: Props) {
         </div>
         <div id={styles["model-upload-flex"]}>
           <div id={styles["model-input"]}>
-            {showCanvas ?
-              (
-                <div>1</div>
-              )
-              :
-              (
-                <>            
+            {showCanvas ? (
+              <div>1</div>
+            ) : (
+              <>
                 <input id="model-upload" type="file"></input>
-                  <label htmlFor="model-upload" id={styles["custom-model-input"]}>
-                    <div
-                      style={{
-                        fontSize: "48px",
-                      }}
-                    >
-                      <Image src="/img/add_model.svg" width={32} height={32} alt="" />
-                    </div>
-                    <div>загрузить модель</div>
-                  </label>
-                  </>
-              )
-            }
-          </div>
-          <div id={styles["image-swiper-container"]}>
-            <ImageSwiper
-              swiperDirection={"horizontal"}
-              spaceBetweenItems={5}
-              itemsPerView={3}
-              wheelControl={true}
-              scrollControl={true}
-              keyboardControl={true}
-              style={{ height: 'auto', width: '100%' }}>
-
-              <div className={"image-container"}>
-                123
-              </div>
-              <div className={"image-container"}>
-                123
-              </div>
-              <div className={"image-container"}>
-                123
-              </div>
-            </ImageSwiper>
+                <label htmlFor="model-upload" id={styles["custom-model-input"]}>
+                  <div
+                    style={{
+                      fontSize: "48px",
+                    }}
+                  >
+                    <Image
+                      src="/img/add_model.svg"
+                      width={32}
+                      height={32}
+                      alt=""
+                    />
+                  </div>
+                  <div>загрузить модель</div>
+                </label>
+              </>
+            )}
           </div>
         </div>
       </div>
