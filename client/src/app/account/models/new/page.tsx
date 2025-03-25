@@ -11,7 +11,7 @@ import Image from "next/image";
 
 type Props = {};
 
-export default function Page({}: Props) {
+export default function Page({ }: Props) {
   const categoryImageSize = 24;
 
   return (
@@ -96,7 +96,7 @@ export default function Page({}: Props) {
                 ].map((label) => (
                   <label
                     key={label}
-                    className={styles["checkbox-subcontainer"]}
+                    className={styles["checkbox-subflex"]}
                   >
                     <input type="checkbox" />
                     <span className={styles["checkbox-text"]}>{label}</span>
@@ -104,11 +104,11 @@ export default function Page({}: Props) {
                 ))}
               </div>
               <h1>Материал</h1>
-              <div className={styles["checkbox-container"]}>
+              <div className={styles["checkbox-flex"]}>
                 {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
                   <label
                     key={label}
-                    className={styles["checkbox-subcontainer"]}
+                    className={styles["checkbox-subflex"]}
                   >
                     <input type="checkbox" />
                     <span className={styles["checkbox-text"]}>{label}</span>
@@ -117,20 +117,24 @@ export default function Page({}: Props) {
               </div>
             </div>
             <div
-              id={styles["format-price"]}
+              id={styles["format-price-column"]}
               className={styles["category-column"]}
             >
-              <div className={styles["new-model-category-subcontainer-l2"]}>
-                <h1 className={styles["new-model-category-h1"]}>Форматы</h1>
+              <div className={styles["format-flex"]}>
+                <h1>Форматы</h1>
                 <FormatBox />
               </div>
-              <div className={styles["new-model-category-subcontainer-l2"]}>
+              <div className={styles["format-flex"]}>
                 <input type="text" placeholder="цена"></input>
                 <button>Добавить</button>
               </div>
             </div>
           </div>
         </div>
+        <div id={styles["model-upload-flex"]}>
+          123
+        </div>
+
       </div>
     </WidthContainer>
   );
