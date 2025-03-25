@@ -132,9 +132,41 @@ export default function Page({ }: Props) {
           </div>
         </div>
         <div id={styles["model-upload-flex"]}>
-          123
-        </div>
+          <div id={styles["model-input"]}>
+            <input id="model-upload" type="file"></input>
+            <label htmlFor="model-upload" id={styles["custom-model-input"]}>
+              <div
+                style={{
+                  fontSize: "48px",
+                }}
+              >
+                <Image src="/img/add_model.svg" width={32} height={32} alt="" />
+              </div>
+              <div>загрузить модель</div>
+            </label>
+          </div>
+          <div id={styles["image-swiper-container"]}>
+            <ImageSwiper
+              swiperDirection={"horizontal"}
+              spaceBetweenItems={5}
+              itemsPerView={3}
+              wheelControl={true}
+              scrollControl={true}
+              keyboardControl={true}
+              style={{ height: 'auto', width: '100%' }}>
 
+              <div className={"image-container"}>
+                123
+              </div>
+              <div className={"image-container"}>
+                123
+              </div>
+              <div className={"image-container"}>
+                123
+              </div>
+            </ImageSwiper>
+          </div>
+        </div>
       </div>
     </WidthContainer>
   );
