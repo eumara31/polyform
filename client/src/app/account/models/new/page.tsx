@@ -12,6 +12,7 @@ import Image from "next/image";
 type Props = {};
 
 export default function Page({ }: Props) {
+  const [showCanvas, setShowCanvas] = useState(false)
   const categoryImageSize = 24;
 
   return (
@@ -133,17 +134,27 @@ export default function Page({ }: Props) {
         </div>
         <div id={styles["model-upload-flex"]}>
           <div id={styles["model-input"]}>
-            <input id="model-upload" type="file"></input>
-            <label htmlFor="model-upload" id={styles["custom-model-input"]}>
-              <div
-                style={{
-                  fontSize: "48px",
-                }}
-              >
-                <Image src="/img/add_model.svg" width={32} height={32} alt="" />
-              </div>
-              <div>загрузить модель</div>
-            </label>
+            {showCanvas ?
+              (
+                <div>1</div>
+              )
+              :
+              (
+                <>            
+                <input id="model-upload" type="file"></input>
+                  <label htmlFor="model-upload" id={styles["custom-model-input"]}>
+                    <div
+                      style={{
+                        fontSize: "48px",
+                      }}
+                    >
+                      <Image src="/img/add_model.svg" width={32} height={32} alt="" />
+                    </div>
+                    <div>загрузить модель</div>
+                  </label>
+                  </>
+              )
+            }
           </div>
           <div id={styles["image-swiper-container"]}>
             <ImageSwiper
