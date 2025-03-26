@@ -7,13 +7,21 @@ import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
 import ImageSwiper from "@/app/components/ItemSwiper";
 import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
+import ModelUpload from "./components/ModelUpload";
+import ModelPreview from "./components/ModelPreview";
 import Image from "next/image";
 
 type Props = {};
 
 export default function Page({}: Props) {
-  const [showCanvas, setShowCanvas] = useState(false);
+  const [showModelPreview, setShowModelPreview] = useState(false);
+  const [modelURL, setModelURL] = useState("");
+  const [modelFormat, setModelFormat] = useState("");
   const categoryImageSize = 24;
+
+  // useEffect(()=>{
+  //   console.log(modelURL)
+  // }, [modelFormat])
 
   return (
     <WidthContainer>
@@ -128,27 +136,14 @@ export default function Page({}: Props) {
         </div>
         <div id={styles["model-upload-flex"]}>
           <div id={styles["model-input"]}>
-            {showCanvas ? (
-              <div>1</div>
+            {showModelPreview ? (
+              <ModelPreview modelURL={modelURL} modelFormat={modelFormat}/>
             ) : (
-              <>
-                <input id="model-upload" type="file"></input>
-                <label htmlFor="model-upload" id={styles["custom-model-input"]}>
-                  <div
-                    style={{
-                      fontSize: "48px",
-                    }}
-                  >
-                    <Image
-                      src="/img/add_model.svg"
-                      width={32}
-                      height={32}
-                      alt=""
-                    />
-                  </div>
-                  <div>загрузить модель</div>
-                </label>
-              </>
+              <ModelUpload
+                setModelURL={setModelURL}
+                setModelFormat={setModelFormat}
+                setShowModelPreview={setShowModelPreview}
+              />
             )}
           </div>
         </div>

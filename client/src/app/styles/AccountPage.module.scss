@@ -245,4 +245,16 @@
                 color: $header-color;
             }
         }
+
+        #canvas-flex{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            border: 2px solid $header-color;
+            border-radius: 0.5rem;
+        #model-canvas{
+        }}
 }}
