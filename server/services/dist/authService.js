@@ -55,8 +55,6 @@ var AuthService = /** @class */ (function () {
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
-                        console.log(login, email, password);
-                        console.log(err_1);
                         if (err_1.code === "23505") {
                             throw {
                                 status: 409,
@@ -80,7 +78,7 @@ var AuthService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, db_1.pool.query("SELECT id, username, email \n    FROM users\n    WHERE (login = $1 OR email = $1)\n    AND password = crypt($2, password)\n    LIMIT 1;", [loginOrEmail, passwordHasher_1.hashPassword(password)])];
+                        return [4 /*yield*/, db_1.pool.query("SELECT id, username, email \n    FROM users\n    WHERE (login = $1 OR email = $1)\n    AND password = crypt($2, password)\n    LIMIT 1;", [loginOrEmail, password])];
                     case 1:
                         result = _a.sent();
                         if (result.rows[0]) {

@@ -10,16 +10,16 @@ type Props = {
 };
 
 export default function RegisterForm({ isOpen, onClose, children }: Props) {
-  const loginRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleSignupSubmission(e) {
     e.preventDefault();
     const data = {
-      login: loginRef.current!.value,
-      email: emailRef.current!.value,
-      password: passwordRef.current!.value,
+      login: login,
+      email: email,
+      password: password
     };
     try {
       const res = await api.post("/auth/signup", data);
@@ -37,19 +37,19 @@ export default function RegisterForm({ isOpen, onClose, children }: Props) {
       <h1 id={styles["logo"]}>Полиформ</h1>
       <div id={styles["textinput-container"]}>
         <input
-          ref={loginRef}
+          onChange={(e) => setLogin(e.target.value)}
           type="text"
           required
           placeholder="Отображаемое имя"
         ></input>
         <input
-          ref={emailRef}
+          onChange={(e) => setEmail(e.target.value)}
           type="email"
           required
           placeholder="E-mail"
         ></input>
         <input
-          ref={passwordRef}
+          onChange={(e) => setPassword(e.target.value)}
           type="password"
           required
           placeholder="Пароль"

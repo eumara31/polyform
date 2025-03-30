@@ -14,8 +14,6 @@ export default class AuthService {
         `Created user: ${result.rows[0].login}, ${result.rows[0].email}`
       );
     } catch (err: any) {
-      console.log(login, email, password);
-      console.log(err);
       if (err.code === "23505") {
         throw {
           status: 409,
@@ -38,7 +36,7 @@ export default class AuthService {
     WHERE (login = $1 OR email = $1)
     AND password = crypt($2, password)
     LIMIT 1;`,
-        [loginOrEmail, hashPassword(password)]
+        [loginOrEmail, password]
       );
 
       if (result.rows[0]) {

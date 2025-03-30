@@ -41,9 +41,9 @@ var RegisterForm_module_css_1 = require("../styles/RegisterForm.module.css");
 var api_1 = require("../utilities/api");
 function RegisterForm(_a) {
     var isOpen = _a.isOpen, onClose = _a.onClose, children = _a.children;
-    var loginRef = react_1.useRef(null);
-    var emailRef = react_1.useRef(null);
-    var passwordRef = react_1.useRef(null);
+    var _b = react_1.useState(""), login = _b[0], setLogin = _b[1];
+    var _c = react_1.useState(""), email = _c[0], setEmail = _c[1];
+    var _d = react_1.useState(""), password = _d[0], setPassword = _d[1];
     function handleSignupSubmission(e) {
         return __awaiter(this, void 0, void 0, function () {
             var data, res, err_1;
@@ -52,9 +52,9 @@ function RegisterForm(_a) {
                     case 0:
                         e.preventDefault();
                         data = {
-                            login: loginRef.current.value,
-                            email: emailRef.current.value,
-                            password: passwordRef.current.value
+                            login: login,
+                            email: email,
+                            password: password
                         };
                         _a.label = 1;
                     case 1:
@@ -79,9 +79,9 @@ function RegisterForm(_a) {
     return (react_1["default"].createElement("form", { id: RegisterForm_module_css_1["default"]["login-form"] },
         react_1["default"].createElement("h1", { id: RegisterForm_module_css_1["default"]["logo"] }, "\u041F\u043E\u043B\u0438\u0444\u043E\u0440\u043C"),
         react_1["default"].createElement("div", { id: RegisterForm_module_css_1["default"]["textinput-container"] },
-            react_1["default"].createElement("input", { ref: loginRef, type: "text", required: true, placeholder: "\u041E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u043C\u043E\u0435 \u0438\u043C\u044F" }),
-            react_1["default"].createElement("input", { ref: emailRef, type: "email", required: true, placeholder: "E-mail" }),
-            react_1["default"].createElement("input", { ref: passwordRef, type: "password", required: true, placeholder: "\u041F\u0430\u0440\u043E\u043B\u044C" })),
+            react_1["default"].createElement("input", { onChange: function (e) { return setLogin(e.target.value); }, type: "text", required: true, placeholder: "\u041E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u043C\u043E\u0435 \u0438\u043C\u044F" }),
+            react_1["default"].createElement("input", { onChange: function (e) { return setEmail(e.target.value); }, type: "email", required: true, placeholder: "E-mail" }),
+            react_1["default"].createElement("input", { onChange: function (e) { return setPassword(e.target.value); }, type: "password", required: true, placeholder: "\u041F\u0430\u0440\u043E\u043B\u044C" })),
         react_1["default"].createElement("div", { id: RegisterForm_module_css_1["default"]["checkbox-container"] },
             react_1["default"].createElement("label", { className: RegisterForm_module_css_1["default"]["checkbox-subcontainer"] },
                 react_1["default"].createElement("input", { type: "checkbox", required: true }),
