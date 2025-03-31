@@ -64,9 +64,9 @@ var AuthService = /** @class */ (function () {
                             };
                         }
                         throw {
-                            status: 501,
+                            status: 502,
                             message: "Database operation failed",
-                            details: err_1.message
+                            details: err_1
                         };
                     case 4: return [2 /*return*/];
                 }
@@ -74,23 +74,26 @@ var AuthService = /** @class */ (function () {
         });
     };
     AuthService.authorizeUser = function (loginOrEmail, password) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var result, hashedPassword, credentials, error_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        _b.trys.push([0, 3, , 4]);
                         return [4 /*yield*/, db_1.pool.query("SELECT password FROM \"Users\" WHERE login = $1 OR email = $1", [loginOrEmail])];
                     case 1:
-                        result = _a.sent();
-                        hashedPassword = result.rows[0].password;
+                        result = _b.sent();
+                        hashedPassword = (_a = result.rows[0]) === null || _a === void 0 ? void 0 : _a.password;
+                        console.log(hashedPassword);
                         return [4 /*yield*/, passwordHasher_1["default"].checkPassword(password, hashedPassword)];
                     case 2:
-                        credentials = _a.sent();
+                        credentials = _b.sent();
+                        console.log(credentials);
                         if (credentials) {
                             return [2 /*return*/, {
                                     success: true,
-                                    user: result.rows[0]
+                                    user: result.rows[0].login
                                 }];
                         }
                         else {
@@ -101,7 +104,7 @@ var AuthService = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 3:
-                        error_1 = _a.sent();
+                        error_1 = _b.sent();
                         console.error("Database error:", error_1);
                         return [2 /*return*/, {
                                 success: false,

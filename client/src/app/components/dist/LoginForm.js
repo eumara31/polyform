@@ -59,9 +59,10 @@ function LoginForm(_a) {
                     case 0:
                         e.preventDefault();
                         data = {
-                            login: login,
+                            loginOrEmail: login,
                             password: password
                         };
+                        console.log(data);
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);

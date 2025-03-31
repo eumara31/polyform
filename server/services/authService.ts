@@ -19,9 +19,9 @@ export default class AuthService {
         };
       }
       throw {
-        status: 501,
+        status: 502,
         message: "Database operation failed",
-        details: err.message,
+        details: err,
       };
     }
   }
@@ -32,13 +32,14 @@ export default class AuthService {
         `SELECT password FROM "Users" WHERE login = $1 OR email = $1`,
         [loginOrEmail]
       );
-      const hashedPassword = result.rows[0].password;
+      const hashedPassword = result.rows[0]?.password;
+      console.log(hashedPassword)
       const credentials = await PasswordHasher.checkPassword(password, hashedPassword);
-
+      console.log(credentials)
       if (credentials) {
         return {
           success: true,
-          user: result.rows[0],
+          user: result.rows[0].login,
         };
       } else {
         return {

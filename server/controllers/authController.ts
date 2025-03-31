@@ -20,6 +20,7 @@ export default class AuthController {
       const { loginOrEmail, password } = req.body;
       const result = await AuthService.authorizeUser(loginOrEmail, password);
       if (result.success) {
+        console.log(1)
         //временное решение
         res.cookie("userUniqueId", (Math.random() * 10000).toString(), {
           maxAge: 30 * 24 * 60 * 60 * 1000,
