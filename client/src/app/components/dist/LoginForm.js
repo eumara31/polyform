@@ -59,7 +59,7 @@ function LoginForm(_a) {
                     case 0:
                         e.preventDefault();
                         data = {
-                            loginOrEmail: login,
+                            login: login,
                             password: password
                         };
                         console.log(data);

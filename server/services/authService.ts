@@ -2,7 +2,7 @@ import { pool } from "../config/db";
 import PasswordHasher from "../utils/passwordHasher";
 
 export default class AuthService {
-  static async createUser(login: string, email: string, password: string, mailing) {
+  static async createUser(login: string, email: string, password: string, mailing: string) {
     try {
       const hashedPassword = await PasswordHasher.hashPassword(password);
       const result = await pool.query(
@@ -33,9 +33,9 @@ export default class AuthService {
         [loginOrEmail]
       );
       const hashedPassword = result.rows[0]?.password;
+      console.log(loginOrEmail, password);
       console.log(hashedPassword)
       const credentials = await PasswordHasher.checkPassword(password, hashedPassword);
-      console.log(credentials)
       if (credentials) {
         return {
           success: true,

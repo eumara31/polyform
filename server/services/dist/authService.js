@@ -85,11 +85,11 @@ var AuthService = /** @class */ (function () {
                     case 1:
                         result = _b.sent();
                         hashedPassword = (_a = result.rows[0]) === null || _a === void 0 ? void 0 : _a.password;
+                        console.log(loginOrEmail, password);
                         console.log(hashedPassword);
                         return [4 /*yield*/, passwordHasher_1["default"].checkPassword(password, hashedPassword)];
                     case 2:
                         credentials = _b.sent();
-                        console.log(credentials);
                         if (credentials) {
                             return [2 /*return*/, {
                                     success: true,

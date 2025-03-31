@@ -66,25 +66,21 @@ var AuthController = /** @class */ (function () {
     };
     AuthController.login = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, loginOrEmail, password, result, err_2;
+            var _a, login, password, result, err_2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        _a = req.body, loginOrEmail = _a.loginOrEmail, password = _a.password;
-                        return [4 /*yield*/, authService_1["default"].authorizeUser(loginOrEmail, password)];
+                        _a = req.body, login = _a.login, password = _a.password;
+                        console.log(req.body);
+                        return [4 /*yield*/, authService_1["default"].authorizeUser(login, password)];
                     case 1:
                         result = _b.sent();
                         if (result.success) {
-                            console.log(1);
-                            //временное решение
-                            res.cookie("userUniqueId", (Math.random() * 10000).toString(), {
-                                maxAge: 30 * 24 * 60 * 60 * 1000,
-                                path: "/"
-                            });
+                            req.session.user = login;
                             return [2 /*return*/, res.status(200).json({
                                     success: true,
-                                    message: "Login successful"
+                                    message: "Login succesful"
                                 })];
                         }
                         return [2 /*return*/, res.status(401).json({
@@ -99,6 +95,19 @@ var AuthController = /** @class */ (function () {
                             })];
                     case 3: return [2 /*return*/];
                 }
+            });
+        });
+    };
+    AuthController.logout = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                req.session.destroy(function (err) {
+                    if (err)
+                        return res.status(500).json({ error: "Logout failed" });
+                    res.clearCookie("connect.sid");
+                    res.json({ success: true, message: "Logged out" });
+                });
+                return [2 /*return*/];
             });
         });
     };

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/RegisterForm.module.css";
 import Image from "next/image";
-import PopupOverlay from "./PopupOverlay";
 import RegisterForm from "./RegisterForm";
 import api from "../utilities/api";
 
@@ -27,7 +26,7 @@ export default function LoginForm({ isOpen, onClose, children }: Props) {
   async function handleLoginSubmission(e){
     e.preventDefault();
     const data = {
-      loginOrEmail: login,
+      login: login,
       password: password,
     }
     console.log(data)
