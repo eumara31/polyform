@@ -3,6 +3,7 @@ import styles from "../styles/RegisterForm.module.css";
 import Image from "next/image";
 import PopupOverlay from "./PopupOverlay";
 import RegisterForm from "./RegisterForm";
+import api from "../utilities/api";
 
 type Props = {
   isOpen: boolean;
@@ -14,11 +15,29 @@ export default function LoginForm({ isOpen, onClose, children }: Props) {
   const [formType, setFormType] = useState<"login" | "register" | null>(
     "login"
   );
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
 
-  function changeFormType(){
-    if (formType === 'login'){
-      setFormType('register')
-    } 
+  function changeFormType() {
+    if (formType === "login") {
+      setFormType("register");
+    }
+  }
+
+  async function handleLoginSubmission(e){
+    e.preventDefault();
+    const data = {
+      login: login,
+      password: password,
+    }
+    try {
+      const res = await api.post('/auth/login', data);
+      if (res.status >= 200 && res.status < 300) {
+        alert("Вход выполнен");
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -28,10 +47,20 @@ export default function LoginForm({ isOpen, onClose, children }: Props) {
           <h1 id={styles["logo"]}>Полиформ</h1>
           <div id={styles["login-container"]}>
             <div id={styles["textinput-container"]}>
-              <input type="text" placeholder="E-mail или имя"></input>
-              <input type="password" placeholder="Пароль"></input>
+              <input
+                type="text"
+                placeholder="E-mail или имя"
+                onChange={(e) => setLogin(e.target.value)}
+              ></input>
+              <input
+                type="password"
+                placeholder="Пароль"
+                onChange={(e) => setPassword(e.target.value)}
+              ></input>
             </div>
-            <button>Войти</button>
+            <button
+            onClick={(e) => handleLoginSubmission(e)}
+            >Войти</button>
             <p>—————— или ———————</p>
             <button onClick={changeFormType}>Создать аккаунт</button>
             <button id={styles["google-auth-button"]}>
@@ -48,9 +77,7 @@ export default function LoginForm({ isOpen, onClose, children }: Props) {
         </form>
       )}
 
-      {formType === 'register' && (
-        <RegisterForm/>
-      )}
+      {formType === "register" && <RegisterForm />}
     </>
   );
 }

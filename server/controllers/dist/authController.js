@@ -42,13 +42,14 @@ var AuthController = /** @class */ (function () {
     }
     AuthController.signup = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, login, email, password, err_1;
+            var _a, login, email, password, mailing, err_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 2, , 3]);
-                        _a = req.body, login = _a.login, email = _a.email, password = _a.password;
-                        return [4 /*yield*/, authService_1["default"].createUser(login, email, password)];
+                        _a = req.body, login = _a.login, email = _a.email, password = _a.password, mailing = _a.mailing;
+                        console.log(req.body);
+                        return [4 /*yield*/, authService_1["default"].createUser(login, email, password, mailing)];
                     case 1:
                         _b.sent();
                         res.status(200).json({ msg: "Signup succesful" });

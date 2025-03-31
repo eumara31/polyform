@@ -1,17 +1,15 @@
 import { pool } from "../config/db";
-import { hashPassword, checkPassword } from "../utils/passwordHasher";
+import PasswordHasher from "../utils/passwordHasher";
 
 export default class AuthService {
-  static async createUser(login: string, email: string, password: string) {
+  static async createUser(login: string, email: string, password: string, mailing) {
     try {
+      const hashedPassword = await PasswordHasher.hashPassword(password);
       const result = await pool.query(
-        `INSERT INTO "Users" (login, email, password)
-                 VALUES ($1, $2, $3)
+        `INSERT INTO "Users" (login, email, password, mailing)
+                 VALUES ($1, $2, $3, $4)
                  RETURNING login, email`,
-        [login, email, hashPassword(password)]
-      );
-      console.log(
-        `Created user: ${result.rows[0].login}, ${result.rows[0].email}`
+        [login, email, hashedPassword, mailing]
       );
     } catch (err: any) {
       if (err.code === "23505") {
@@ -31,15 +29,13 @@ export default class AuthService {
   static async authorizeUser(loginOrEmail: string, password: string) {
     try {
       const result = await pool.query(
-        `SELECT id, username, email 
-    FROM users
-    WHERE (login = $1 OR email = $1)
-    AND password = crypt($2, password)
-    LIMIT 1;`,
-        [loginOrEmail, password]
+        `SELECT password FROM "Users" WHERE login = $1 OR email = $1`,
+        [loginOrEmail]
       );
+      const hashedPassword = result.rows[0].password;
+      const credentials = await PasswordHasher.checkPassword(password, hashedPassword);
 
-      if (result.rows[0]) {
+      if (credentials) {
         return {
           success: true,
           user: result.rows[0],

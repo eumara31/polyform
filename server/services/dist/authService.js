@@ -41,19 +41,21 @@ var passwordHasher_1 = require("../utils/passwordHasher");
 var AuthService = /** @class */ (function () {
     function AuthService() {
     }
-    AuthService.createUser = function (login, email, password) {
+    AuthService.createUser = function (login, email, password, mailing) {
         return __awaiter(this, void 0, void 0, function () {
-            var result, err_1;
+            var hashedPassword, result, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, db_1.pool.query("INSERT INTO \"Users\" (login, email, password)\n                 VALUES ($1, $2, $3)\n                 RETURNING login, email", [login, email, passwordHasher_1.hashPassword(password)])];
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, passwordHasher_1["default"].hashPassword(password)];
                     case 1:
-                        result = _a.sent();
-                        console.log("Created user: " + result.rows[0].login + ", " + result.rows[0].email);
-                        return [3 /*break*/, 3];
+                        hashedPassword = _a.sent();
+                        return [4 /*yield*/, db_1.pool.query("INSERT INTO \"Users\" (login, email, password, mailing)\n                 VALUES ($1, $2, $3, $4)\n                 RETURNING login, email", [login, email, hashedPassword, mailing])];
                     case 2:
+                        result = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
                         err_1 = _a.sent();
                         if (err_1.code === "23505") {
                             throw {
@@ -66,22 +68,26 @@ var AuthService = /** @class */ (function () {
                             message: "Database operation failed",
                             details: err_1.message
                         };
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     AuthService.authorizeUser = function (loginOrEmail, password) {
         return __awaiter(this, void 0, void 0, function () {
-            var result, error_1;
+            var result, hashedPassword, credentials, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, db_1.pool.query("SELECT id, username, email \n    FROM users\n    WHERE (login = $1 OR email = $1)\n    AND password = crypt($2, password)\n    LIMIT 1;", [loginOrEmail, password])];
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, db_1.pool.query("SELECT password FROM \"Users\" WHERE login = $1 OR email = $1", [loginOrEmail])];
                     case 1:
                         result = _a.sent();
-                        if (result.rows[0]) {
+                        hashedPassword = result.rows[0].password;
+                        return [4 /*yield*/, passwordHasher_1["default"].checkPassword(password, hashedPassword)];
+                    case 2:
+                        credentials = _a.sent();
+                        if (credentials) {
                             return [2 /*return*/, {
                                     success: true,
                                     user: result.rows[0]
@@ -93,15 +99,15 @@ var AuthService = /** @class */ (function () {
                                     error: "Invalid credentials"
                                 }];
                         }
-                        return [3 /*break*/, 3];
-                    case 2:
+                        return [3 /*break*/, 4];
+                    case 3:
                         error_1 = _a.sent();
                         console.error("Database error:", error_1);
                         return [2 /*return*/, {
                                 success: false,
                                 error: "Database error"
                             }];
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

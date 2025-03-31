@@ -13,22 +13,29 @@ export default function RegisterForm({ isOpen, onClose, children }: Props) {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [privacyPolicy, setPrivacyPolicy] = useState(false);
+  const [mailing, setMailing] = useState(false);
 
   async function handleSignupSubmission(e) {
     e.preventDefault();
-    const data = {
-      login: login,
-      email: email,
-      password: password
-    };
-    try {
-      const res = await api.post("/auth/signup", data);
+    if (login && email && password && privacyPolicy) {
+      const data = {
+        login: login,
+        email: email,
+        password: password,
+        mailing: mailing ? "true" : "false",
+      };
       console.log(data);
-      if (res.status >= 200 && res.status < 300) {
-        alert("Регистрация прошла успешно");
+      try {
+        const res = await api.post("/auth/signup", data);
+        if (res.status >= 200 && res.status < 300) {
+          alert("Регистрация прошла успешно");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      alert("Заполните все поля");
     }
   }
 
@@ -57,20 +64,24 @@ export default function RegisterForm({ isOpen, onClose, children }: Props) {
       </div>
       <div id={styles["checkbox-container"]}>
         <label className={styles["checkbox-subcontainer"]}>
-          <input type="checkbox" required />
+          <input type="checkbox" required 
+          onChange={(e) => setPrivacyPolicy(e.target.checked)}/>
           <span className={styles["checkbox-text"]}>
             Регистрируясь, я подтверждаю свое согласие на обработку персональных
             данных в соответствии с политикой конфиденциальности
           </span>
         </label>
         <label className={styles["checkbox-subcontainer"]}>
-          <input type="checkbox" required />
+          <input
+            type="checkbox"
+            onChange={(e) => setMailing(e.target.checked)}
+          />
           <span className={styles["checkbox-text"]}>
             Я согласен получать новости и обновления на электронную почту
           </span>
         </label>
       </div>
-      <button onClick={(e) => handleSignupSubmission(e)}>
+      <button type="submit" onClick={(e) => handleSignupSubmission(e)}>
         Отправить проверочный код
       </button>
     </form>

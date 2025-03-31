@@ -5,8 +5,9 @@ import { resourceLimits } from "worker_threads";
 export default class AuthController {
   static async signup(req: Request, res: Response) {
     try {
-      const { login, email, password } = req.body;
-      await AuthService.createUser(login, email, password);
+      const { login, email, password, mailing} = req.body;
+      console.log(req.body)
+      await AuthService.createUser(login, email, password, mailing);
       res.status(200).json({ msg: "Signup succesful" });
     } catch (err: any) {
       //409, если такой пользователь уже сушествует, 500 если иное
