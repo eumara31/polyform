@@ -66,7 +66,9 @@ function LoginForm(_a) {
                         _a.label = 1;
                     case 1:
                         _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, api_1["default"].post('/auth/login', data)];
+                        return [4 /*yield*/, api_1["default"].post('/auth/login', data, {
+                                withCredentials: true
+                            })];
                     case 2:
                         res = _a.sent();
                         if (res.status >= 200 && res.status < 300) {

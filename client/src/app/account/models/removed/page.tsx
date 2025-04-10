@@ -11,12 +11,13 @@ export default function page({}: Props) {
     <WidthContainer>
       <Header />
       <AccountNavbar
-        tabDict={{
-          0: { tabName: "Ваши модели", isActive: false, url: "/account/models" },
-          1: { tabName: "Добавить модель", isActive: false, url: "/account/models/new" },
-          2: { tabName: "Снято с продажи", isActive: true, url: "/account/models/removed" },
-        }}
-      />
+          tabDict={{
+            0: { tabName: "Учётная запись", isActive: false, url: "/account" },
+            1: { tabName: "Ваши модели", isActive: false, url: "/account/models" },
+            2: { tabName: "Добавить модель", isActive: false, url: "/account/models/new" },
+            3: { tabName: "Снято с продажи", isActive: true, url: "/account/models/removed" },
+          }}
+        />
     </WidthContainer>
   );
 }

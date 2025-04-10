@@ -2,8 +2,11 @@
 exports.__esModule = true;
 var express_1 = require("express");
 var authController_1 = require("../controllers/authController");
+var accountController_1 = require("../controllers/accountController");
+var authMiddleware_1 = require("../middleware/authMiddleware");
 var router = express_1.Router();
 router.post('/auth/signup', authController_1["default"].signup);
 router.post('/auth/login', authController_1["default"].login);
 router.post('/auth/logout', authController_1["default"].logout);
+router.get('/account/*', authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfo);
 exports["default"] = router;

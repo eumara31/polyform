@@ -36,78 +36,78 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var authService_1 = require("../services/authService");
-var AuthController = /** @class */ (function () {
-    function AuthController() {
+var accountService_1 = require("../services/accountService");
+var AccountController = /** @class */ (function () {
+    function AccountController() {
     }
-    AuthController.signup = function (req, res) {
+    AccountController.getAccountInfo = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, login, email, password, mailing, err_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var data, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
-                        _b.trys.push([0, 2, , 3]);
-                        _a = req.body, login = _a.login, email = _a.email, password = _a.password, mailing = _a.mailing;
-                        console.log(req.body);
-                        return [4 /*yield*/, authService_1["default"].createUser(login, email, password, mailing)];
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, accountService_1["default"].getAccountInfo(req.session.user.login)];
                     case 1:
-                        _b.sent();
-                        res.status(200).json({ msg: "Signup succesful" });
+                        data = _a.sent();
                         return [3 /*break*/, 3];
                     case 2:
-                        err_1 = _b.sent();
-                        //409, если такой пользователь уже сушествует, 500 если иное
-                        res.status(err_1.status).json({ error: err_1 });
+                        err_1 = _a.sent();
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         });
     };
-    AuthController.login = function (req, res) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, login, password, result, err_2;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _b.trys.push([0, 2, , 3]);
-                        _a = req.body, login = _a.login, password = _a.password;
-                        console.log(req.body);
-                        return [4 /*yield*/, authService_1["default"].authorizeUser(login, password)];
-                    case 1:
-                        result = _b.sent();
-                        if (result.success) {
-                            req.session.user = {
-                                login: login
-                            };
-                            res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
-                            return [2 /*return*/, res.status(200).json({
-                                    success: true,
-                                    message: "Login succesful"
-                                })];
-                        }
-                        return [2 /*return*/, res.status(401).json({
-                                success: false,
-                                error: "Invalid credentials"
-                            })];
-                    case 2:
-                        err_2 = _b.sent();
-                        return [2 /*return*/, res.status(err_2.status || 500).json({
-                                success: false,
-                                error: err_2.message
-                            })];
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    AuthController.logout = function (req, res) {
+    AccountController.getPurchaseHistory = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/];
             });
         });
     };
-    return AuthController;
+    AccountController.getUserModels = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    AccountController.getDeletedUserModels = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    AccountController.getModelStatistics = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    AccountController.changeUserModel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    AccountController.deleteUserModel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    AccountController.restoreUserModel = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/];
+            });
+        });
+    };
+    return AccountController;
 }());
-exports["default"] = AuthController;
+exports["default"] = AccountController;

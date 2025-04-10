@@ -20,7 +20,10 @@ export default class AuthController {
       console.log(req.body);
       const result = await AuthService.authorizeUser(login, password);
       if (result.success) {
-        req.session.user = login;
+        req.session.user = {
+          login: login,
+        };
+        res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
         return res.status(200).json({
           success: true,
           message: "Login succesful",
@@ -40,10 +43,11 @@ export default class AuthController {
   }
 
   static async logout(req: Request, res: Response) {
-    req.session.destroy((err) => {
-      if (err) return res.status(500).json({ error: "Logout failed" });
-      res.clearCookie("connect.sid");
-      res.json({ success: true, message: "Logged out" });
-    });
+    // req.session.destroy((err) => {
+    //   if (err) return res.status(500).json({ error: "Logout failed" });
+    //   res.clearCookie("connect.sid");
+    //   res.clearCookie("logged");
+    //   res.json({ success: true, message: "Logged out" });
+    // });
   }
 }

@@ -16,7 +16,20 @@ export default function Header({}: Props) {
   const [popupStatus, setPopupStatus] = useState(false);
 
   function changePopupStatus(){
-    setPopupStatus(!popupStatus)
+    setPopupStatus(!popupStatus) 
+    function getCookie(name) {
+      const cookies = document.cookie.split('; ');
+      for (const cookie of cookies) {
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+          return decodeURIComponent(cookieValue);
+        }
+      }
+      return null;
+    }
+    
+    const connectSid = getCookie('connect.sid');
+    console.log('connect.sid:', connectSid);
   }
 
   // const [headerHeight, setHeaderHeight] = useState('')
@@ -96,6 +109,7 @@ export default function Header({}: Props) {
                   height={24}
                   alt=""
                 />
+                {}
                 <div>Войти</div>
               </div>
             </div>

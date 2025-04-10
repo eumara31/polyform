@@ -31,7 +31,9 @@ export default function LoginForm({ isOpen, onClose, children }: Props) {
     }
     console.log(data)
     try {
-      const res = await api.post('/auth/login', data);
+      const res = await api.post('/auth/login', data, {
+        withCredentials: true
+      });
       if (res.status >= 200 && res.status < 300) {
         alert("Вход выполнен");
       }

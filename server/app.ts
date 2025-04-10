@@ -7,6 +7,7 @@ import path from "path";
 import { Request } from "express";
 import cors from "cors";
 import session from "express-session";
+import { blob } from "stream/consumers";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors<Request>({ origin: "http://localhost:3000", credentials: true}));
+app.use(cors<Request>({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(
   session({
@@ -22,7 +23,6 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      httpOnly: true,
       secure: false,
       maxAge: 1000 * 60 * 60 * 24,
     },

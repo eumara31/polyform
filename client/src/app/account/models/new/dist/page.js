@@ -22,21 +22,10 @@ function Page(_a) {
     return (react_1["default"].createElement(WidthContainer_1["default"], null,
         react_1["default"].createElement(Header_1["default"], null),
         react_1["default"].createElement(AccountNavbar_1["default"], { tabDict: {
-                0: {
-                    tabName: "Ваши модели",
-                    isActive: false,
-                    url: "/account/models"
-                },
-                1: {
-                    tabName: "Добавить модель",
-                    isActive: true,
-                    url: "/account/models/new"
-                },
-                2: {
-                    tabName: "Снято с продажи",
-                    isActive: false,
-                    url: "/account/models/removed"
-                }
+                0: { tabName: "Учётная запись", isActive: false, url: "/account" },
+                1: { tabName: "Ваши модели", isActive: false, url: "/account/models" },
+                2: { tabName: "Добавить модель", isActive: true, url: "/account/models/new" },
+                3: { tabName: "Снято с продажи", isActive: false, url: "/account/models/removed" }
             } }),
         react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["new-model-flex"] },
             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["text-category-flex"] },
