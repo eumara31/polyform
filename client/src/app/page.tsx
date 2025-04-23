@@ -9,8 +9,6 @@ import BestModelSwiper from "./components/ItemSwiper";
 export default function Home() {
   return (
     <>
-      <WidthContainer>
-        <Header />
         <NavigationBeam name="Лучшие модели" logo="trophy.svg"/>
         <BestModelSwiper swiperDirection="horizontal" spaceBetweenItems={30} itemsPerView={3}>
           <Item modelName={""}></Item>
@@ -28,7 +26,6 @@ export default function Home() {
           <Item modelName={""}></Item>
           <Item modelName={""}></Item>
         </ItemContainer>
-      </WidthContainer>
     </>
   );
 }

@@ -8,8 +8,6 @@ type Props = {};
 
 export default function page({}: Props) {
   return (
-    <WidthContainer>
-      <Header />
       <AccountNavbar
         tabDict={{
           0: { tabName: "Учётная запись", isActive: false, url: "/account" },
@@ -18,6 +16,5 @@ export default function page({}: Props) {
           3: { tabName: "Снято с продажи", isActive: false, url: "/account/models/removed" },
         }}
       />
-    </WidthContainer>
   );
 }

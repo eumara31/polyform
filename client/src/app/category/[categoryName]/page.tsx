@@ -11,8 +11,7 @@ type Props = {}
 
 export default function page({}: Props) {
   return (
-    <WidthContainer>
-        <Header></Header>
+    <>
         <CategorySidebar>
         <ItemContainer>
             <Item></Item>
@@ -22,6 +21,6 @@ export default function page({}: Props) {
             <Item></Item>
         </ItemContainer>
         </CategorySidebar>
-    </WidthContainer>
+        </>
   )
 }

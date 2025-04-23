@@ -1,8 +1,6 @@
 "use client";
 "use strict";
 exports.__esModule = true;
-var Header_1 = require("@/app/components/Header");
-var WidthContainer_1 = require("@/app/components/WidthContainer");
 var react_1 = require("react");
 var AccountPage_module_css_1 = require("@/app/styles/AccountPage.module.css");
 var AccountNavbar_1 = require("@/app/account/components/AccountNavbar");
@@ -19,8 +17,7 @@ function Page(_a) {
     // useEffect(()=>{
     //   console.log(modelURL)
     // }, [modelFormat])
-    return (react_1["default"].createElement(WidthContainer_1["default"], null,
-        react_1["default"].createElement(Header_1["default"], null),
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement(AccountNavbar_1["default"], { tabDict: {
                 0: { tabName: "Учётная запись", isActive: false, url: "/account" },
                 1: { tabName: "Ваши модели", isActive: false, url: "/account/models" },

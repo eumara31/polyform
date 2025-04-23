@@ -42,7 +42,7 @@ var image_1 = require("next/image");
 var RegisterForm_1 = require("./RegisterForm");
 var api_1 = require("../utilities/api");
 function LoginForm(_a) {
-    var isOpen = _a.isOpen, onClose = _a.onClose, children = _a.children;
+    var isOpen = _a.isOpen, onClose = _a.onClose, children = _a.children, updateLoginButton = _a.updateLoginButton, updatePopupStatus = _a.updatePopupStatus;
     var _b = react_1.useState("login"), formType = _b[0], setFormType = _b[1];
     var _c = react_1.useState(""), login = _c[0], setLogin = _c[1];
     var _d = react_1.useState(""), password = _d[0], setPassword = _d[1];
@@ -70,7 +70,8 @@ function LoginForm(_a) {
                     case 2:
                         res = _a.sent();
                         if (res.status >= 200 && res.status < 300) {
-                            alert("Вход выполнен");
+                            updateLoginButton();
+                            updatePopupStatus();
                         }
                         return [3 /*break*/, 4];
                     case 3:

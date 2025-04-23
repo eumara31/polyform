@@ -24,8 +24,7 @@ export default function Page({}: Props) {
   // }, [modelFormat])
 
   return (
-    <WidthContainer>
-      <Header />
+    <>
       <AccountNavbar
           tabDict={{
             0: { tabName: "Учётная запись", isActive: false, url: "/account" },
@@ -137,6 +136,6 @@ export default function Page({}: Props) {
           </div>
         </div>
       </div>
-    </WidthContainer>
+      </>
   );
 }

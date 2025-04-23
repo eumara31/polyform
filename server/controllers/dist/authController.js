@@ -80,7 +80,8 @@ var AuthController = /** @class */ (function () {
                             req.session.user = {
                                 login: login
                             };
-                            res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true });
+                            //используется только для отрисовки кнопки "выйти"
+                            res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true });
                             return [2 /*return*/, res.status(200).json({
                                     success: true,
                                     message: "Login succesful"
@@ -104,6 +105,16 @@ var AuthController = /** @class */ (function () {
     AuthController.logout = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                req.session.destroy(function (err) {
+                    if (err)
+                        return res.status(500).json({ error: "Logout failed" });
+                    res.clearCookie("connect.sid");
+                    res.clearCookie("logged");
+                    return res.status(200).json({
+                        success: true,
+                        message: "Logout successful"
+                    });
+                });
                 return [2 /*return*/];
             });
         });
