@@ -37,9 +37,7 @@
   font-weight: bold;
   font-size: 2rem;
   color: #F3C33F;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header #header-category-button {
   background-color: white;
@@ -54,9 +52,7 @@
   gap: 0.2rem;
   padding: 0.2rem 0.4rem 0.2rem 0.3rem;
   justify-content: space-around;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header #header-category-img {
   padding: 0rem;
@@ -79,36 +75,28 @@
   overflow-y: hidden;
 }
 #header-container #header #search-bar #search-img {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header #right-header-container {
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  width: -moz-fit-content;
   width: fit-content;
   justify-content: center;
   align-content: center;
 }
 #header-container #header #right-header-container img {
   height: 28px;
-  width: -moz-fit-content;
   width: fit-content;
 }
 #header-container #header #change-lang {
   color: #FFFFFF;
   font-family: "Inter", sans-serif;
   font-size: 24px;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header #dark-mode-img {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header-underline {
   background-color: #FFFFFF;
@@ -124,9 +112,7 @@
   font-family: "Inter", sans-serif;
   font-size: 14px;
   position: relative;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 #header-container #header-underline #header-underline-lsubcontainer {
   display: flex;
@@ -181,4 +167,4 @@
 #header-container #header-underline #header-underline-rsubcontainer #login-href Image {
   position: relative;
   top: 1px;
-}/*# sourceMappingURL=Header.module.css.map */
+}

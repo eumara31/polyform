@@ -12,13 +12,17 @@ import Cookies from "js-cookie";
 
 type Props = {
   isLogged: boolean;
+  usernameProp: string;
+  emailProp: string;
 };
 
 gsap.registerPlugin(useGSAP);
 
-export default function Header({ isLogged }: Props) {
+export default function Header({ isLogged, usernameProp, emailProp }: Props) {
   const [popupStatus, setPopupStatus] = useState(false);
   const [logoutButton, setLogoutButton] = useState(isLogged);
+  const [username, setUsername] = useState(usernameProp);
+  const [email, setEmail] = useState(emailProp);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -29,16 +33,19 @@ export default function Header({ isLogged }: Props) {
     setPopupStatus(!popupStatus);
   }
 
-  function handleLogin(){
+  function handleLogin(username: string, email: string) {
     setLogoutButton(!logoutButton);
+    setUsername(username);
+    setEmail(email);
   }
 
   async function handleLogout() {
     try {
       const res = await api.post("/auth/logout");
       if (res.status >= 200 && res.status < 300) {
-        Cookies.remove("logged");
         setLogoutButton(!logoutButton);
+        setUsername("");
+        setEmail("");
         if (accountPath) {
           router.push("/");
         }
@@ -47,29 +54,6 @@ export default function Header({ isLogged }: Props) {
       console.log(err);
     }
   }
-
-  // const [headerHeight, setHeaderHeight] = useState('')
-  // const [lastScrollY, setLastScrollY] = useState(0)
-  // const headerRef = useRef(null);
-  // const headerUnderlineRef = useRef(null);
-
-  // function changeHeaderHeight(){
-  //   if (window.scrollY > lastScrollY) {
-  //     setHeaderHeight("0rem");
-  //   } else {
-  //     setHeaderHeight("2rem");
-  //   }
-
-  //   setLastScrollY(window.scrollY);
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', changeHeaderHeight);
-
-  //   return () => {
-  //      window.removeEventListener('scroll', changeHeaderHeight);
-  //   };
-  // }, [lastScrollY]);
 
   return (
     <>
@@ -96,14 +80,23 @@ export default function Header({ isLogged }: Props) {
               alt=""
             />
           </form>
-          <div id={styles["change-lang"]}>en</div>
-          <Image
-            id={styles["dark-mode-img"]}
-            src="/img/dark_mode.svg"
-            width={32}
-            height={32}
-            alt=""
-          />
+          {logoutButton ? (
+            <div id={styles["right-header-container"]}>
+              <Image src="/img/account_box.svg" alt="" width={32} height={32} />
+              <Image src="/img/local_mall.svg" alt="" width={32} height={32} />
+            </div>
+          ) : (
+            <>
+              <div id={styles["change-lang"]}>en</div>
+              <Image
+                id={styles["dark-mode-img"]}
+                src="/img/dark_mode.svg"
+                width={32}
+                height={32}
+                alt=""
+              />
+            </>
+          )}
         </div>
         <div id={styles["header-underline"]}>
           <div id={styles["header-underline-lsubcontainer"]}>
@@ -115,6 +108,19 @@ export default function Header({ isLogged }: Props) {
           <div id={styles["header-underline-itemsfound"]}></div>
           <div>По запросу "" найдено n товаров</div>
           <div id={styles["header-underline-rsubcontainer"]}>
+            {logoutButton ? (
+              <>
+                <div id={styles["change-lang"]}>en</div>
+                <Image
+                  id={styles["dark-mode-img"]}
+                  src="/img/dark_mode.svg"
+                  width={24}
+                  height={24}
+                  alt=""
+                />
+              </>
+            ) : null}
+            {username ? <div id={styles["username"]}>{username}</div> : null}
             <div id={styles["login-href"]}>
               <Image
                 id={styles["login-image"]}
@@ -133,7 +139,10 @@ export default function Header({ isLogged }: Props) {
         </div>
       </div>
       <PopupOverlay isOpen={popupStatus}>
-        <LoginForm updateLoginButton={handleLogin} updatePopupStatus={changePopupStatus}></LoginForm>
+        <LoginForm
+          updateHeaderStatus={handleLogin}
+          updatePopupStatus={changePopupStatus}
+        ></LoginForm>
       </PopupOverlay>
     </>
   );

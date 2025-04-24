@@ -8,11 +8,11 @@ type Props = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-  updateLoginButton: () => void;
+  updateHeaderStatus: (a: string, b: string) => void;
   updatePopupStatus: () => void;
 };
 
-export default function LoginForm({ isOpen, onClose, children, updateLoginButton, updatePopupStatus }: Props) {
+export default function LoginForm({ isOpen, onClose, children, updateHeaderStatus, updatePopupStatus }: Props) {
   const [formType, setFormType] = useState<"login" | "register" | null>(
     "login"
   );
@@ -35,8 +35,10 @@ export default function LoginForm({ isOpen, onClose, children, updateLoginButton
     try {
       const res = await api.post('/auth/login', data);
       if (res.status >= 200 && res.status < 300) {
-        updateLoginButton();
         updatePopupStatus();
+        const res = await api.get("/account/info/asCookies");
+        const {login, email} = res.data;
+        updateHeaderStatus(login, email);
       }
     } catch (err) {
       console.log(err)

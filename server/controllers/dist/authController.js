@@ -80,7 +80,6 @@ var AuthController = /** @class */ (function () {
                             req.session.user = {
                                 login: login
                             };
-                            //используется только для отрисовки кнопки "выйти"
                             res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true });
                             return [2 /*return*/, res.status(200).json({
                                     success: true,
@@ -110,6 +109,9 @@ var AuthController = /** @class */ (function () {
                         return res.status(500).json({ error: "Logout failed" });
                     res.clearCookie("connect.sid");
                     res.clearCookie("logged");
+                    res.clearCookie("username");
+                    res.clearCookie("email");
+                    res.clearCookie("mailing");
                     return res.status(200).json({
                         success: true,
                         message: "Logout successful"

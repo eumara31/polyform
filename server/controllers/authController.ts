@@ -23,8 +23,6 @@ export default class AuthController {
         req.session.user = {
           login: login,
         };
-        
-        //используется только для отрисовки кнопки "выйти"
         res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true });
         return res.status(200).json({
           success: true,
@@ -49,6 +47,9 @@ export default class AuthController {
       if (err) return res.status(500).json({ error: "Logout failed" });
       res.clearCookie("connect.sid");
       res.clearCookie("logged");
+      res.clearCookie("username")
+      res.clearCookie("email")
+      res.clearCookie("mailing")
       return res.status(200).json({
         success: true,
         message: "Logout successful",

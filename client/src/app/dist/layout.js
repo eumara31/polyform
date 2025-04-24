@@ -1,3 +1,4 @@
+"use server";
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -41,20 +42,23 @@ var WidthContainer_1 = require("./components/WidthContainer");
 var Header_1 = require("./components/Header");
 var headers_1 = require("next/headers");
 function RootLayout(_a) {
-    var _b;
+    var _b, _c, _d;
     var children = _a.children;
     return __awaiter(this, void 0, void 0, function () {
-        var cookieStore, isLogged;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var cookieStore, isLogged, usernameCookie, emailCookie;
+        return __generator(this, function (_e) {
+            switch (_e.label) {
                 case 0: return [4 /*yield*/, headers_1.cookies()];
                 case 1:
-                    cookieStore = _c.sent();
+                    cookieStore = _e.sent();
                     isLogged = ((_b = cookieStore.get("logged")) === null || _b === void 0 ? void 0 : _b.value) ? true : false;
+                    usernameCookie = (_c = cookieStore.get("username")) === null || _c === void 0 ? void 0 : _c.value;
+                    emailCookie = (_d = cookieStore.get("email")) === null || _d === void 0 ? void 0 : _d.value;
+                    console.log(usernameCookie, emailCookie);
                     return [2 /*return*/, (React.createElement("html", { lang: "en" },
                             React.createElement("body", null,
                                 React.createElement(WidthContainer_1["default"], null,
-                                    React.createElement(Header_1["default"], { isLogged: isLogged }),
+                                    React.createElement(Header_1["default"], { isLogged: isLogged, usernameProp: usernameCookie, emailProp: emailCookie }),
                                     children))))];
             }
         });

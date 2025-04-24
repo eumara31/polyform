@@ -8,5 +8,6 @@ var router = express_1.Router();
 router.post('/auth/signup', authController_1["default"].signup);
 router.post('/auth/login', authController_1["default"].login);
 router.post('/auth/logout', authController_1["default"].logout);
-router.get('/account/*', authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfo);
+router.get('/account/info', authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfo);
+router.get('/account/info/asCookies', authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfoAsCookies);
 exports["default"] = router;

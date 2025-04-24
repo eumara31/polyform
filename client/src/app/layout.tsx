@@ -1,21 +1,33 @@
+"use server";
 import "./styles/global.css";
 import WidthContainer from "./components/WidthContainer";
 import Header from "./components/Header";
 import { cookies } from "next/headers";
+import api from "./utilities/api";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //вынес проверку на логин в серверный компонент чтобы состояние кнопки "выйти/войти" предзагружалось
+  //информация о юзере вынесена в серверный компонент для пререндеринга
   const cookieStore = await cookies();
   const isLogged = cookieStore.get("logged")?.value ? true : false;
+
+  const usernameCookie = cookieStore.get("username")?.value;
+  const emailCookie = cookieStore.get("email")?.value;
+  console.log(usernameCookie, emailCookie)
+
   return (
     <html lang="en">
       <body>
         <WidthContainer>
-          <Header isLogged={isLogged}></Header>
-        {children}
+          <Header 
+          isLogged={isLogged}
+          usernameProp={usernameCookie}
+          emailProp={emailCookie}
+          ></Header>
+          {children}
         </WidthContainer>
       </body>
     </html>

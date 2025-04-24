@@ -42,7 +42,7 @@ var image_1 = require("next/image");
 var RegisterForm_1 = require("./RegisterForm");
 var api_1 = require("../utilities/api");
 function LoginForm(_a) {
-    var isOpen = _a.isOpen, onClose = _a.onClose, children = _a.children, updateLoginButton = _a.updateLoginButton, updatePopupStatus = _a.updatePopupStatus;
+    var isOpen = _a.isOpen, onClose = _a.onClose, children = _a.children, updateHeaderStatus = _a.updateHeaderStatus, updatePopupStatus = _a.updatePopupStatus;
     var _b = react_1.useState("login"), formType = _b[0], setFormType = _b[1];
     var _c = react_1.useState(""), login = _c[0], setLogin = _c[1];
     var _d = react_1.useState(""), password = _d[0], setPassword = _d[1];
@@ -53,9 +53,9 @@ function LoginForm(_a) {
     }
     function handleLoginSubmission(e) {
         return __awaiter(this, void 0, void 0, function () {
-            var data, res, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var data, res, res_1, _a, login_1, email, err_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         e.preventDefault();
                         data = {
@@ -63,22 +63,26 @@ function LoginForm(_a) {
                             password: password
                         };
                         console.log(data);
-                        _a.label = 1;
+                        _b.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _b.trys.push([1, 5, , 6]);
                         return [4 /*yield*/, api_1["default"].post('/auth/login', data)];
                     case 2:
-                        res = _a.sent();
-                        if (res.status >= 200 && res.status < 300) {
-                            updateLoginButton();
-                            updatePopupStatus();
-                        }
-                        return [3 /*break*/, 4];
+                        res = _b.sent();
+                        if (!(res.status >= 200 && res.status < 300)) return [3 /*break*/, 4];
+                        updatePopupStatus();
+                        return [4 /*yield*/, api_1["default"].get("/account/info/asCookies")];
                     case 3:
-                        err_1 = _a.sent();
+                        res_1 = _b.sent();
+                        _a = res_1.data, login_1 = _a.login, email = _a.email;
+                        updateHeaderStatus(login_1, email);
+                        _b.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        err_1 = _b.sent();
                         console.log(err_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
                 }
             });
         });

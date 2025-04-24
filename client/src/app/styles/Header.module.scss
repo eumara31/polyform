@@ -81,6 +81,20 @@
 				}
 			}
 
+			#right-header-container{
+				display: flex;
+				flex-direction: row;
+				gap: 1rem;
+				width: fit-content;
+				justify-content: center;
+				align-content: center;
+
+				img{
+					height: 28px;
+					width: fit-content;
+				}
+			}
+
 			#change-lang {
 				color: $white;
 				font-family: $default-font;
@@ -141,6 +155,21 @@
 				justify-content: end;
 				align-items: center;
 
+				#change-lang{
+					color: white;
+					background-color: $header-color;
+					border-radius: 10rem;
+					border: 1px solid $header-color;
+					padding: 0 0.5rem 0 0.5rem;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				#dark-mode-img{
+					filter:invert(1)
+				}
+
 				#login-href {
 					color: $logo-color;
 					display: flex;
@@ -148,6 +177,10 @@
 					align-items: center;
 					gap: 4px;
 					cursor: pointer;
+
+					#username{
+						font-weight: 500;
+					}
 
 					Image {
 						position: relative;

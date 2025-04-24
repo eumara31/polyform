@@ -46,20 +46,23 @@ var PopupOverlay_1 = require("./PopupOverlay");
 var LoginForm_1 = require("./LoginForm");
 var api_1 = require("../utilities/api");
 var navigation_1 = require("next/navigation");
-var js_cookie_1 = require("js-cookie");
 gsap_1["default"].registerPlugin(react_2.useGSAP);
 function Header(_a) {
-    var isLogged = _a.isLogged;
+    var isLogged = _a.isLogged, usernameProp = _a.usernameProp, emailProp = _a.emailProp;
     var _b = react_1.useState(false), popupStatus = _b[0], setPopupStatus = _b[1];
     var _c = react_1.useState(isLogged), logoutButton = _c[0], setLogoutButton = _c[1];
+    var _d = react_1.useState(usernameProp), username = _d[0], setUsername = _d[1];
+    var _e = react_1.useState(emailProp), email = _e[0], setEmail = _e[1];
     var router = navigation_1.useRouter();
     var pathname = navigation_1.usePathname();
     var accountPath = pathname.startsWith("/account");
     function changePopupStatus() {
         setPopupStatus(!popupStatus);
     }
-    function handleLogin() {
+    function handleLogin(username, email) {
         setLogoutButton(!logoutButton);
+        setUsername(username);
+        setEmail(email);
     }
     function handleLogout() {
         return __awaiter(this, void 0, void 0, function () {
@@ -72,8 +75,9 @@ function Header(_a) {
                     case 1:
                         res = _a.sent();
                         if (res.status >= 200 && res.status < 300) {
-                            js_cookie_1["default"].remove("logged");
                             setLogoutButton(!logoutButton);
+                            setUsername("");
+                            setEmail("");
                             if (accountPath) {
                                 router.push("/");
                             }
@@ -88,24 +92,6 @@ function Header(_a) {
             });
         });
     }
-    // const [headerHeight, setHeaderHeight] = useState('')
-    // const [lastScrollY, setLastScrollY] = useState(0)
-    // const headerRef = useRef(null);
-    // const headerUnderlineRef = useRef(null);
-    // function changeHeaderHeight(){
-    //   if (window.scrollY > lastScrollY) {
-    //     setHeaderHeight("0rem");
-    //   } else {
-    //     setHeaderHeight("2rem");
-    //   }
-    //   setLastScrollY(window.scrollY);
-    // }
-    // useEffect(() => {
-    //   window.addEventListener('scroll', changeHeaderHeight);
-    //   return () => {
-    //      window.removeEventListener('scroll', changeHeaderHeight);
-    //   };
-    // }, [lastScrollY]);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-container"] },
             react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header"] },
@@ -116,8 +102,11 @@ function Header(_a) {
                 react_1["default"].createElement("form", { id: Header_module_css_1["default"]["search-bar"] },
                     "placeholder",
                     react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["search-img"], src: "/img/search.svg", width: 24, height: 24, alt: "" })),
-                react_1["default"].createElement("div", { id: Header_module_css_1["default"]["change-lang"] }, "en"),
-                react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["dark-mode-img"], src: "/img/dark_mode.svg", width: 32, height: 32, alt: "" })),
+                logoutButton ? (react_1["default"].createElement("div", { id: Header_module_css_1["default"]["right-header-container"] },
+                    react_1["default"].createElement(image_1["default"], { src: "/img/account_box.svg", alt: "", width: 32, height: 32 }),
+                    react_1["default"].createElement(image_1["default"], { src: "/img/local_mall.svg", alt: "", width: 32, height: 32 }))) : (react_1["default"].createElement(react_1["default"].Fragment, null,
+                    react_1["default"].createElement("div", { id: Header_module_css_1["default"]["change-lang"] }, "en"),
+                    react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["dark-mode-img"], src: "/img/dark_mode.svg", width: 32, height: 32, alt: "" })))),
             react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline"] },
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline-lsubcontainer"] },
                     react_1["default"].createElement("div", { id: Header_module_css_1["default"]["discounts-href"] }, "\u0421\u043A\u0438\u0434\u043A\u0438"),
@@ -127,10 +116,14 @@ function Header(_a) {
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline-itemsfound"] }),
                 react_1["default"].createElement("div", null, "\u041F\u043E \u0437\u0430\u043F\u0440\u043E\u0441\u0443 \"\" \u043D\u0430\u0439\u0434\u0435\u043D\u043E n \u0442\u043E\u0432\u0430\u0440\u043E\u0432"),
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline-rsubcontainer"] },
+                    logoutButton ? (react_1["default"].createElement(react_1["default"].Fragment, null,
+                        react_1["default"].createElement("div", { id: Header_module_css_1["default"]["change-lang"] }, "en"),
+                        react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["dark-mode-img"], src: "/img/dark_mode.svg", width: 24, height: 24, alt: "" }))) : null,
+                    username ? react_1["default"].createElement("div", { id: Header_module_css_1["default"]["username"] }, username) : null,
                     react_1["default"].createElement("div", { id: Header_module_css_1["default"]["login-href"] },
                         react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["login-image"], src: "/img/login.svg", width: 24, height: 24, alt: "" }),
                         logoutButton ? (react_1["default"].createElement("div", { onClick: handleLogout }, "\u0412\u044B\u0439\u0442\u0438")) : (react_1["default"].createElement("div", { onClick: changePopupStatus }, "\u0412\u043E\u0439\u0442\u0438")))))),
         react_1["default"].createElement(PopupOverlay_1["default"], { isOpen: popupStatus },
-            react_1["default"].createElement(LoginForm_1["default"], { updateLoginButton: handleLogin, updatePopupStatus: changePopupStatus }))));
+            react_1["default"].createElement(LoginForm_1["default"], { updateHeaderStatus: handleLogin, updatePopupStatus: changePopupStatus }))));
 }
 exports["default"] = Header;

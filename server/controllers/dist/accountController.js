@@ -41,19 +41,56 @@ var AccountController = /** @class */ (function () {
     function AccountController() {
     }
     AccountController.getAccountInfo = function (req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var data, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var login, data, err_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, accountService_1["default"].getAccountInfo(req.session.user.login)];
+                        _b.trys.push([0, 2, , 3]);
+                        login = (_a = req.session.user) === null || _a === void 0 ? void 0 : _a.login;
+                        return [4 /*yield*/, accountService_1["default"].getAccountInfo(login)];
                     case 1:
-                        data = _a.sent();
-                        return [3 /*break*/, 3];
+                        data = _b.sent();
+                        return [2 /*return*/, res.status(200).json(data)];
                     case 2:
-                        err_1 = _a.sent();
-                        return [3 /*break*/, 3];
+                        err_1 = _b.sent();
+                        return [2 /*return*/, res.status(500).json(err_1)];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AccountController.getAccountInfoAsCookies = function (req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var sessionLogin, data, _b, login, email, mailing, err_2;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _c.trys.push([0, 2, , 3]);
+                        sessionLogin = (_a = req.session.user) === null || _a === void 0 ? void 0 : _a.login;
+                        return [4 /*yield*/, accountService_1["default"].getAccountInfo(sessionLogin)];
+                    case 1:
+                        data = _c.sent();
+                        _b = data[0], login = _b.login, email = _b.email, mailing = _b.mailing;
+                        console.log(login, email, mailing);
+                        res.cookie('username', login, {
+                            maxAge: 1000 * 60 * 60 * 24 * 7,
+                            httpOnly: true
+                        });
+                        res.cookie('email', email, {
+                            maxAge: 1000 * 60 * 60 * 24 * 7,
+                            httpOnly: true
+                        });
+                        res.cookie('mailing', mailing, {
+                            maxAge: 1000 * 60 * 60 * 24 * 7,
+                            httpOnly: true
+                        });
+                        return [2 /*return*/, res.status(200).json({ login: login, email: email })];
+                    case 2:
+                        err_2 = _c.sent();
+                        return [2 /*return*/, res.status(500).json(err_2)];
                     case 3: return [2 /*return*/];
                 }
             });
