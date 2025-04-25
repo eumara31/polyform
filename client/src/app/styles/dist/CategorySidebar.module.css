@@ -11,11 +11,8 @@
   font-style: normal;
 }
 #category-layout {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   width: 100%;
-  height: -moz-fit-content;
   height: fit-content;
   display: flex;
   flex-direction: row;
@@ -97,9 +94,7 @@
   border: 1px white solid;
   border-radius: 5px;
   padding: 0.1rem 0.3rem 0.1rem 0.3rem;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   transition: background-color 0.4s ease, color 0.4s ease;
   transition: color 0.4s ease, color 0.4s ease;
-}/*# sourceMappingURL=CategorySidebar.module.css.map */
+}

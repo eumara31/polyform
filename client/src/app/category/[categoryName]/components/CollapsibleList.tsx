@@ -21,9 +21,9 @@ export default function CollapsibleList({ children }: Props) {
   const expandList = contextSafe(() => {
     if (!isExpanded) {
       gsap.to(collapsibleListRef.current, {
-        height: "auto", // Используем "auto" для полной высоты
-        duration: 1, // Длительность анимации
-        ease: "power2.inOut", // Функция плавности
+        height: "auto",
+        duration: 1,
+        ease: "power2.inOut",
       });
       gsap.to(collapsibleButtonRef.current, {
         background: 'linear-gradient(to top, rgba(54,53,55,1) 0, rgba(255,255,255,0) 0%)',

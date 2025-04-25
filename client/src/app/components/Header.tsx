@@ -9,6 +9,7 @@ import LoginForm from "./LoginForm";
 import api from "../utilities/api";
 import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 type Props = {
   isLogged: boolean;
@@ -23,6 +24,8 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
   const [logoutButton, setLogoutButton] = useState(isLogged);
   const [username, setUsername] = useState(usernameProp);
   const [email, setEmail] = useState(emailProp);
+
+  const categoryImageSize = 24;
 
   const router = useRouter();
   const pathname = usePathname();
@@ -59,7 +62,8 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
     <>
       <div id={styles["header-container"]}>
         <div id={styles["header"]}>
-          <div id={styles["logo"]}>Полиформ</div>
+        <div id={styles["logo"]}><Link className={styles["no-outline"]} href={'/'}>Полиформ</Link></div>
+          <div id={styles["category-dropdown"]}>
           <button id={styles["header-category-button"]}>
             <Image
               id={styles["header-category-img"]}
@@ -70,6 +74,37 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
             />
             Категории
           </button>
+          <ul id={styles["dropdown-list"]}>
+                      {[
+                        { src: "person.svg", text: "Персонажи" },
+                        { src: "cottage.svg", text: "Архитектура" },
+                        { src: "car.svg", text: "Транспорт" },
+                        { src: "bow.svg", text: "Оружие" },
+                        { src: "park.svg", text: "Растения" },
+                        { src: "chair.svg", text: "Мебель" },
+                        { src: "devices.svg", text: "Технологии" },
+                        { src: "apparel.svg", text: "Аксессуары" },
+                        { src: "manufacturing.svg", text: "Механизмы" },
+                        { src: "service_toolbox.svg", text: "Инструменты" },
+                        { src: "shield.svg", text: "Фэнтези" },
+                        { src: "experiment.svg", text: "Наука" },
+                        { src: "fitness_center.svg", text: "Спорт" },
+                        { src: "cruelty_free.svg", text: "Животные" },
+                        { src: "brush.svg", text: "Художество" },
+                        { src: "headphones.svg", text: "Музыка" },
+                      ].map(({ src, text }) => (
+                        <li key={text}>
+                          <Image
+                            src={`../img/${src}`}
+                            height={categoryImageSize}
+                            width={categoryImageSize}
+                            alt=""
+                          />
+                          <span>{text}</span>
+                        </li>
+                      ))}
+          </ul>
+          </div>
           <form id={styles["search-bar"]}>
             placeholder
             <Image
@@ -82,7 +117,7 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
           </form>
           {logoutButton ? (
             <div id={styles["right-header-container"]}>
-              <Image src="/img/account_box.svg" alt="" width={32} height={32} />
+              <Link href={'/account'}><Image src="/img/account_box.svg" alt="" width={32} height={32} /></Link>
               <Image src="/img/local_mall.svg" alt="" width={32} height={32} />
             </div>
           ) : (

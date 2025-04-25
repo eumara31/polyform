@@ -80,8 +80,10 @@ export default function CategorySwiper({
             }}
             key={index}
             style={{
-                background: categoryRefDict[index]?.isActive ? "#201F21" : "#363537",
+              border: "2px solid",
+              borderColor: categoryRefDict[index]?.isActive ? "white" : "transparent",
               borderRadius: "100px",
+              transition: "border-color 0.2s ease-in-out",
             }}
           >
             {child}
