@@ -4,11 +4,12 @@ import styles from "@/app/styles/CategorySidebar.module.css";
 
 type Props = {
   children: React.ReactNode;
+  updateFormatArray: ((arr) => void),
 };
 
 //стейт обновляется асинхронно - не забыть об этом когда буду заниматься вебсокетами
 
-export default function FormatBox({ children }: Props) {
+export default function FormatBox({ children, updateFormatArray }: Props) {
   const [formatRefDict, setFormatRefDict] = useState<{
     [key: string]: {
       ref: React.RefObject<HTMLDivElement | null>;
@@ -58,6 +59,11 @@ export default function FormatBox({ children }: Props) {
       };
     });
   };
+
+  
+  useEffect(() => {
+    updateFormatArray(formatRefDict)
+  }, [formatRefDict])
 
   return (
     <div id={styles["format-container"]}>

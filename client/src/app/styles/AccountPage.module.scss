@@ -53,42 +53,48 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            flex: 1 1 auto; /* Может расти и сжиматься */
-            min-height: 0; /* Важно для правильного сжатия textarea */
-        
+            flex: 1 1 auto;
+            /* Может расти и сжиматься */
+            min-height: 0;
+            /* Важно для правильного сжатия textarea */
+
             input {
-              width: auto;
-              height: 2.5rem;
-              border: 2px $header-color solid;
-              border-radius: 0.4rem;
-              line-height: 0;
-              padding: 0.7rem;
-              font-family: $default-font;
-              font-weight: 400;
-              font-size: 20px;
-              color: black;
+                width: auto;
+                height: 2.5rem;
+                border: 2px $header-color solid;
+                border-radius: 0.4rem;
+                line-height: 0;
+                padding: 0.7rem;
+                font-family: $default-font;
+                font-weight: 400;
+                font-size: 20px;
+                color: black;
             }
-        
+
             textarea {
-              flex: 1; /* Занимает все доступное пространство */
-              min-height: 0; /* Критически важно для сжатия */
-              padding: 1rem;
-              font-family: $default-font;
-              font-weight: 400;
-              font-size: 14px;
-              color: black;
-              border: 2px $header-color solid;
-              border-radius: 0.4rem;
-              resize: none;
+                flex: 1;
+                /* Занимает все доступное пространство */
+                min-height: 0;
+                /* Критически важно для сжатия */
+                padding: 1rem;
+                font-family: $default-font;
+                font-weight: 400;
+                font-size: 14px;
+                color: black;
+                border: 2px $header-color solid;
+                border-radius: 0.4rem;
+                resize: none;
             }
-          }
-        
-          #category-flex {
+        }
+
+        #category-flex {
             display: flex;
             flex-direction: row;
-            flex: 1 0 25%; /* Начальная высота 50%, но может расти */
+            flex: 1 0 25%;
+            /* Начальная высота 50%, но может расти */
             height: auto;
-            min-height: 0; /* Важно для правильного сжатия */
+            min-height: 0;
+            /* Важно для правильного сжатия */
             gap: 0.5rem;
             padding: 1rem;
             background-color: $header-color;
@@ -101,8 +107,9 @@
                 gap: 0.5rem;
                 width: 100%;
                 height: 100%;
-                overflow-y: auto; 
+                overflow-y: auto;
                 overflow-x: hidden;
+
                 h1 {
                     font-family: $default-font;
                     font-weight: 500;
@@ -183,20 +190,6 @@
                     align-items: center;
                     justify-content: left;
 
-                    input {
-                        width: 100%;
-                        height: 2.5rem;
-                        border: 1px #201F21 solid;
-                        border-radius: 0.4rem;
-                        line-height: 0;
-                        padding: 0.3rem;
-                        font-family: $default-font;
-                        font-weight: 500;
-                        font-size: 14px;
-                        color: black;
-                        text-align: center;
-                    }
-
                     button {
                         min-width: 100%;
                         height: 2.5rem;
@@ -212,10 +205,72 @@
                         cursor: pointer;
                         transition: all 0.05s ease-in-out;
 
-                        &:active{
+                        &:active {
                             background-color: white;
                             border: 2px white solid;
                             color: black;
+                        }
+                    }
+
+                    #price-currency-container {
+                        gap: 0.5rem;
+                        display: flex;
+                        width: 100%;
+                        flex-direction: row;
+                        height: fit-content;
+
+                        input {
+                            text-align: center;
+                            min-width: 0;
+                            height: 2.5rem;
+                            border: 1px #201F21 solid;
+                            border-radius: 0.4rem;
+                            line-height: 0;
+                            padding: 0.3rem;
+                            font-family: $default-font;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: black;
+                            text-align: center;
+                            outline: none;
+                            flex-grow: 2;
+                        }
+
+                        input[type='number']::-webkit-inner-spin-button {
+                            position: absolute;
+                            height: 100%;
+                            display: none;
+                            top: 0;
+                            right: 0;
+                        }
+
+                        button {
+                            min-width: auto;
+                            width: 5rem;
+                            height: 2.5rem;
+                            border-radius: 0.4rem;
+                            line-height: 0;
+                            border: 2px #201F21 solid;
+                            padding: 0.7rem;
+                            font-family: $default-font;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: $white;
+                            background-color: #201F21;
+                            cursor: pointer;
+                            flex-shrink: 1;
+                            flex-grow: 0;
+                            transition: all 0.05s ease-in-out;
+
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-align: center;
+
+                            &:active {
+                                background-color: white;
+                                border: 2px white solid;
+                                color: black;
+                            }
                         }
                     }
                 }
@@ -254,7 +309,7 @@
             }
         }
 
-        #canvas-flex{
+        #canvas-flex {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -263,6 +318,8 @@
             width: 100%;
             border: 2px solid $header-color;
             border-radius: 0.5rem;
-        #model-canvas{
-        }}
-}}
+
+            #model-canvas {}
+        }
+    }
+}

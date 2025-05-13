@@ -4,6 +4,7 @@ import WidthContainer from "./components/WidthContainer";
 import Header from "./components/Header";
 import { cookies } from "next/headers";
 import api from "./utilities/api";
+import { Toaster } from 'react-hot-toast';
 
 export default async function RootLayout({
   children,
@@ -21,6 +22,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
+        {/* <Toaster position="top-right"></Toaster> */}
         <WidthContainer>
           <Header 
           isLogged={isLogged}
