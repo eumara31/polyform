@@ -1,18 +1,14 @@
 "use client";
-import Header from "@/app/components/Header";
-import WidthContainer from "@/app/components/WidthContainer";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
-import ImageSwiper from "@/app/components/ItemSwiper";
 import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
 import ModelUpload from "./components/ModelUpload";
 import ModelPreview from "./components/ModelPreview";
 import Image from "next/image";
-import { StringController } from "three/examples/jsm/libs/lil-gui.module.min.js";
-import { PerspectiveCamera } from "@react-three/drei";
-import { e } from "mathjs";
+import toast from "react-hot-toast";
+import api from "@/app/utilities/api";
 
 type Props = {};
 
@@ -42,14 +38,16 @@ export default function Page({}: Props) {
     price: undefined,
     currency: undefined,
   });
+  const [modelFile, setModelFile] = useState<File | null>(null);
+
   const categoryImageSize = 24;
 
   useEffect(() => {
     setModelJson((prev) => ({
       ...prev,
-      currency: currency
-    }))
-  }, [])
+      currency: currency,
+    }));
+  }, []);
 
   useEffect(() => {
     console.log(modelJson);
@@ -119,15 +117,34 @@ export default function Page({}: Props) {
     });
   }
 
-function handleModelSubmission() {
-  if (!isModelJsonComplete() || !modelURL) {
-    alert("Заполните все поля");
-  }
+  async function handleModelSubmission() {
+    if (!isModelJsonComplete() || !modelURL) {
+      toast.error("Заполните все поля");
+    } else {
+      const uploadPendingToast = toast.loading("Модель загружается...");
+      try {
+        const formData = new FormData();
+        formData.append("json", JSON.stringify(modelJson));
+        formData.append("model", modelFile);
 
-  else {
-    alert("Отправлено");
-  }
+        for (const [key, value] of formData.entries()) {
+  console.log(key, value);
 }
+
+        await api.post("/account/model/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity,
+        });
+        toast.success("Файл загружен!", { id: uploadPendingToast });
+      } catch (err) {
+        toast.error("Ошибка загрузки", { id: uploadPendingToast });
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <>
@@ -286,6 +303,7 @@ function handleModelSubmission() {
                 setModelURL={setModelURL}
                 setModelFormat={setModelFormat}
                 setShowModelPreview={setShowModelPreview}
+                setModelFile={setModelFile}
               />
             )}
           </div>

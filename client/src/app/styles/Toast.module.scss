@@ -1,0 +1,13 @@
+@import 'fonts';
+@import 'colors';
+
+.toastBase {
+    font-family: $default-font;
+    font-size: 1rem;
+}
+
+.toastSuccess {}
+
+.toastLoading {}
+
+.toastError{}

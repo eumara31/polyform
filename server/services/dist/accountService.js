@@ -37,6 +37,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var db_1 = require("../config/db");
+var modelCompressor_1 = require("../utils/modelCompressor");
+var url_1 = require("url");
+var path_1 = require("path");
+var __filename = url_1.fileURLToPath(import.meta.url);
+var __dirname = path_1["default"].dirname(__filename);
+var __parentdir = path_1["default"].dirname(__dirname);
 var AccountService = /** @class */ (function () {
     function AccountService() {
     }
@@ -83,6 +89,55 @@ var AccountService = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
             return [2 /*return*/];
         }); });
+    };
+    AccountService.uploadUserModel = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var json, file, json_1, file_1, baseFilePath, minFilePath, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        json = JSON.parse(req.body.json);
+                        file = req.file;
+                        console.log(json, file);
+                        if (!file) {
+                            return [2 /*return*/, res.status(400).json({ error: "No file uploaded" })];
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        json_1 = JSON.parse(req.body.json);
+                        file_1 = req.file;
+                        if (!file_1) {
+                            return [2 /*return*/, res.status(400).json({ error: "No file uploaded" })];
+                        }
+                        baseFilePath = path_1["default"].join(__parentdir, "uploads", file_1.filename);
+                        minFilePath = path_1["default"].join(__parentdir, "uploads", "min_" + file_1.filename);
+                        return [4 /*yield*/, modelCompressor_1["default"].createMin(baseFilePath, minFilePath)];
+                    case 2:
+                        _a.sent();
+                        return [4 /*yield*/, db_1.pool.query("INSERT INTO \"Models\"\n        (name, description, category, tags, materials, formats, price, currency)\n       VALUES ($1, $2, $3, $4, $5, $6, $7, $8);", [
+                                json_1.name,
+                                json_1.description,
+                                json_1.category,
+                                json_1.tags,
+                                json_1.materials,
+                                json_1.formats,
+                                json_1.price,
+                                json_1.currency,
+                            ])];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_2 = _a.sent();
+                        // Логируем ошибку для отладки
+                        console.error("Database operation failed", err_2);
+                        // Бросаем ошибку, чтобы она была поймана в контроллере
+                        throw new Error("Database operation failed");
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
     };
     AccountService.changeUserModel = function () {
         return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {

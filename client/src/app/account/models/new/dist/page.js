@@ -11,6 +11,42 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -27,6 +63,8 @@ var FormatBox_1 = require("@/app/category/[categoryName]/components/FormatBox");
 var ModelUpload_1 = require("./components/ModelUpload");
 var ModelPreview_1 = require("./components/ModelPreview");
 var image_1 = require("next/image");
+var react_hot_toast_1 = require("react-hot-toast");
+var api_1 = require("@/app/utilities/api");
 function Page(_a) {
     var _b = react_1.useState(false), showModelPreview = _b[0], setShowModelPreview = _b[1];
     var _c = react_1.useState("RUB"), currency = _c[0], setCurrency = _c[1];
@@ -42,6 +80,7 @@ function Page(_a) {
         price: undefined,
         currency: undefined
     }), modelJson = _f[0], setModelJson = _f[1];
+    var _g = react_1.useState(null), modelFile = _g[0], setModelFile = _g[1];
     var categoryImageSize = 24;
     react_1.useEffect(function () {
         setModelJson(function (prev) { return (__assign(__assign({}, prev), { currency: currency })); });
@@ -92,12 +131,46 @@ function Page(_a) {
         });
     }
     function handleModelSubmission() {
-        if (!isModelJsonComplete() || !modelURL) {
-            alert("Заполните все поля");
-        }
-        else {
-            alert("Отправлено");
-        }
+        return __awaiter(this, void 0, void 0, function () {
+            var uploadPendingToast, formData, _i, _a, _b, key, value, err_1;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        if (!(!isModelJsonComplete() || !modelURL)) return [3 /*break*/, 1];
+                        react_hot_toast_1["default"].error("Заполните все поля");
+                        return [3 /*break*/, 5];
+                    case 1:
+                        uploadPendingToast = react_hot_toast_1["default"].loading("Модель загружается...");
+                        _c.label = 2;
+                    case 2:
+                        _c.trys.push([2, 4, , 5]);
+                        formData = new FormData();
+                        formData.append("json", JSON.stringify(modelJson));
+                        formData.append("model", modelFile);
+                        for (_i = 0, _a = formData.entries(); _i < _a.length; _i++) {
+                            _b = _a[_i], key = _b[0], value = _b[1];
+                            console.log(key, value);
+                        }
+                        return [4 /*yield*/, api_1["default"].post("/account/model/upload", formData, {
+                                headers: {
+                                    "Content-Type": "multipart/form-data"
+                                },
+                                maxContentLength: Infinity,
+                                maxBodyLength: Infinity
+                            })];
+                    case 3:
+                        _c.sent();
+                        react_hot_toast_1["default"].success("Файл загружен!", { id: uploadPendingToast });
+                        return [3 /*break*/, 5];
+                    case 4:
+                        err_1 = _c.sent();
+                        react_hot_toast_1["default"].error("Ошибка загрузки", { id: uploadPendingToast });
+                        console.log(err_1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
     }
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement(AccountNavbar_1["default"], { tabDict: {
@@ -182,6 +255,6 @@ function Page(_a) {
                                 react_1["default"].createElement("button", { onClick: handleCurrencyChange }, currency)),
                             react_1["default"].createElement("button", { onClick: handleModelSubmission }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))))),
             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-upload-flex"] },
-                react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-input"] }, showModelPreview ? (react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat })) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview })))))));
+                react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-input"] }, showModelPreview ? (react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat })) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview, setModelFile: setModelFile })))))));
 }
 exports["default"] = Page;

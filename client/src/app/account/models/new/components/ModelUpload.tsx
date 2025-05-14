@@ -6,9 +6,10 @@ type Props = {
     setModelURL: (url: string) => void;
     setModelFormat: (modelFormat: string) => void;
     setShowModelPreview: (showModelPreview: boolean) => void;
+    setModelFile: (file: File) => blob
 };
 
-export default function ModelUpload({setModelURL, setModelFormat, setShowModelPreview}: Props) {
+export default function ModelUpload({setModelURL, setModelFormat, setShowModelPreview, setModelFile}: Props) {
     function handleModelUpload(e: React.ChangeEvent<HTMLInputElement>){
         const model = e.target.files[0];
         if(model){
@@ -18,6 +19,7 @@ export default function ModelUpload({setModelURL, setModelFormat, setShowModelPr
             console.log(format);
             setModelURL(url);
             setShowModelPreview(true);
+            setModelFile(model);
         }
     }
 
@@ -27,6 +29,7 @@ export default function ModelUpload({setModelURL, setModelFormat, setShowModelPr
         onChange={(e)=>handleModelUpload(e)}
         id="model-upload"
         type="file"
+        name="model"
       ></input>
       <label htmlFor="model-upload" id={styles["custom-model-input"]}>
         <div

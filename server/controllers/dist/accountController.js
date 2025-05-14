@@ -75,15 +75,15 @@ var AccountController = /** @class */ (function () {
                         data = _c.sent();
                         _b = data[0], login = _b.login, email = _b.email, mailing = _b.mailing;
                         console.log(login, email, mailing);
-                        res.cookie('username', login, {
+                        res.cookie("username", login, {
                             maxAge: 1000 * 60 * 60 * 24 * 7,
                             httpOnly: true
                         });
-                        res.cookie('email', email, {
+                        res.cookie("email", email, {
                             maxAge: 1000 * 60 * 60 * 24 * 7,
                             httpOnly: true
                         });
-                        res.cookie('mailing', mailing, {
+                        res.cookie("mailing", mailing, {
                             maxAge: 1000 * 60 * 60 * 24 * 7,
                             httpOnly: true
                         });
@@ -97,53 +97,53 @@ var AccountController = /** @class */ (function () {
         });
     };
     AccountController.getPurchaseHistory = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     AccountController.getUserModels = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     AccountController.getDeletedUserModels = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     AccountController.getModelStatistics = function () {
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
+    };
+    AccountController.uploadUserModel = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                try {
+                    accountService_1["default"].uploadUserModel(req, res);
+                    res.status(200).json({ message: "Файл загружен" });
+                }
+                catch (err) {
+                    res.status(500).json({ error: "Ошибка загрузки файла" });
+                }
                 return [2 /*return*/];
             });
         });
     };
     AccountController.changeUserModel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     AccountController.deleteUserModel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     AccountController.restoreUserModel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
+        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
+            return [2 /*return*/];
+        }); });
     };
     return AccountController;
 }());

@@ -3,8 +3,8 @@ import "./styles/global.css";
 import WidthContainer from "./components/WidthContainer";
 import Header from "./components/Header";
 import { cookies } from "next/headers";
-import api from "./utilities/api";
 import { Toaster } from 'react-hot-toast';
+import styles from "./styles/Toast.module.css";
 
 export default async function RootLayout({
   children,
@@ -22,7 +22,16 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <Toaster position="top-right"></Toaster> */}
+        {/* тостер, чтобы тосты работали асинхронно между страницами */}
+      <Toaster
+      position="top-right"
+        toastOptions={{
+          className: styles.toastBase,
+          success: { className: styles.toastSuccess },
+          error: { className: styles.toastError },
+          loading: { className: styles.toastLoading },
+        }}
+      />
         <WidthContainer>
           <Header 
           isLogged={isLogged}

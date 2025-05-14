@@ -41,6 +41,8 @@ require("./styles/global.css");
 var WidthContainer_1 = require("./components/WidthContainer");
 var Header_1 = require("./components/Header");
 var headers_1 = require("next/headers");
+var react_hot_toast_1 = require("react-hot-toast");
+var Toast_module_css_1 = require("./styles/Toast.module.css");
 function RootLayout(_a) {
     var _b, _c, _d;
     var children = _a.children;
@@ -57,6 +59,12 @@ function RootLayout(_a) {
                     console.log(usernameCookie, emailCookie);
                     return [2 /*return*/, (React.createElement("html", { lang: "en" },
                             React.createElement("body", null,
+                                React.createElement(react_hot_toast_1.Toaster, { position: "top-right", toastOptions: {
+                                        className: Toast_module_css_1["default"].toastBase,
+                                        success: { className: Toast_module_css_1["default"].toastSuccess },
+                                        error: { className: Toast_module_css_1["default"].toastError },
+                                        loading: { className: Toast_module_css_1["default"].toastLoading }
+                                    } }),
                                 React.createElement(WidthContainer_1["default"], null,
                                     React.createElement(Header_1["default"], { isLogged: isLogged, usernameProp: usernameCookie, emailProp: emailCookie }),
                                     children))))];

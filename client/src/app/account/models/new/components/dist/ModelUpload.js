@@ -4,7 +4,7 @@ var react_1 = require("react");
 var image_1 = require("next/image");
 var AccountPage_module_css_1 = require("@/app/styles/AccountPage.module.css");
 function ModelUpload(_a) {
-    var setModelURL = _a.setModelURL, setModelFormat = _a.setModelFormat, setShowModelPreview = _a.setShowModelPreview;
+    var setModelURL = _a.setModelURL, setModelFormat = _a.setModelFormat, setShowModelPreview = _a.setShowModelPreview, setModelFile = _a.setModelFile;
     function handleModelUpload(e) {
         var model = e.target.files[0];
         if (model) {
@@ -14,10 +14,11 @@ function ModelUpload(_a) {
             console.log(format);
             setModelURL(url);
             setShowModelPreview(true);
+            setModelFile(model);
         }
     }
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("input", { onChange: function (e) { return handleModelUpload(e); }, id: "model-upload", type: "file" }),
+        react_1["default"].createElement("input", { onChange: function (e) { return handleModelUpload(e); }, id: "model-upload", type: "file", name: "model" }),
         react_1["default"].createElement("label", { htmlFor: "model-upload", id: AccountPage_module_css_1["default"]["custom-model-input"] },
             react_1["default"].createElement("div", { style: {
                     fontSize: "48px"
