@@ -4,7 +4,7 @@ import styles from "@/app/styles/CategorySidebar.module.css";
 
 type Props = {
   children: React.ReactNode;
-  updateFormatArray: ((arr) => void),
+  updateFormatArray: ((arr) => void) | undefined,
 };
 
 //стейт обновляется асинхронно - не забыть об этом когда буду заниматься вебсокетами

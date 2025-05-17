@@ -111,6 +111,14 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+#new-model-flex #text-category-flex #category-flex .category-column .category-li {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
 #new-model-flex #text-category-flex #category-flex .category-column h1 {
   font-family: "Inter", sans-serif;
   font-weight: 500;

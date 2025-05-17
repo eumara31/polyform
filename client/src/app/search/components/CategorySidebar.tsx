@@ -1,17 +1,44 @@
-import React from "react";
+'use client'
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styles from "@/app/styles/CategorySidebar.module.css";
 import PriceSlider from "./PriceSlider";
 import CollapsibleList from "./CollapsibleList";
-import FormatBox from "./FormatBox";
+import MultipleToggleGroup from "./MultipleToggleGroup";
+import { useSearchStore } from "@/app/store";
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function CategorySidebar({ children }: Props) {
+  const categories = useSearchStore((state) => state.categories);
+  const minPrice = useSearchStore((state) => state.minPrice);
+  const maxPrice = useSearchStore((state) => state.maxPrice);
+  const features = useSearchStore((state) => state.features);
+  const materials = useSearchStore((state) => state.materials);
+  const licenses = useSearchStore((state) => state.licenses);
+
+  const setCategories = useSearchStore((state) => state.setCategories);
+  const setMinPrice = useSearchStore((state) => state.setMinPrice);
+  const setMaxPrice = useSearchStore((state) => state.setMaxPrice);
+  const setFeatures = useSearchStore((state) => state.setFeatures);
+  const setMaterials = useSearchStore((state) => state.setMaterials);
+  const setLicenses = useSearchStore((state) => state.setLicenses);
+  const resetSearchStore = useSearchStore((state) => state.reset);
 
   const categoryImageSize = 28;
+
+  useEffect(() => {
+    
+  }, [categories, minPrice, maxPrice, features, materials, licenses]);
+
+  function handleLicensesUpdate(groupState) {
+    const selectedKeys = Object.keys(groupState).filter(
+      (key) => groupState[key].isActive
+    );
+    setLicenses(selectedKeys);
+  };
 
   return (
     <div id={styles["category-layout"]}>
@@ -76,8 +103,20 @@ export default function CategorySidebar({ children }: Props) {
             </label>
           ))}
         </div>
-        <h1 className={styles["sidebar-h2"]}>Форматы</h1>
-        <FormatBox/>
+        <h1 className={styles["sidebar-h2"]}>Лицензии</h1>
+                        <MultipleToggleGroup
+                          onGroupSelect={handleLicensesUpdate}
+                          items={[
+                            "MIT",
+                            "GPL",
+                            "Apache",
+                            "BSD",
+                            "LGPL",
+                            "MPL",
+                            "EPL",
+                            "Unlicense",
+                          ]}
+                        />
       </div>
       <div id={styles["item-container"]}>{children}</div>
     </div>

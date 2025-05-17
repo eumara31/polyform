@@ -6,7 +6,7 @@ import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
 import ImageSwiper from "@/app/components/ItemSwiper";
-import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
+import FormatBox from "@/app/search/components/FormatBox";
 import Image from "next/image";
 
 type Props = {};

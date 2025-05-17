@@ -4,13 +4,12 @@ import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
 import ImageSwiper from "@/app/components/ItemSwiper";
-import LicenceBox from "@/app/category/[categoryName]/components/LicenceBox";
+import SingleToggleGroup from "@/app/search/components/SingleToggleGroup";
 import ModelUpload from "./components/ModelUpload";
 import ModelPreview from "./components/ModelPreview";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import api from "@/app/utilities/api";
-import { CLIENT_STATIC_FILES_RUNTIME_REACT_REFRESH } from "next/dist/shared/lib/constants";
 
 type Props = {};
 
@@ -236,6 +235,7 @@ export default function Page({}: Props) {
                   { src: "headphones.svg", text: "Музыка" },
                 ].map(({ src, text }) => (
                   <div
+                  className={styles["category-li"]}
                     key={text}
                     data-value={text}
                     onClick={(e) =>
@@ -296,7 +296,19 @@ export default function Page({}: Props) {
             >
               <div className={styles["format-flex"]}>
                 <h1>Лицензия</h1>
-                <LicenceBox updateLicence={handleLicenceChange} />
+                <SingleToggleGroup
+                  onGroupSelect={handleLicenceChange}
+                  items={[
+                    "MIT",
+                    "GPL",
+                    "Apache",
+                    "BSD",
+                    "LGPL",
+                    "MPL",
+                    "EPL",
+                    "Unlicense",
+                  ]}
+                />
               </div>
               <div className={styles["format-flex"]}>
                 <div id={styles["price-currency-container"]}>

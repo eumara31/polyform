@@ -60,7 +60,7 @@ var AccountPage_module_css_1 = require("@/app/styles/AccountPage.module.css");
 var AccountNavbar_1 = require("@/app/account/components/AccountNavbar");
 var CategorySwiper_1 = require("@/app/account/components/CategorySwiper");
 var ItemSwiper_1 = require("@/app/components/ItemSwiper");
-var LicenceBox_1 = require("@/app/category/[categoryName]/components/LicenceBox");
+var SingleToggleGroup_1 = require("@/app/search/components/SingleToggleGroup");
 var ModelUpload_1 = require("./components/ModelUpload");
 var ModelPreview_1 = require("./components/ModelPreview");
 var image_1 = require("next/image");
@@ -237,7 +237,7 @@ function Page(_a) {
                             { src: "headphones.svg", text: "Музыка" },
                         ].map(function (_a) {
                             var src = _a.src, text = _a.text;
-                            return (react_1["default"].createElement("div", { key: text, "data-value": text, onClick: function (e) {
+                            return (react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["category-li"], key: text, "data-value": text, onClick: function (e) {
                                     return handleModelJsonChange("category", e.currentTarget.dataset.value);
                                 } },
                                 react_1["default"].createElement(image_1["default"], { src: "/img/" + src, height: categoryImageSize, width: categoryImageSize, alt: "" }),
@@ -261,7 +261,16 @@ function Page(_a) {
                     react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["format-price-column"], className: AccountPage_module_css_1["default"]["category-column"] },
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
                             react_1["default"].createElement("h1", null, "\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F"),
-                            react_1["default"].createElement(LicenceBox_1["default"], { updateLicence: handleLicenceChange })),
+                            react_1["default"].createElement(SingleToggleGroup_1["default"], { onGroupSelect: handleLicenceChange, items: [
+                                    "MIT",
+                                    "GPL",
+                                    "Apache",
+                                    "BSD",
+                                    "LGPL",
+                                    "MPL",
+                                    "EPL",
+                                    "Unlicense",
+                                ] })),
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
                             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["price-currency-container"] },
                                 react_1["default"].createElement("input", { type: "number", placeholder: "\u0446\u0435\u043D\u0430", onChange: function (e) {

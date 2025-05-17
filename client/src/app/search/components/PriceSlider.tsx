@@ -35,8 +35,8 @@ export default function PriceSlider({}: Props) {
       )}
     />
     <div id={styles["numerical-fields"]}>
-      <input type="text" value={values[0]}></input>
-      <input type="text" value={values[1]}></input>
+      <input type="text" defaultValue={values[0]}></input>
+      <input type="text" defaultValue={values[1]}></input>
     </div>
     </div>
   )
