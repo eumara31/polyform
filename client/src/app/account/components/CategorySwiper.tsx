@@ -1,7 +1,5 @@
-import React, { ReactNode, useEffect, useState } from "react";
-import { Image } from "@react-three/drei";
+import React, { useEffect, useState } from "react";
 import ItemSwiper from "@/app/components/ItemSwiper";
-import { toArray } from "gsap";
 
 type Props = {
   imageSize: number;

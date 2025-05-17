@@ -26,5 +26,8 @@ router.post("/auth/logout", authController_1["default"].logout);
 router.get("/account/info", authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfo);
 router.get("/account/info/asCookies", authMiddleware_1.requireAuth, accountController_1["default"].getAccountInfoAsCookies);
 //require auth не рабоатет после первой отправки файла
-router.post("/account/model/upload", upload.single("model"), accountController_1["default"].uploadUserModel);
+router.post("/account/model/upload", upload.fields([
+    { name: 'model', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+]), accountController_1["default"].uploadUserModel);
 exports["default"] = router;

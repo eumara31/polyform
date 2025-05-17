@@ -7,7 +7,7 @@ import path from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const __parentdir = path.dirname(__dirname)
+const __parentdir = path.dirname(__dirname);
 
 export default class AccountService {
   static async getAccountInfo(login: string) {
@@ -31,34 +31,24 @@ export default class AccountService {
   static async getDeletedUserModels() {}
   static async getModelStatistics() {}
   static async uploadUserModel(req: Request, res: Response) {
-    const json = JSON.parse(req.body.json);
-    const file = req.file;
-
-    console.log(json, file);
-
-    if (!file) {
-      return res.status(400).json({ error: "No file uploaded" });
-    }
-
     try {
       const json = JSON.parse(req.body.json);
-      const file = req.file;
+      const modelFile = (req.files as any)["model"]?.[0];
+      const imageFiles = (req.files as any)["images"] || [];
+      const imageFilenames = imageFiles.map((file: Express.Multer.File) => file.filename)
 
-      if (!file) {
-        return res.status(400).json({ error: "No file uploaded" });
-      }
-
-      const baseFilePath = path.join(__parentdir, "uploads", file.filename);
-      const minFilePath = path.join(
-        __parentdir,
-        "uploads",
-        "min_" + file.filename
-      );
-      await ModelCompressor.createMin(baseFilePath, minFilePath);
+      console.log(req.session.user?.userId);
+      // const baseFilePath = path.join(__parentdir, "uploads", file.filename);
+      // const minFilePath = path.join(
+      //   __parentdir,
+      //   "uploads",
+      //   "min_" + file.filename
+      // );
+      // await ModelCompressor.createMin(baseFilePath);
       await pool.query(
         `INSERT INTO "Models"
-        (name, description, category, tags, materials, formats, price, currency)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`,
+        (name, description, category, tags, materials, formats, price, currency, url, licence, image_urls, uploader_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);`,
         [
           json.name,
           json.description,
@@ -68,6 +58,10 @@ export default class AccountService {
           json.formats,
           json.price,
           json.currency,
+          modelFile.filename,
+          json.licence,
+          imageFilenames,
+          req.session.user.userId
         ]
       );
     } catch (err) {

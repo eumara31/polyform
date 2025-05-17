@@ -78,7 +78,8 @@ var AuthController = /** @class */ (function () {
                         result = _b.sent();
                         if (result.success) {
                             req.session.user = {
-                                login: login
+                                login: login,
+                                userId: result.userId
                             };
                             res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true });
                             return [2 /*return*/, res.status(200).json({

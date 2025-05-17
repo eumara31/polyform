@@ -22,6 +22,7 @@ export default class AuthController {
       if (result.success) {
         req.session.user = {
           login: login,
+          userId: result.userId,
         };
         res.cookie('logged', true, { maxAge: 1000 * 60 * 60 * 24 * 7, httpOnly: true });
         return res.status(200).json({

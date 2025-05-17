@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/ItemSwiper.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Mousewheel, Scrollbar } from "swiper/modules";
@@ -14,6 +14,8 @@ type Props = {
   keyboardControl?: boolean;
   wheelControl?: boolean;
   scrollControl?: boolean;
+  swiperId?: string;
+  swiperSlideClass?: string;
 };
 
 export default function ItemSwiper({
@@ -23,12 +25,18 @@ export default function ItemSwiper({
   itemsPerView,
   keyboardControl,
   wheelControl,
-  scrollControl
+  scrollControl,
+  swiperId,
+  swiperSlideClass,
 }: Props) {
+
+  useEffect(()=>{
+    console.log(swiperSlideClass)
+  }, [])
 
   return (
     <Swiper
-    id={styles["item-swiper"]}
+    id={swiperId? styles[swiperId] : styles["item-swiper"]}
     direction={swiperDirection}
     spaceBetween={spaceBetweenItems}
     slidesPerView={itemsPerView}
@@ -38,7 +46,7 @@ export default function ItemSwiper({
     scrollbar={scrollControl ? { el: ".swiper-scrollbar", draggable: true, hide: false } : undefined}
   >
     {React.Children.map(children, (child, index) => (
-      <SwiperSlide key={index}>{child}</SwiperSlide>
+      <SwiperSlide className={styles[swiperSlideClass]} key={index}>{child}</SwiperSlide>
     ))}
   </Swiper>
   );

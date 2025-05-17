@@ -74,26 +74,30 @@ var AuthService = /** @class */ (function () {
         });
     };
     AuthService.authorizeUser = function (loginOrEmail, password) {
-        var _a;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var result, hashedPassword, credentials, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var result, userIdResult, hashedPassword, credentials, error_1;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        _b.trys.push([0, 3, , 4]);
+                        _c.trys.push([0, 4, , 5]);
                         return [4 /*yield*/, db_1.pool.query("SELECT password FROM \"Users\" WHERE login = $1 OR email = $1", [loginOrEmail])];
                     case 1:
-                        result = _b.sent();
+                        result = _c.sent();
+                        return [4 /*yield*/, db_1.pool.query("SELECT user_id FROM \"Users\" WHERE login = $1 OR email = $1", [loginOrEmail])];
+                    case 2:
+                        userIdResult = _c.sent();
                         hashedPassword = (_a = result.rows[0]) === null || _a === void 0 ? void 0 : _a.password;
                         console.log(loginOrEmail, password);
                         console.log(hashedPassword);
                         return [4 /*yield*/, passwordHasher_1["default"].checkPassword(password, hashedPassword)];
-                    case 2:
-                        credentials = _b.sent();
+                    case 3:
+                        credentials = _c.sent();
                         if (credentials) {
                             return [2 /*return*/, {
                                     success: true,
-                                    user: result.rows[0].login
+                                    user: result.rows[0].login,
+                                    userId: (_b = userIdResult.rows[0]) === null || _b === void 0 ? void 0 : _b.user_id
                                 }];
                         }
                         else {
@@ -102,15 +106,15 @@ var AuthService = /** @class */ (function () {
                                     error: "Invalid credentials"
                                 }];
                         }
-                        return [3 /*break*/, 4];
-                    case 3:
-                        error_1 = _b.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_1 = _c.sent();
                         console.error("Database error:", error_1);
                         return [2 /*return*/, {
                                 success: false,
                                 error: "Database error"
                             }];
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });

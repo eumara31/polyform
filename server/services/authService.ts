@@ -32,6 +32,10 @@ export default class AuthService {
         `SELECT password FROM "Users" WHERE login = $1 OR email = $1`,
         [loginOrEmail]
       );
+      const userIdResult= await pool.query(
+        `SELECT user_id FROM "Users" WHERE login = $1 OR email = $1`,
+        [loginOrEmail]
+      );
       const hashedPassword = result.rows[0]?.password;
       console.log(loginOrEmail, password);
       console.log(hashedPassword)
@@ -40,6 +44,7 @@ export default class AuthService {
         return {
           success: true,
           user: result.rows[0].login,
+          userId: userIdResult.rows[0]?.user_id
         };
       } else {
         return {

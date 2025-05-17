@@ -59,7 +59,8 @@ var react_1 = require("react");
 var AccountPage_module_css_1 = require("@/app/styles/AccountPage.module.css");
 var AccountNavbar_1 = require("@/app/account/components/AccountNavbar");
 var CategorySwiper_1 = require("@/app/account/components/CategorySwiper");
-var FormatBox_1 = require("@/app/category/[categoryName]/components/FormatBox");
+var ItemSwiper_1 = require("@/app/components/ItemSwiper");
+var LicenceBox_1 = require("@/app/category/[categoryName]/components/LicenceBox");
 var ModelUpload_1 = require("./components/ModelUpload");
 var ModelPreview_1 = require("./components/ModelPreview");
 var image_1 = require("next/image");
@@ -76,12 +77,18 @@ function Page(_a) {
         category: "",
         tags: [],
         materials: [],
-        formats: [],
+        licence: "",
         price: undefined,
-        currency: undefined
+        currency: undefined,
+        images: []
     }), modelJson = _f[0], setModelJson = _f[1];
     var _g = react_1.useState(null), modelFile = _g[0], setModelFile = _g[1];
+    var _h = react_1.useState(new Map()), imageBinaryMap = _h[0], setImageBinaryMap = _h[1];
     var categoryImageSize = 24;
+    function remToPixels(rem) {
+        var rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        return Math.round(rem * rootFontSize);
+    }
     react_1.useEffect(function () {
         setModelJson(function (prev) { return (__assign(__assign({}, prev), { currency: currency })); });
     }, []);
@@ -94,7 +101,7 @@ function Page(_a) {
             modelJson.category.trim() !== "" &&
             modelJson.tags.length > 0 &&
             modelJson.materials.length > 0 &&
-            modelJson.formats.length > 0 &&
+            modelJson.licence.trim() !== "" &&
             modelJson.price !== undefined &&
             modelJson.currency !== undefined);
     }
@@ -113,15 +120,8 @@ function Page(_a) {
             return __assign(__assign({}, prev), (_a = {}, _a[field] = newData, _a));
         });
     }
-    function handleFormatChange(formatObj) {
-        var formatArr = Object.entries(formatObj).reduce(function (tmp, _a) {
-            var formatName = _a[0], data = _a[1];
-            if (data.isActive) {
-                tmp.push(formatName);
-            }
-            return tmp;
-        }, []);
-        setModelJson(function (prev) { return (__assign(__assign({}, prev), { formats: formatArr })); });
+    function handleLicenceChange(selectedLicence) {
+        setModelJson(function (prev) { return (__assign(__assign({}, prev), { licence: selectedLicence })); });
     }
     function handleCurrencyChange() {
         setCurrency(function (prev) {
@@ -132,7 +132,7 @@ function Page(_a) {
     }
     function handleModelSubmission() {
         return __awaiter(this, void 0, void 0, function () {
-            var uploadPendingToast, formData, _i, _a, _b, key, value, err_1;
+            var uploadPendingToast, formData_1, _i, _a, _b, key, value, err_1;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -144,14 +144,17 @@ function Page(_a) {
                         _c.label = 2;
                     case 2:
                         _c.trys.push([2, 4, , 5]);
-                        formData = new FormData();
-                        formData.append("json", JSON.stringify(modelJson));
-                        formData.append("model", modelFile);
-                        for (_i = 0, _a = formData.entries(); _i < _a.length; _i++) {
+                        formData_1 = new FormData();
+                        formData_1.append("json", JSON.stringify(modelJson));
+                        formData_1.append("model", modelFile);
+                        Array.from(imageBinaryMap.values()).forEach(function (file) {
+                            formData_1.append("images", file);
+                        });
+                        for (_i = 0, _a = formData_1.entries(); _i < _a.length; _i++) {
                             _b = _a[_i], key = _b[0], value = _b[1];
                             console.log(key, value);
                         }
-                        return [4 /*yield*/, api_1["default"].post("/account/model/upload", formData, {
+                        return [4 /*yield*/, api_1["default"].post("/account/model/upload", formData_1, {
                                 headers: {
                                     "Content-Type": "multipart/form-data"
                                 },
@@ -172,6 +175,18 @@ function Page(_a) {
             });
         });
     }
+    function handleImageUpload(e) {
+        var _a;
+        var image = (_a = e.target.files) === null || _a === void 0 ? void 0 : _a[0];
+        if (image) {
+            setImageBinaryMap(function (prev) { return new Map(prev).set(image.name, image); });
+        }
+    }
+    react_1.useEffect(function () {
+        setModelJson(function (prev) {
+            return __assign(__assign({}, prev), { images: Array.from(imageBinaryMap.keys()) });
+        });
+    }, [imageBinaryMap]);
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
         react_1["default"].createElement(AccountNavbar_1["default"], { tabDict: {
                 0: { tabName: "Учётная запись", isActive: false, url: "/account" },
@@ -245,8 +260,8 @@ function Page(_a) {
                             react_1["default"].createElement("span", { className: AccountPage_module_css_1["default"]["checkbox-text"] }, label))); }))),
                     react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["format-price-column"], className: AccountPage_module_css_1["default"]["category-column"] },
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
-                            react_1["default"].createElement("h1", null, "\u0424\u043E\u0440\u043C\u0430\u0442\u044B"),
-                            react_1["default"].createElement(FormatBox_1["default"], { updateFormatArray: handleFormatChange })),
+                            react_1["default"].createElement("h1", null, "\u041B\u0438\u0446\u0435\u043D\u0437\u0438\u044F"),
+                            react_1["default"].createElement(LicenceBox_1["default"], { updateLicence: handleLicenceChange })),
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
                             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["price-currency-container"] },
                                 react_1["default"].createElement("input", { type: "number", placeholder: "\u0446\u0435\u043D\u0430", onChange: function (e) {
@@ -255,6 +270,18 @@ function Page(_a) {
                                 react_1["default"].createElement("button", { onClick: handleCurrencyChange }, currency)),
                             react_1["default"].createElement("button", { onClick: handleModelSubmission }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))))),
             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-upload-flex"] },
-                react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-input"] }, showModelPreview ? (react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat })) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview, setModelFile: setModelFile })))))));
+                showModelPreview ? (react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat })) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview, setModelFile: setModelFile })),
+                react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-photo-swiper-container"] },
+                    react_1["default"].createElement(ItemSwiper_1["default"], { swiperId: "model-photo-swiper", swiperSlideClass: "model-photo-slide-class", swiperDirection: "horizontal", spaceBetweenItems: remToPixels(1), itemsPerView: 3, wheelControl: true, scrollControl: true, keyboardControl: true },
+                        react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["add-photo"] },
+                            react_1["default"].createElement("input", { type: "file", id: "image-upload", multiple: false, className: AccountPage_module_css_1["default"]["hidden-input"], onChange: handleImageUpload }),
+                            react_1["default"].createElement("label", { htmlFor: "image-upload" },
+                                react_1["default"].createElement("p", { style: { fontSize: "48px" } }, "+"),
+                                react_1["default"].createElement("p", null, "\u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435"))),
+                        Array.from(imageBinaryMap.entries()).map(function (_a) {
+                            var name = _a[0], blob = _a[1];
+                            var url = URL.createObjectURL(blob);
+                            return react_1["default"].createElement("img", { key: name, src: url, alt: name });
+                        })))))));
 }
 exports["default"] = Page;

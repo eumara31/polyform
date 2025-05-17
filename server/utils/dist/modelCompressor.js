@@ -36,55 +36,66 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var assimpjs_1 = require("assimpjs");
 var fs_1 = require("fs");
 var path_1 = require("path");
-var core_1 = require("@gltf-transform/core");
-var functions_1 = require("@gltf-transform/functions");
-// сжимает 3д-модели (100мб-1гб) до приемлемых для отправки по сети размеров (1мб-10мб) для предпросмотра
-var ModelCompressor = /** @class */ (function () {
-    function ModelCompressor() {
+var child_process_1 = require("child_process");
+var obj2gltf_1 = require("obj2gltf");
+var url_1 = require("url");
+var gltf_pipeline_1 = require("gltf-pipeline");
+var processGltf = gltf_pipeline_1["default"].processGltf;
+var __filename = url_1.fileURLToPath(import.meta.url);
+var __dirname = path_1["default"].dirname(__filename);
+var __parentdir = path_1["default"].dirname(__dirname);
+// еле работает с obj и не работает со всем остальным
+var ModelCompresser = /** @class */ (function () {
+    function ModelCompresser() {
     }
-    ModelCompressor.createMin = function (inputPath, outputPath) {
-        return __awaiter(this, void 0, void 0, function () {
-            var assimp, buffer, name, file, scene, tmpGltfName, tmpGltfPath, exportSuccess, io, doc, glbName, glbFullPath, glbBinary;
+    ModelCompresser.createMin = function (inputPath) {
+        return __awaiter(this, void 0, Promise, function () {
+            var uploadsDir, ext, baseName, outputPath, tempDir, tempGlb, glbBuffer, assimpPath, finalBuffer, compressed;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, assimpjs_1["default"]()];
+                    case 0:
+                        uploadsDir = path_1["default"].join(__parentdir, 'uploads');
+                        if (!fs_1["default"].existsSync(inputPath)) {
+                            throw new Error("Input file not found: " + inputPath);
+                        }
+                        ext = path_1["default"].extname(inputPath).toLowerCase();
+                        baseName = path_1["default"].basename(inputPath, ext);
+                        outputPath = path_1["default"].join(uploadsDir, baseName + ".glb");
+                        tempDir = path_1["default"].join(__parentdir, 'temp');
+                        tempGlb = path_1["default"].join(tempDir, 'intermediate.glb');
+                        fs_1["default"].mkdirSync(tempDir, { recursive: true });
+                        if (!(ext === '.obj')) return [3 /*break*/, 2];
+                        return [4 /*yield*/, obj2gltf_1["default"](inputPath, { binary: true })];
                     case 1:
-                        assimp = _a.sent();
-                        buffer = fs_1["default"].readFileSync(inputPath);
-                        name = path_1["default"].basename(inputPath);
-                        file = new assimp.File();
-                        scene = assimp.ReadFile(file);
-                        if (!scene || !scene.IsValid()) {
-                            throw new Error("Failed to load model");
-                        }
-                        tmpGltfName = path_1["default"].basename(inputPath, path_1["default"].extname(inputPath)) + ".gltf";
-                        tmpGltfPath = path_1["default"].join(outputPath, tmpGltfName);
-                        exportSuccess = assimp.ExportFile(scene, tmpGltfPath, "gltf2");
-                        if (!exportSuccess) {
-                            throw new Error("GLTF export failed");
-                        }
-                        io = new core_1.NodeIO();
-                        return [4 /*yield*/, io.read(tmpGltfPath)];
+                        glbBuffer = _a.sent();
+                        fs_1["default"].writeFileSync(tempGlb, glbBuffer);
+                        return [3 /*break*/, 3];
                     case 2:
-                        doc = _a.sent();
-                        return [4 /*yield*/, doc.transform(functions_1.weld())];
+                        assimpPath = path_1["default"].join(__dirname, 'assimp.exe');
+                        console.log(assimpPath);
+                        try {
+                            child_process_1.execSync("\"" + assimpPath + "\" export \"" + inputPath + "\" \"" + tempGlb + "\" -f glb2");
+                        }
+                        catch (e) {
+                            throw new Error("Assimp failed to convert " + inputPath + ": " + e);
+                        }
+                        _a.label = 3;
                     case 3:
-                        _a.sent();
-                        glbName = path_1["default"].basename(inputPath, path_1["default"].extname(inputPath)) + ".glb";
-                        glbFullPath = path_1["default"].join(outputPath, glbName);
-                        return [4 /*yield*/, io.writeBinary(doc)];
+                        finalBuffer = fs_1["default"].readFileSync(tempGlb);
+                        return [4 /*yield*/, processGltf(finalBuffer, {
+                                dracoOptions: { compressionLevel: 10 }
+                            })];
                     case 4:
-                        glbBinary = _a.sent();
-                        fs_1["default"].writeFileSync(glbFullPath, glbBinary);
-                        fs_1["default"].unlinkSync(tmpGltfPath);
-                        return [2 /*return*/, glbFullPath];
+                        compressed = _a.sent();
+                        fs_1["default"].writeFileSync(outputPath, compressed.glb);
+                        fs_1["default"].rmSync(tempDir, { recursive: true, force: true });
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    return ModelCompressor;
+    return ModelCompresser;
 }());
-exports["default"] = ModelCompressor;
+exports["default"] = ModelCompresser;

@@ -25,6 +25,7 @@
 .DS_Store
 *.pem
 /server/uploads
+/server/bin
 
 # debug
 npm-debug.log*

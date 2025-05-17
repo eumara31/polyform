@@ -265,17 +265,18 @@
 }
 #new-model-flex #model-upload-flex {
   flex-grow: 1;
-  max-height: 100%;
+  height: 80vh;
   width: 100%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
 }
-#new-model-flex #model-upload-flex #model-input {
-  width: 100%;
-  height: 100%;
-}
-#new-model-flex #model-upload-flex #model-input input[type=file] {
+#new-model-flex #model-upload-flex input[type=file] {
   display: none;
+  flex-shrink: 1;
 }
-#new-model-flex #model-upload-flex #model-input #custom-model-input {
+#new-model-flex #model-upload-flex #custom-model-input {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,14 +290,56 @@
   font-weight: 500;
   font-size: 16px;
   color: #363537;
+  flex-shrink: 1;
+  flex-grow: 0;
 }
 #new-model-flex #model-upload-flex #canvas-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
   border: 2px solid #363537;
   border-radius: 0.5rem;
+  flex-grow: 0;
+  flex-shrink: 2;
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container {
+  width: 100%;
+  height: 33%;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container .add-photo {
+  width: 100%;
+  height: 100%;
+  text-wrap-style: pretty;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #363537;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container .add-photo label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container .add-photo label p {
+  margin: 0px;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container .add-photo input {
+  width: 100%;
+  height: 100%;
 }/*# sourceMappingURL=AccountPage.module.css.map */

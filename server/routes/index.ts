@@ -34,7 +34,10 @@ router.get(
 //require auth не рабоатет после первой отправки файла
 router.post(
   "/account/model/upload",
-  upload.single("model"),
+  upload.fields([
+    { name: 'model', maxCount: 1 },
+    { name: 'images', maxCount: 20 }
+  ]),
   AccountController.uploadUserModel
 );
 

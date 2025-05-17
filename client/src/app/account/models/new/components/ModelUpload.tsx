@@ -30,7 +30,7 @@ export default function ModelUpload({setModelURL, setModelFormat, setShowModelPr
         id="model-upload"
         type="file"
         name="model"
-      ></input>
+      />
       <label htmlFor="model-upload" id={styles["custom-model-input"]}>
         <div
           style={{

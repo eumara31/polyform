@@ -280,36 +280,19 @@
 
     #model-upload-flex {
         flex-grow: 1;
-
-        max-height: 100%;
+        height: 80vh;
         width: 100%;
+        gap: 1rem;
 
-        #model-input {
-            width: 100%;
-            height: 100%;
+        display: flex;
+        flex-direction: column;
 
-            input[type="file"] {
-                display: none;
-            }
-
-            #custom-model-input {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                width: 100%;
-                border: 2px solid $header-color;
-                border-radius: 0.5rem;
-                cursor: pointer;
-                font-family: $default-font;
-                font-weight: 500;
-                font-size: 16px;
-                color: $header-color;
-            }
+        input[type="file"] {
+            display: none;
+            flex-shrink: 1;
         }
 
-        #canvas-flex {
+        #custom-model-input {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -318,8 +301,71 @@
             width: 100%;
             border: 2px solid $header-color;
             border-radius: 0.5rem;
+            cursor: pointer;
+            font-family: $default-font;
+            font-weight: 500;
+            font-size: 16px;
+            color: $header-color;
+            flex-shrink: 1;
+            flex-grow: 0;
+        }
 
-            #model-canvas {}
+        #canvas-flex {
+            height: 100%;
+            width: 100%;
+            border: 2px solid $header-color;
+            border-radius: 0.5rem;
+            flex-grow: 0;
+            flex-shrink: 2;
+            display: block;
+            line-height: 0;
+            overflow: hidden;
+        }
+
+        overflow-x: hidden;
+
+        #model-photo-swiper-container {
+            width: 100%;
+            height: 33%;
+
+            .add-photo {
+                width: 100%;
+                height: 100%;
+
+                text-wrap-style: pretty;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                font-family: $default-font;
+                font-weight: 500;
+                font-size: 16px;
+                color: $header-color;
+                display: flex;
+                width: 100%;
+                height: 100%;
+
+                label {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0px;
+                    width: 100%;
+                    height: 100%;
+                    p{
+                        margin: 0px;
+                    }
+                }
+
+                input {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
         }
     }
 }

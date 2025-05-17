@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "@/app/account/components/AccountNavbar";
 import CategorySwiper from "@/app/account/components/CategorySwiper";
-import FormatBox from "@/app/category/[categoryName]/components/FormatBox";
+import ImageSwiper from "@/app/components/ItemSwiper";
+import LicenceBox from "@/app/category/[categoryName]/components/LicenceBox";
 import ModelUpload from "./components/ModelUpload";
 import ModelPreview from "./components/ModelPreview";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import api from "@/app/utilities/api";
+import { CLIENT_STATIC_FILES_RUNTIME_REACT_REFRESH } from "next/dist/shared/lib/constants";
 
 type Props = {};
 
@@ -18,9 +20,10 @@ type ModelJson = {
   category: string;
   tags: string[];
   materials: string[];
-  formats: string[];
+  licence: string;
   price: number | undefined;
   currency: string | undefined;
+  images: string[] | undefined;
 };
 
 export default function Page({}: Props) {
@@ -34,13 +37,23 @@ export default function Page({}: Props) {
     category: "",
     tags: [],
     materials: [],
-    formats: [],
+    licence: "",
     price: undefined,
     currency: undefined,
+    images: [],
   });
   const [modelFile, setModelFile] = useState<File | null>(null);
+  const [imageBinaryMap, setImageBinaryMap] = useState<Map<number, string>>(
+    new Map<number, string>()
+  );
 
   const categoryImageSize = 24;
+  function remToPixels(rem: number): number {
+    const rootFontSize = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+    return Math.round(rem * rootFontSize);
+  }
 
   useEffect(() => {
     setModelJson((prev) => ({
@@ -60,7 +73,7 @@ export default function Page({}: Props) {
       modelJson.category.trim() !== "" &&
       modelJson.tags.length > 0 &&
       modelJson.materials.length > 0 &&
-      modelJson.formats.length > 0 &&
+      modelJson.licence.trim() !== "" &&
       modelJson.price !== undefined &&
       modelJson.currency !== undefined
     );
@@ -91,24 +104,12 @@ export default function Page({}: Props) {
     });
   }
 
-  function handleFormatChange(formatObj: {
-    [key: string]: { isActive: boolean };
-  }) {
-    const formatArr = Object.entries(formatObj).reduce(
-      (tmp, [formatName, data]) => {
-        if (data.isActive) {
-          tmp.push(formatName);
-        }
-        return tmp;
-      },
-      [] as string[]
-    );
+  function handleLicenceChange(selectedLicence: string | null) {
     setModelJson((prev) => ({
       ...prev,
-      formats: formatArr,
+      licence: selectedLicence,
     }));
   }
-
   function handleCurrencyChange() {
     setCurrency((prev) => {
       const newCurrency = prev === "RUB" ? "USD" : "RUB";
@@ -126,10 +127,13 @@ export default function Page({}: Props) {
         const formData = new FormData();
         formData.append("json", JSON.stringify(modelJson));
         formData.append("model", modelFile);
+        Array.from(imageBinaryMap.values()).forEach((file) => {
+          formData.append("images", file);
+        });
 
         for (const [key, value] of formData.entries()) {
-  console.log(key, value);
-}
+          console.log(key, value);
+        }
 
         await api.post("/account/model/upload", formData, {
           headers: {
@@ -145,6 +149,22 @@ export default function Page({}: Props) {
       }
     }
   }
+
+  function handleImageUpload(e) {
+    const image = e.target.files?.[0];
+    if (image) {
+      setImageBinaryMap((prev) => new Map(prev).set(image.name, image));
+    }
+  }
+
+  useEffect(() => {
+    setModelJson((prev) => {
+      return {
+        ...prev,
+        images: Array.from(imageBinaryMap.keys()),
+      };
+    });
+  }, [imageBinaryMap]);
 
   return (
     <>
@@ -275,8 +295,8 @@ export default function Page({}: Props) {
               className={styles["category-column"]}
             >
               <div className={styles["format-flex"]}>
-                <h1>Форматы</h1>
-                <FormatBox updateFormatArray={handleFormatChange} />
+                <h1>Лицензия</h1>
+                <LicenceBox updateLicence={handleLicenceChange} />
               </div>
               <div className={styles["format-flex"]}>
                 <div id={styles["price-currency-container"]}>
@@ -295,17 +315,46 @@ export default function Page({}: Props) {
           </div>
         </div>
         <div id={styles["model-upload-flex"]}>
-          <div id={styles["model-input"]}>
-            {showModelPreview ? (
-              <ModelPreview modelURL={modelURL} modelFormat={modelFormat} />
-            ) : (
-              <ModelUpload
-                setModelURL={setModelURL}
-                setModelFormat={setModelFormat}
-                setShowModelPreview={setShowModelPreview}
-                setModelFile={setModelFile}
-              />
-            )}
+          {showModelPreview ? (
+            <ModelPreview modelURL={modelURL} modelFormat={modelFormat} />
+          ) : (
+            <ModelUpload
+              setModelURL={setModelURL}
+              setModelFormat={setModelFormat}
+              setShowModelPreview={setShowModelPreview}
+              setModelFile={setModelFile}
+            />
+          )}
+          <div id={styles["model-photo-swiper-container"]}>
+            <ImageSwiper
+              swiperId={"model-photo-swiper"}
+              swiperSlideClass={"model-photo-slide-class"}
+              swiperDirection={"horizontal"}
+              spaceBetweenItems={remToPixels(1)}
+              itemsPerView={3}
+              wheelControl={true}
+              scrollControl={true}
+              keyboardControl={true}
+            >
+              <div className={styles["add-photo"]}>
+                <input
+                  type="file"
+                  id="image-upload"
+                  multiple={false}
+                  className={styles["hidden-input"]}
+                  onChange={handleImageUpload}
+                />
+
+                <label htmlFor="image-upload">
+                  <p style={{ fontSize: "48px" }}>+</p>
+                  <p>добавить изображение</p>
+                </label>
+              </div>
+              {Array.from(imageBinaryMap.entries()).map(([name, blob]) => {
+                const url = URL.createObjectURL(blob);
+                return <img key={name} src={url} alt={name} />;
+              })}
+            </ImageSwiper>
           </div>
         </div>
       </div>
