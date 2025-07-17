@@ -127,7 +127,6 @@ function Header(_a) {
                             react_1["default"].createElement("span", null, text)));
                     }))),
                 react_1["default"].createElement("form", { id: Header_module_css_1["default"]["search-bar"] },
-                    "placeholder",
                     react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["search-img"], src: "/img/search.svg", width: 24, height: 24, alt: "" })),
                 logoutButton ? (react_1["default"].createElement("div", { id: Header_module_css_1["default"]["right-header-container"] },
                     react_1["default"].createElement(link_1["default"], { href: '/account' },
@@ -142,7 +141,7 @@ function Header(_a) {
                     react_1["default"].createElement("div", { id: Header_module_css_1["default"]["best-items-href"] }, "\u041B\u0443\u0447\u0448\u0438\u0435 \u043C\u043E\u0434\u0435\u043B\u0438"),
                     react_1["default"].createElement("div", { id: Header_module_css_1["default"]["favorites-href"] }, "\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435")),
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline-itemsfound"] }),
-                react_1["default"].createElement("div", null, "\u041F\u043E \u0437\u0430\u043F\u0440\u043E\u0441\u0443 \"\" \u043D\u0430\u0439\u0434\u0435\u043D\u043E n \u0442\u043E\u0432\u0430\u0440\u043E\u0432"),
+                react_1["default"].createElement("div", null),
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline-rsubcontainer"] },
                     logoutButton ? (react_1["default"].createElement(react_1["default"].Fragment, null,
                         react_1["default"].createElement("div", { id: Header_module_css_1["default"]["change-lang"] }, "en"),

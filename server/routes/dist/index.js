@@ -7,6 +7,7 @@ var authMiddleware_1 = require("../middleware/authMiddleware");
 var multer_1 = require("multer");
 var url_1 = require("url");
 var path_1 = require("path");
+var productController_1 = require("../controllers/productController");
 var __filename = url_1.fileURLToPath(import.meta.url);
 var __dirname = path_1["default"].dirname(__filename);
 var __parentdir = path_1["default"].dirname(__dirname);
@@ -30,4 +31,5 @@ router.post("/account/model/upload", upload.fields([
     { name: 'model', maxCount: 1 },
     { name: 'images', maxCount: 20 }
 ]), accountController_1["default"].uploadUserModel);
+router.get("/product/:productId", (productController_1["default"].getProductById));
 exports["default"] = router;

@@ -1,0 +1,19 @@
+<%- include('layout', { body: `
+    <h1>Вакансии ООО ЧОП Медведь</h1>
+
+    ${jobs.map(job => `
+        <div class="job-card">
+            <h2 class="job-title">${job.title}</h2>
+            <p>${job.description}</p>
+            <p class="job-salary">${job.salary}</p>
+            <div class="job-requirements">
+                <h3>Требования:</h3>
+                <p>${job.requirements}</p>
+            </div>
+            <div class="contact-info">
+                <p>Телефон: ${job.phone}</p>
+                <p>Email: ${job.email}</p>
+            </div>
+        </div>
+    `).join('')}
+`}) %> 

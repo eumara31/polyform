@@ -5,6 +5,7 @@ import { requireAuth } from "../middleware/authMiddleware";
 import multer from "multer";
 import { fileURLToPath } from "url";
 import path from "path";
+import ProductController from "../controllers/productController";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,5 +41,6 @@ router.post(
   ]),
   AccountController.uploadUserModel
 );
+router.get("/product/:productId", (ProductController.getProductById))
 
 export default router;

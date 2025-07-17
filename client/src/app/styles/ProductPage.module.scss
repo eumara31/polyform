@@ -32,6 +32,8 @@
             flex-direction: column;
             gap: 1rem;
             width: 100%;
+            min-height: 0;
+
             #name-rating-flex {
                 width: 100%;
                 display: flex;
@@ -47,12 +49,14 @@
                     width: 100%;
                     overflow-x: hidden;
                 }
-                #rating-vote{
+
+                #rating-vote {
                     display: flex;
                     flex-direction: row;
                     justify-content: flex-start;
                     gap: 0.3rem;
                 }
+
                 #rating {
                     display: flex;
                     flex-direction: row;
@@ -79,21 +83,97 @@
                 }
             }
 
-            #author-flex {
-                span {}
-
-                #author {}
+            #description {
+                font-family: $default-font;
+                font-size: 1rem;
+                font-weight: 400;
+                text-indent: 1rem;
+                display: flex;
+                flex: 1;
+                max-height: 100%;
+                overflow: auto;
             }
-
-            #description {}
 
             #attributes-price-flex {
-                #attributes {}
+                background-color: $header-color;
+                color: $white;
+                width: 100%;
+                height: fit-content;
+                border-radius: 1rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1rem;
+                user-select: none;
 
-                #price {}
+                #attributes {
+                    font-family: $default-font;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: $white;
+                    width: fit-content;
+                    display: grid;
+                    grid-auto-flow: column;
+                    grid-template-rows: repeat(3, 1fr);
+                    column-gap: 1rem;
+                    row-gap: 0.5rem;
+                    line-height: 24px;
+
+                    .attribute {
+                        display: flex;
+                        flex-direction: row;
+                        gap: 0.25rem;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+                }
+
+                #price-button-flex {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    gap: 0.5rem;
+
+                    #price {
+                        font-family: $default-font;
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                        color: $white;
+                    }
+
+                    #add-to-cart {
+                        background-color: $logo-color;
+                        font-family: $default-font;
+                        color: black;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        transition: all 0.05s ease-in-out;
+
+                        appearance: none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        border: none;
+                        outline: none;
+
+                        &:active {
+                            background-color: white;
+                        }
+                    }
+                }
+
+                #author-flex {
+                    span {}
+
+                    #author {}
+                }
             }
         }
-    }
 
-    #similar-products-flex {}
+        #similar-products-flex {}
+    }
 }

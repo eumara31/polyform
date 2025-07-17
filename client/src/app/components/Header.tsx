@@ -106,7 +106,6 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
           </ul>
           </div>
           <form id={styles["search-bar"]}>
-            placeholder
             <Image
               id={styles["search-img"]}
               src="/img/search.svg"
@@ -141,7 +140,7 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
             <div id={styles["favorites-href"]}>Избранное</div>
           </div>
           <div id={styles["header-underline-itemsfound"]}></div>
-          <div>По запросу "" найдено n товаров</div>
+          <div></div>
           <div id={styles["header-underline-rsubcontainer"]}>
             {logoutButton ? (
               <>

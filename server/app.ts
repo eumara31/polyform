@@ -1,13 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import routes from "./routes/index";
-import { pool } from "./config/db";
 import cookieParser from "cookie-parser";
-import path from "path";
 import { Request } from "express";
 import cors from "cors";
 import session from "express-session";
-import { blob } from "stream/consumers";
 
 dotenv.config();
 
@@ -30,7 +27,7 @@ app.use(
   })
 );
 
-app.use("/api", routes);
+app.use("/", routes);
 
 app.use(
   (

@@ -17,6 +17,7 @@
 # next.js
 /client/.next/
 /client/out/
+/ПП 04/node_modules
 
 # production
 /build
