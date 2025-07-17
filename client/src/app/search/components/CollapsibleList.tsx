@@ -5,13 +5,20 @@ import styles from "@/app/styles/CollapsibleList.module.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
+type ListItem = {
+  src: string;
+  text: string;
+};
+
 type Props = {
-  children: React.ReactNode;
+  elements: ListItem[];
+  onElementSelect?: (userSelect: string) => void;
+  imageSize?: number;
 };
 
 gsap.registerPlugin(useGSAP);
 
-export default function CollapsibleList({ children }: Props) {
+export default function CollapsibleList({ elements, onElementSelect, imageSize = 32 }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [arrowState, setArrowState] = useState("down");
   const collapsibleListRef = useRef(null);
@@ -50,12 +57,18 @@ export default function CollapsibleList({ children }: Props) {
 
   return (
     <div id={styles["container"]}>
-      <ul
-        ref={collapsibleListRef}
-        className="a"
-        id={styles["collapsible-list"]}
-      >
-        {children}
+      <ul ref={collapsibleListRef} id={styles["collapsible-list"]}>
+        {elements.map(({ src, text }) => (
+          <li key={text} onClick={() => onElementSelect?.(text)}>
+            <Image
+              src={`/img/${src}`}
+              height={imageSize}
+              width={imageSize}
+              alt=""
+            />
+            <span>{text}</span>
+          </li>
+        ))}
       </ul>
       <div
         id={styles["collapsible-button"]}
@@ -63,7 +76,7 @@ export default function CollapsibleList({ children }: Props) {
         ref={collapsibleButtonRef}
       >
         <Image
-          src={"../img/arrow_" + arrowState + "_ios.svg"}
+          src={`/img/arrow_${arrowState}_ios.svg`}
           height={22}
           width={22}
           alt=""

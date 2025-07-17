@@ -1,51 +1,63 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
-import Image from "next/image";
 import styles from "@/app/styles/CategorySidebar.module.css";
 import PriceSlider from "./PriceSlider";
 import CollapsibleList from "./CollapsibleList";
 import MultipleToggleGroup from "./MultipleToggleGroup";
 import { useSearchStore } from "@/app/store";
+import { shallow } from 'zustand/shallow';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function CategorySidebar({ children }: Props) {
-  const categories = useSearchStore((state) => state.categories);
-  const minPrice = useSearchStore((state) => state.minPrice);
-  const maxPrice = useSearchStore((state) => state.maxPrice);
-  const features = useSearchStore((state) => state.features);
-  const materials = useSearchStore((state) => state.materials);
-  const licenses = useSearchStore((state) => state.licenses);
-
-  const setCategories = useSearchStore((state) => state.setCategories);
-  const setMinPrice = useSearchStore((state) => state.setMinPrice);
-  const setMaxPrice = useSearchStore((state) => state.setMaxPrice);
-  const setFeatures = useSearchStore((state) => state.setFeatures);
-  const setMaterials = useSearchStore((state) => state.setMaterials);
-  const setLicenses = useSearchStore((state) => state.setLicenses);
-  const resetSearchStore = useSearchStore((state) => state.reset);
-
   const categoryImageSize = 28;
 
-  useEffect(() => {
-    
-  }, [categories, minPrice, maxPrice, features, materials, licenses]);
+const categories = useSearchStore(state => state.categories);
+const features = useSearchStore(state => state.features);
+const materials = useSearchStore(state => state.materials);
+const licenses = useSearchStore(state => state.licenses);
+const minPrice = useSearchStore(state => state.minPrice);
+const maxPrice = useSearchStore(state => state.maxPrice);
 
-  function handleLicensesUpdate(groupState) {
-    const selectedKeys = Object.keys(groupState).filter(
-      (key) => groupState[key].isActive
-    );
-    setLicenses(selectedKeys);
+const setCategories = useSearchStore(state => state.setCategories);
+const setFeatures = useSearchStore(state => state.setFeatures);
+const setMaterials = useSearchStore(state => state.setMaterials);
+const setLicenses = useSearchStore(state => state.setLicenses);
+const setMinPrice = useSearchStore(state => state.setMinPrice);
+const setMaxPrice = useSearchStore(state => state.setMaxPrice);
+
+
+  const toggleArrayItem = (arr: string[], item: string) =>
+    arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
+
+  const handleFeatureToggle = (label: string) => {
+    setFeatures(toggleArrayItem(features, label));
   };
+
+  const handleMaterialToggle = (label: string) => {
+    setMaterials(toggleArrayItem(materials, label));
+  };
+
+  const handleLicencesUpdate = (license: string) => {
+    setLicenses(license);
+  };
+
+  useEffect(() => {
+    console.log({
+      features,
+      materials,
+      licenses,
+    });
+  }, [features, materials, licenses]);
 
   return (
     <div id={styles["category-layout"]}>
       <div id={styles["category-sidebar"]}>
         <h1 className={styles["sidebar-h1"]}>Категории</h1>
-        <CollapsibleList>
-          {[
+        <CollapsibleList
+          elements={[
             { src: "person.svg", text: "Персонажи" },
             { src: "cottage.svg", text: "Архитектура" },
             { src: "car.svg", text: "Транспорт" },
@@ -62,18 +74,9 @@ export default function CategorySidebar({ children }: Props) {
             { src: "cruelty_free.svg", text: "Животные" },
             { src: "brush.svg", text: "Художество" },
             { src: "headphones.svg", text: "Музыка" },
-          ].map(({ src, text }) => (
-            <li key={text}>
-              <Image
-                src={`../img/${src}`}
-                height={categoryImageSize}
-                width={categoryImageSize}
-                alt=""
-              />
-              <span>{text}</span>
-            </li>
-          ))}
-        </CollapsibleList>
+          ]}
+          imageSize={30}
+        />
 
         <h1 className={styles["sidebar-h1"]}>Цена</h1>
         <PriceSlider />
@@ -88,7 +91,11 @@ export default function CategorySidebar({ children }: Props) {
             "Эластичная",
           ].map((label) => (
             <label key={label} className={styles["checkbox-subcontainer"]}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={features.includes(label)}
+                onChange={() => handleFeatureToggle(label)}
+              />
               <span className={styles["checkbox-text"]}>{label}</span>
             </label>
           ))}
@@ -98,26 +105,32 @@ export default function CategorySidebar({ children }: Props) {
         <div className={styles["checkbox-container"]}>
           {["PLA", "ABS", "PETG", "TPU", "Resin"].map((label) => (
             <label key={label} className={styles["checkbox-subcontainer"]}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={materials.includes(label)}
+                onChange={() => handleMaterialToggle(label)}
+              />
               <span className={styles["checkbox-text"]}>{label}</span>
             </label>
           ))}
         </div>
+
         <h1 className={styles["sidebar-h2"]}>Лицензии</h1>
-                        <MultipleToggleGroup
-                          onGroupSelect={handleLicensesUpdate}
-                          items={[
-                            "MIT",
-                            "GPL",
-                            "Apache",
-                            "BSD",
-                            "LGPL",
-                            "MPL",
-                            "EPL",
-                            "Unlicense",
-                          ]}
-                        />
+        <MultipleToggleGroup
+          onGroupSelect={handleLicencesUpdate}
+          items={[
+            "MIT",
+            "GPL",
+            "Apache",
+            "BSD",
+            "LGPL",
+            "MPL",
+            "EPL",
+            "Unlicense",
+          ]}
+        />
       </div>
+
       <div id={styles["item-container"]}>{children}</div>
     </div>
   );

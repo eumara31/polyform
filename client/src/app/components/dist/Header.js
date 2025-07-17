@@ -46,6 +46,7 @@ var PopupOverlay_1 = require("./PopupOverlay");
 var LoginForm_1 = require("./LoginForm");
 var api_1 = require("../utilities/api");
 var navigation_1 = require("next/navigation");
+var SearchInput_1 = require("./SearchInput");
 var link_1 = require("next/link");
 gsap_1["default"].registerPlugin(react_2.useGSAP);
 function Header(_a) {
@@ -100,9 +101,10 @@ function Header(_a) {
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["logo"] },
                     react_1["default"].createElement(link_1["default"], { className: Header_module_css_1["default"]["no-outline"], href: '/' }, "\u041F\u043E\u043B\u0438\u0444\u043E\u0440\u043C")),
                 react_1["default"].createElement("div", { id: Header_module_css_1["default"]["category-dropdown"] },
-                    react_1["default"].createElement("button", { id: Header_module_css_1["default"]["header-category-button"] },
-                        react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["header-category-img"], src: "/img/dashboard_customize.svg", width: 24, height: 24, alt: "" }),
-                        "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438"),
+                    react_1["default"].createElement(link_1["default"], { href: "/search" },
+                        react_1["default"].createElement("button", { id: Header_module_css_1["default"]["header-category-button"] },
+                            react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["header-category-img"], src: "/img/dashboard_customize.svg", width: 24, height: 24, alt: "" }),
+                            "\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438")),
                     react_1["default"].createElement("ul", { id: Header_module_css_1["default"]["dropdown-list"] }, [
                         { src: "person.svg", text: "Персонажи" },
                         { src: "cottage.svg", text: "Архитектура" },
@@ -126,12 +128,12 @@ function Header(_a) {
                             react_1["default"].createElement(image_1["default"], { src: "../img/" + src, height: categoryImageSize, width: categoryImageSize, alt: "" }),
                             react_1["default"].createElement("span", null, text)));
                     }))),
-                react_1["default"].createElement("form", { id: Header_module_css_1["default"]["search-bar"] },
-                    react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["search-img"], src: "/img/search.svg", width: 24, height: 24, alt: "" })),
+                react_1["default"].createElement(SearchInput_1["default"], null),
                 logoutButton ? (react_1["default"].createElement("div", { id: Header_module_css_1["default"]["right-header-container"] },
                     react_1["default"].createElement(link_1["default"], { href: '/account' },
                         react_1["default"].createElement(image_1["default"], { src: "/img/account_box.svg", alt: "", width: 32, height: 32 })),
-                    react_1["default"].createElement(image_1["default"], { src: "/img/local_mall.svg", alt: "", width: 32, height: 32 }))) : (react_1["default"].createElement(react_1["default"].Fragment, null,
+                    react_1["default"].createElement(link_1["default"], { href: '/cart' },
+                        react_1["default"].createElement(image_1["default"], { src: "/img/local_mall.svg", alt: "", width: 32, height: 32 })))) : (react_1["default"].createElement(react_1["default"].Fragment, null,
                     react_1["default"].createElement("div", { id: Header_module_css_1["default"]["change-lang"] }, "en"),
                     react_1["default"].createElement(image_1["default"], { id: Header_module_css_1["default"]["dark-mode-img"], src: "/img/dark_mode.svg", width: 32, height: 32, alt: "" })))),
             react_1["default"].createElement("div", { id: Header_module_css_1["default"]["header-underline"] },

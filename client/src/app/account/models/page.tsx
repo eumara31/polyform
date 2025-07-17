@@ -1,7 +1,4 @@
-import Header from "@/app/components/Header";
-import WidthContainer from "@/app/components/WidthContainer";
 import React from "react";
-import styles from "@/app/styles/AccountPage.module.css";
 import AccountNavbar from "../components/AccountNavbar";
 
 type Props = {};

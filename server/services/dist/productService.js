@@ -47,14 +47,83 @@ var ProductService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, db_1.pool.query('SELECT * FROM "Models" WHERE model_id = $1', [productId])];
+                        return [4 /*yield*/, db_1.pool.query('SELECT "Models".*, COALESCE("Users".login, "Users".email) AS username FROM "Models" JOIN "Users" ON "Models".uploader_id = "Users".user_id WHERE "Models".model_id = $1;', [productId])];
                     case 1:
                         result = _a.sent();
                         return [2 /*return*/, result.rows[0]];
                     case 2:
                         err_1 = _a.sent();
-                        return [2 /*return*/, err_1];
+                        throw err_1;
                     case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProductService.getProductIds = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, db_1.pool.query('SELECT model_id FROM "Models";')];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.rows.map(function (row) { return row.model_id; })];
+                }
+            });
+        });
+    };
+    ProductService.getProductIdsByQuery = function (query) {
+        var _a, _b, _c;
+        return __awaiter(this, void 0, void 0, function () {
+            var values, conditions, whereClause, sql, result, err_2;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        values = [];
+                        conditions = [];
+                        if (query.searchQuery) {
+                            values.push("%" + query.searchQuery + "%");
+                            conditions.push("\"Models\".name ILIKE $" + values.length);
+                        }
+                        if ((_a = query.categories) === null || _a === void 0 ? void 0 : _a.length) {
+                            values.push(query.categories);
+                            conditions.push("\"Models\".category = ANY($" + values.length + ")");
+                        }
+                        if ((_b = query.features) === null || _b === void 0 ? void 0 : _b.length) {
+                            values.push(query.features);
+                            conditions.push("\"Models\".features && $" + values.length + "::text[]");
+                        }
+                        if ((_c = query.materials) === null || _c === void 0 ? void 0 : _c.length) {
+                            values.push(query.materials);
+                            conditions.push("\"Models\".materials && $" + values.length + "::text[]");
+                        }
+                        if (query.licenses) {
+                            values.push(query.licenses);
+                            conditions.push("\"Models\".license = $" + values.length);
+                        }
+                        if (query.minPrice !== undefined && query.minPrice > 0) {
+                            values.push(query.minPrice);
+                            conditions.push("\"Models\".price >= $" + values.length);
+                        }
+                        if (query.maxPrice !== undefined && query.maxPrice > 0) {
+                            values.push(query.maxPrice);
+                            conditions.push("\"Models\".price <= $" + values.length);
+                        }
+                        whereClause = conditions.length
+                            ? "WHERE " + conditions.join(" AND ")
+                            : "";
+                        sql = "\n    SELECT \"Models\".model_id\n    FROM \"Models\"\n    " + whereClause + ";\n  ";
+                        _d.label = 1;
+                    case 1:
+                        _d.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, db_1.pool.query(sql, values)];
+                    case 2:
+                        result = _d.sent();
+                        return [2 /*return*/, result.rows.map(function (row) { return row.model_id; })];
+                    case 3:
+                        err_2 = _d.sent();
+                        throw err_2;
+                    case 4: return [2 /*return*/];
                 }
             });
         });

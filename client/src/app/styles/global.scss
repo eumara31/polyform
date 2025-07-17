@@ -1,18 +1,27 @@
 @import 'colors';
 
-html, body {
-    height: 100%;
-    background-color: $bg-color;
-    color: $default-text-color;
-    margin: 0;
-    padding: 0;
-    overflow-y: scroll;
-    scrollbar-gutter: stable overlay;
+html,
+body {
+  height: 100%;
+  background-color: $bg-color;
+  color: $default-text-color;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+  scrollbar-gutter: stable overlay;
 }
 
 html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

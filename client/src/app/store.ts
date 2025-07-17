@@ -1,43 +1,73 @@
 import { create } from 'zustand';
 
 type SearchStore = {
+  searchQuery: string;
   categories: string[];
-  minPrice: number;
-  maxPrice: number;
   features: string[];
   materials: string[];
-  licenses: string[];
+  licenses: string;
+  minPrice: number;
+  maxPrice: number;
 
-  setCategories: (categories: string[]) => void;
-  setMinPrice: (minPrice: number) => void;
-  setMaxPrice: (maxPrice: number) => void;
-  setFeatures: (features: string[]) => void;
-  setMaterials: (materials: string[]) => void;
-  setLicenses: (licenses: string[]) => void;
+  setSearchQuery: (q: string) => void;
+  setCategories: (c: string[]) => void;
+  setFeatures: (f: string[]) => void;
+  setMaterials: (m: string[]) => void;
+  setLicenses: (l: string) => void;
+  setMinPrice: (p: number) => void;
+  setMaxPrice: (p: number) => void;
+
+  getJsonQuery: () => Record<string, any>;
   reset: () => void;
 };
 
-export const useSearchStore = create<SearchStore>((set) => ({
+export const useSearchStore = create<SearchStore>((set, get) => ({
+  searchQuery: '',
   categories: [],
-  minPrice: 0,
-  maxPrice: 0,
   features: [],
   materials: [],
-  licenses: [],
+  licenses: '',
+  minPrice: 0,
+  maxPrice: 0,
 
-  setCategories: (categories) => set({ categories }),
-  setMinPrice: (minPrice) => set({ minPrice }),
-  setMaxPrice: (maxPrice) => set({ maxPrice }),
-  setFeatures: (features) => set({ features }),
-  setMaterials: (materials) => set({ materials }),
-  setLicenses: (licenses) => set({ licenses }),
+  setSearchQuery: (q) => set({ searchQuery: q }),
+  setCategories: (c) => set({ categories: c }),
+  setFeatures: (f) => set({ features: f }),
+  setMaterials: (m) => set({ materials: m }),
+  setLicenses: (l) => set({ licenses: l }),
+  setMinPrice: (p) => set({ minPrice: p }),
+  setMaxPrice: (p) => set({ maxPrice: p }),
+
+  getJsonQuery: () => {
+    const {
+      searchQuery,
+      categories,
+      features,
+      materials,
+      licenses,
+      minPrice,
+      maxPrice,
+    } = get();
+
+    return {
+      ...(searchQuery && { searchQuery }),
+      ...(categories.length > 0 && { categories }),
+      ...(features.length > 0 && { features }),
+      ...(materials.length > 0 && { materials }),
+      ...(licenses && { licenses }),
+      ...(minPrice > 0 && { minPrice }),
+      ...(maxPrice > 0 && { maxPrice }),
+    };
+  },
+
   reset: () =>
     set({
+      searchQuery: '',
       categories: [],
-      minPrice: 0,
-      maxPrice: 0,
       features: [],
       materials: [],
-      licenses: [],
+      licenses: '',
+      minPrice: 0,
+      maxPrice: 0,
     }),
 }));

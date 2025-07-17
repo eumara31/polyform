@@ -350,4 +350,15 @@
 #new-model-flex #model-upload-flex #model-photo-swiper-container .add-photo input {
   width: 100%;
   height: 100%;
+}
+#new-model-flex #model-upload-flex #model-photo-swiper-container .image-container .remove-thumbnail-btn {
+  position: absolute;
+  height: auto;
+  width: auto;
+  background: white;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }/*# sourceMappingURL=AccountPage.module.css.map */

@@ -68,6 +68,7 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  cursor: pointer;
 }
 #header-container #header #category-dropdown {
   position: relative;

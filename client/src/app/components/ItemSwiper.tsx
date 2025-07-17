@@ -10,7 +10,7 @@ type Props = {
   children: React.ReactNode;
   swiperDirection: "horizontal" | "vertical";
   spaceBetweenItems: number;
-  itemsPerView: number;
+  itemsPerView: number | "auto";
   keyboardControl?: boolean;
   wheelControl?: boolean;
   scrollControl?: boolean;

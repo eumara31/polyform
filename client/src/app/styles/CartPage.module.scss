@@ -1,0 +1,234 @@
+@import 'fonts';
+@import 'colors';
+
+#main-flex {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .checkout-bg {
+        color: black;
+        font-size: 1.2rem;
+        font-family: $default-font;
+    }
+
+    .checkout-sm {
+        color: black;
+        font-size: 1.0rem;
+        font-weight: 300;
+        font-family: $default-font;
+    }
+
+    #cart-flex {
+        width: 100%;
+        min-height: 80vh;
+        height: 80vh;
+        display: flex;
+        flex-direction: row;
+        background-color: $white;
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 1rem;
+
+        #swiper-flex {
+            min-width: 0;
+            width: 100%;
+            flex-grow: 1;
+            min-height: 78vh;
+            border-radius: 1rem;
+            background-color: $cart-swiper-bg-color;
+            padding: 1rem;
+
+            #cart-item {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+                padding: 0.5rem;
+                background: white;
+                border-radius: 1rem;
+            width: 100%;
+                height: fit-content;
+                box-sizing: border-box;
+                text-wrap: nowrap;
+
+                #cart-text-flex {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: left;
+                    gap: 0.5rem;
+                }
+
+                #price-delete-flex {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: right;
+                    gap: 0.5rem;
+
+                    button {
+                        background-color: rgb(231, 3, 3);
+                        font-family: $default-font;
+                        color: white;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        transition: all 0.05s ease-in-out;
+                        width: 100%;
+
+                        appearance: none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        border: none;
+                        outline: none;
+
+                        &:active {
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        #checkout-flex {
+            flex-basis: 15%;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            flex-direction: column;
+            gap: 1rem;
+
+
+            input[type='number']::-webkit-inner-spin-button {
+                position: absolute;
+                height: 100%;
+                display: none;
+                top: 0;
+                right: 0;
+            }
+
+
+            #checkout-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: left;
+                width: 100%;
+
+            }
+
+            #checkout-price-sum {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            #discount {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+
+            #checkout-final {
+                width: 100%;
+                height: fit-content;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: auto;
+
+                #price-final {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+
+                    #final-price {
+                        color: rgb(20, 94, 1);
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                        font-family: $default-font;
+                    }
+                }
+
+                .form-input {
+                    width: 100%;
+                    padding: 0.5rem;
+                    border: 1px solid $header-color;
+                    border-radius: 0.5rem;
+                    font-family: $default-font;
+                    font-size: 0.9rem;
+                    appearance: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    background: white;
+                    color: black;
+
+                    &:focus {
+                        outline: none;
+                        border-color: darken($header-color, 10%);
+                        box-shadow: 0 0 0 1px darken($header-color, 10%);
+                    }
+
+                    &::placeholder {
+                        color: lighten(black, 50%);
+                    }
+                }
+
+                #date-purchase-button {
+                    display: flex;
+                    gap: 0.5rem;
+                    width: 100%;
+
+                    .form-input {
+                        flex: 1;
+                    }
+
+                    input {
+                        font-family: monospace;
+                        font-size: 1rem;
+                        width: 3rem !important;
+                        letter-spacing: 0.1em;
+                        padding-right: 0;
+                    }
+
+                    .purchase-button {
+                        background-color: $logo-color;
+                        font-family: $default-font;
+                        color: black;
+                        font-size: 1rem;
+                        font-weight: 500;
+                        padding: 0.5rem;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        transition: all 0.05s ease-in-out;
+                        width: 100%;
+
+                        appearance: none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        border: none;
+                        outline: none;
+
+                        &:active {
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

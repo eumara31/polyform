@@ -8,7 +8,7 @@ import PopupOverlay from "./PopupOverlay";
 import LoginForm from "./LoginForm";
 import api from "../utilities/api";
 import { useRouter, usePathname } from "next/navigation";
-import Cookies from "js-cookie";
+import SearchInput from "./SearchInput";
 import Link from "next/link";
 
 type Props = {
@@ -64,6 +64,7 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
         <div id={styles["header"]}>
         <div id={styles["logo"]}><Link className={styles["no-outline"]} href={'/'}>Полиформ</Link></div>
           <div id={styles["category-dropdown"]}>
+            <Link href="/search">
           <button id={styles["header-category-button"]}>
             <Image
               id={styles["header-category-img"]}
@@ -74,6 +75,7 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
             />
             Категории
           </button>
+          </Link>
           <ul id={styles["dropdown-list"]}>
                       {[
                         { src: "person.svg", text: "Персонажи" },
@@ -105,19 +107,11 @@ export default function Header({ isLogged, usernameProp, emailProp }: Props) {
                       ))}
           </ul>
           </div>
-          <form id={styles["search-bar"]}>
-            <Image
-              id={styles["search-img"]}
-              src="/img/search.svg"
-              width={24}
-              height={24}
-              alt=""
-            />
-          </form>
+          <SearchInput/>
           {logoutButton ? (
             <div id={styles["right-header-container"]}>
               <Link href={'/account'}><Image src="/img/account_box.svg" alt="" width={32} height={32} /></Link>
-              <Image src="/img/local_mall.svg" alt="" width={32} height={32} />
+              <Link href={'/cart'}><Image src="/img/local_mall.svg" alt="" width={32} height={32} /></Link>
             </div>
           ) : (
             <>

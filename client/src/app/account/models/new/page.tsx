@@ -6,7 +6,7 @@ import CategorySwiper from "@/app/account/components/CategorySwiper";
 import ImageSwiper from "@/app/components/ItemSwiper";
 import SingleToggleGroup from "@/app/search/components/SingleToggleGroup";
 import ModelUpload from "./components/ModelUpload";
-import ModelPreview from "./components/ModelPreview";
+import ModelPreview from "@/app/components/ModelPreview";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import api from "@/app/utilities/api";
@@ -25,10 +25,18 @@ type ModelJson = {
   images: string[] | undefined;
 };
 
+function debounce<T extends (...args: any[]) => void>(func: T, delay = 500): T {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return ((...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  }) as T;
+}
+
 export default function Page({}: Props) {
   const [showModelPreview, setShowModelPreview] = useState(false);
   const [currency, setCurrency] = useState("RUB");
-  const [modelURL, setModelURL] = useState(""); //являе
+  const [modelURL, setModelURL] = useState("");
   const [modelFormat, setModelFormat] = useState("");
   const [modelJson, setModelJson] = useState<ModelJson>({
     name: "",
@@ -42,9 +50,9 @@ export default function Page({}: Props) {
     images: [],
   });
   const [modelFile, setModelFile] = useState<File | null>(null);
-  const [imageBinaryMap, setImageBinaryMap] = useState<Map<number, string>>(
-    new Map<number, string>()
-  );
+  const [imageBinaryMap, setImageBinaryMap] = useState<
+    Map<number | string, File>
+  >(new Map());
 
   const categoryImageSize = 24;
   function remToPixels(rem: number): number {
@@ -88,9 +96,10 @@ export default function Page({}: Props) {
     }));
   }
 
+  const debouncedModelJsonChange = debounce(handleModelJsonChange, 400);
+
   function handleCheckboxChange(e, field: string) {
     const checkboxValue = e.target.value;
-
     setModelJson((prev) => {
       const newData = e.target.checked
         ? [...prev[field], checkboxValue]
@@ -109,6 +118,7 @@ export default function Page({}: Props) {
       licence: selectedLicence,
     }));
   }
+
   function handleCurrencyChange() {
     setCurrency((prev) => {
       const newCurrency = prev === "RUB" ? "USD" : "RUB";
@@ -156,6 +166,14 @@ export default function Page({}: Props) {
     }
   }
 
+  function handleThumbnailRemoval(thumbName: string) {
+    setImageBinaryMap(prev => {
+      const newMap = new Map(prev);
+      newMap.delete(thumbName);
+      return newMap;
+    })
+  }
+
   useEffect(() => {
     setModelJson((prev) => {
       return {
@@ -193,16 +211,14 @@ export default function Page({}: Props) {
             <input
               type="text"
               placeholder="Название"
-              onChange={(e) =>
-                handleModelJsonChange("name", e.target.value.toString())
-              }
-            ></input>
+              onChange={(e) => debouncedModelJsonChange("name", e.target.value)}
+            />
             <textarea
               placeholder="Описание"
               onChange={(e) =>
-                handleModelJsonChange("description", e.target.value.toString())
+                debouncedModelJsonChange("description", e.target.value)
               }
-            ></textarea>
+            />
           </div>
 
           <div id={styles["category-flex"]}>
@@ -235,7 +251,7 @@ export default function Page({}: Props) {
                   { src: "headphones.svg", text: "Музыка" },
                 ].map(({ src, text }) => (
                   <div
-                  className={styles["category-li"]}
+                    className={styles["category-li"]}
                     key={text}
                     data-value={text}
                     onClick={(e) =>
@@ -256,6 +272,7 @@ export default function Page({}: Props) {
                 ))}
               </CategorySwiper>
             </div>
+
             <div className={styles["category-column"]}>
               <h1>Свойства</h1>
               <div className={styles["checkbox-flex"]}>
@@ -290,6 +307,7 @@ export default function Page({}: Props) {
                 ))}
               </div>
             </div>
+
             <div
               id={styles["format-price-column"]}
               className={styles["category-column"]}
@@ -316,9 +334,12 @@ export default function Page({}: Props) {
                     type="number"
                     placeholder="цена"
                     onChange={(e) =>
-                      handleModelJsonChange("price", e.target.value.toString())
+                      debouncedModelJsonChange(
+                        "price",
+                        parseFloat(e.target.value)
+                      )
                     }
-                  ></input>
+                  />
                   <button onClick={handleCurrencyChange}>{currency}</button>
                 </div>
                 <button onClick={handleModelSubmission}>Добавить</button>
@@ -326,9 +347,12 @@ export default function Page({}: Props) {
             </div>
           </div>
         </div>
+
         <div id={styles["model-upload-flex"]}>
           {showModelPreview ? (
-            <ModelPreview modelURL={modelURL} modelFormat={modelFormat} />
+            <div id={styles["canvas-flex"]}>
+              <ModelPreview modelURL={modelURL} modelFormat={modelFormat} />
+            </div>
           ) : (
             <ModelUpload
               setModelURL={setModelURL}
@@ -337,6 +361,7 @@ export default function Page({}: Props) {
               setModelFile={setModelFile}
             />
           )}
+
           <div id={styles["model-photo-swiper-container"]}>
             <ImageSwiper
               swiperId={"model-photo-swiper"}
@@ -356,7 +381,6 @@ export default function Page({}: Props) {
                   className={styles["hidden-input"]}
                   onChange={handleImageUpload}
                 />
-
                 <label htmlFor="image-upload">
                   <p style={{ fontSize: "48px" }}>+</p>
                   <p>добавить изображение</p>
@@ -364,7 +388,13 @@ export default function Page({}: Props) {
               </div>
               {Array.from(imageBinaryMap.entries()).map(([name, blob]) => {
                 const url = URL.createObjectURL(blob);
-                return <img key={name} src={url} alt={name} />;
+                return (
+                  <div key={name.toString()} className={styles["image-container"]}>
+                  <img src={"/img/close_red.svg"} className={styles["remove-thumbnail-btn"]}
+                  onClick={() => handleThumbnailRemoval(name)}/>
+                  <img src={url} alt={name.toString()} />
+                  </div>
+                );
               })}
             </ImageSwiper>
           </div>

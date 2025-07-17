@@ -62,14 +62,26 @@ var CategorySwiper_1 = require("@/app/account/components/CategorySwiper");
 var ItemSwiper_1 = require("@/app/components/ItemSwiper");
 var SingleToggleGroup_1 = require("@/app/search/components/SingleToggleGroup");
 var ModelUpload_1 = require("./components/ModelUpload");
-var ModelPreview_1 = require("./components/ModelPreview");
+var ModelPreview_1 = require("@/app/components/ModelPreview");
 var image_1 = require("next/image");
 var react_hot_toast_1 = require("react-hot-toast");
 var api_1 = require("@/app/utilities/api");
+function debounce(func, delay) {
+    if (delay === void 0) { delay = 500; }
+    var timeoutId;
+    return (function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(function () { return func.apply(void 0, args); }, delay);
+    });
+}
 function Page(_a) {
     var _b = react_1.useState(false), showModelPreview = _b[0], setShowModelPreview = _b[1];
     var _c = react_1.useState("RUB"), currency = _c[0], setCurrency = _c[1];
-    var _d = react_1.useState(""), modelURL = _d[0], setModelURL = _d[1]; //являе
+    var _d = react_1.useState(""), modelURL = _d[0], setModelURL = _d[1];
     var _e = react_1.useState(""), modelFormat = _e[0], setModelFormat = _e[1];
     var _f = react_1.useState({
         name: "",
@@ -111,6 +123,7 @@ function Page(_a) {
             return (__assign(__assign({}, prev), (_a = {}, _a[field] = value, _a)));
         });
     }
+    var debouncedModelJsonChange = debounce(handleModelJsonChange, 400);
     function handleCheckboxChange(e, field) {
         var checkboxValue = e.target.value;
         setModelJson(function (prev) {
@@ -182,6 +195,13 @@ function Page(_a) {
             setImageBinaryMap(function (prev) { return new Map(prev).set(image.name, image); });
         }
     }
+    function handleThumbnailRemoval(thumbName) {
+        setImageBinaryMap(function (prev) {
+            var newMap = new Map(prev);
+            newMap["delete"](thumbName);
+            return newMap;
+        });
+    }
     react_1.useEffect(function () {
         setModelJson(function (prev) {
             return __assign(__assign({}, prev), { images: Array.from(imageBinaryMap.keys()) });
@@ -209,11 +229,9 @@ function Page(_a) {
         react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["new-model-flex"] },
             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["text-category-flex"] },
                 react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["text-flex"] },
-                    react_1["default"].createElement("input", { type: "text", placeholder: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435", onChange: function (e) {
-                            return handleModelJsonChange("name", e.target.value.toString());
-                        } }),
+                    react_1["default"].createElement("input", { type: "text", placeholder: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435", onChange: function (e) { return debouncedModelJsonChange("name", e.target.value); } }),
                     react_1["default"].createElement("textarea", { placeholder: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435", onChange: function (e) {
-                            return handleModelJsonChange("description", e.target.value.toString());
+                            return debouncedModelJsonChange("description", e.target.value);
                         } })),
                 react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["category-flex"] },
                     react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["category-column"] },
@@ -274,12 +292,13 @@ function Page(_a) {
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["format-flex"] },
                             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["price-currency-container"] },
                                 react_1["default"].createElement("input", { type: "number", placeholder: "\u0446\u0435\u043D\u0430", onChange: function (e) {
-                                        return handleModelJsonChange("price", e.target.value.toString());
+                                        return debouncedModelJsonChange("price", parseFloat(e.target.value));
                                     } }),
                                 react_1["default"].createElement("button", { onClick: handleCurrencyChange }, currency)),
                             react_1["default"].createElement("button", { onClick: handleModelSubmission }, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"))))),
             react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-upload-flex"] },
-                showModelPreview ? (react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat })) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview, setModelFile: setModelFile })),
+                showModelPreview ? (react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["canvas-flex"] },
+                    react_1["default"].createElement(ModelPreview_1["default"], { modelURL: modelURL, modelFormat: modelFormat }))) : (react_1["default"].createElement(ModelUpload_1["default"], { setModelURL: setModelURL, setModelFormat: setModelFormat, setShowModelPreview: setShowModelPreview, setModelFile: setModelFile })),
                 react_1["default"].createElement("div", { id: AccountPage_module_css_1["default"]["model-photo-swiper-container"] },
                     react_1["default"].createElement(ItemSwiper_1["default"], { swiperId: "model-photo-swiper", swiperSlideClass: "model-photo-slide-class", swiperDirection: "horizontal", spaceBetweenItems: remToPixels(1), itemsPerView: 3, wheelControl: true, scrollControl: true, keyboardControl: true },
                         react_1["default"].createElement("div", { className: AccountPage_module_css_1["default"]["add-photo"] },
@@ -290,7 +309,9 @@ function Page(_a) {
                         Array.from(imageBinaryMap.entries()).map(function (_a) {
                             var name = _a[0], blob = _a[1];
                             var url = URL.createObjectURL(blob);
-                            return react_1["default"].createElement("img", { key: name, src: url, alt: name });
+                            return (react_1["default"].createElement("div", { key: name.toString(), className: AccountPage_module_css_1["default"]["image-container"] },
+                                react_1["default"].createElement("img", { src: "/img/close_red.svg", className: AccountPage_module_css_1["default"]["remove-thumbnail-btn"], onClick: function () { return handleThumbnailRemoval(name); } }),
+                                react_1["default"].createElement("img", { src: url, alt: name.toString() })));
                         })))))));
 }
 exports["default"] = Page;
