@@ -44,6 +44,7 @@ router.get("/product/:productId/description", (ProductController.getProductDescr
 router.get("/product/:productId/blobs", (req, res) => {(ProductController.getProductBlobsById(req, res))})
 router.get("/product/:productId/image-blobs", (req, res) => {(ProductController.getProductBlobsById(req, res, "images"))})
 router.get("/product/ids", (ProductController.getProductIds))
+router.get("/product/names/popular", (ProductController.getPopularProductNames))
 router.post("/product/search", ProductController.getProductIdsByQuery);
 
 export default router;

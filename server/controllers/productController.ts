@@ -104,8 +104,16 @@ export default class ProductController {
 }
 static async getProductIds(req, res) {
   try {
-    const ids = await ProductService.getProductIds(); // вызов из сервиса
+    const ids = await ProductService.getProductIds();
     res.status(200).json({ ids });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+static async getPopularProductNames(req, res){
+  try {
+    const names = await ProductService.getPopularProductNames();
+    res.status(200).json({ names });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

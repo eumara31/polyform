@@ -82,4 +82,14 @@ export default class ProductService {
       throw err;
     }
   }
+  static async getPopularProductNames(){
+    try {
+      const result = await pool.query(
+        'SELECT name FROM "Models" ORDER BY rating DESC LIMIT 5;'
+      );
+      return result.rows;
+    } catch (err) {
+      throw err;
+    }
+  }
 }

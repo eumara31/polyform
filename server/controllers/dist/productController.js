@@ -180,9 +180,30 @@ var ProductController = /** @class */ (function () {
             });
         });
     };
+    ProductController.getPopularProductNames = function (req, res) {
+        return __awaiter(this, void 0, void 0, function () {
+            var names, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, productService_1["default"].getPopularProductNames()];
+                    case 1:
+                        names = _a.sent();
+                        res.status(200).json({ names: names });
+                        return [3 /*break*/, 3];
+                    case 2:
+                        err_4 = _a.sent();
+                        res.status(500).json({ error: err_4.message });
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     ProductController.getProductIdsByQuery = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var query, ids, err_4;
+            var query, ids, err_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -194,8 +215,8 @@ var ProductController = /** @class */ (function () {
                         res.status(200).json({ ids: ids });
                         return [3 /*break*/, 3];
                     case 2:
-                        err_4 = _a.sent();
-                        res.status(500).json({ error: err_4.message });
+                        err_5 = _a.sent();
+                        res.status(500).json({ error: err_5.message });
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }

@@ -171,14 +171,14 @@
 }
 #main-flex #cart-flex #checkout-flex #checkout-final .form-input:focus {
   outline: none;
-  border-color: #1d1c1d;
-  box-shadow: 0 0 0 1px #1d1c1d;
+  border-color: rgb(28.5, 27.9722222222, 29.0277777778);
+  box-shadow: 0 0 0 1px rgb(28.5, 27.9722222222, 29.0277777778);
 }
 #main-flex #cart-flex #checkout-flex #checkout-final .form-input::-moz-placeholder {
-  color: gray;
+  color: rgb(127.5, 127.5, 127.5);
 }
 #main-flex #cart-flex #checkout-flex #checkout-final .form-input::placeholder {
-  color: gray;
+  color: rgb(127.5, 127.5, 127.5);
 }
 #main-flex #cart-flex #checkout-flex #checkout-final #date-purchase-button {
   display: flex;

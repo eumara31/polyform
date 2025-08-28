@@ -9,19 +9,19 @@
 	position: sticky;
 	top: 0;
 	z-index: 3;
-	
+
 	.no-outline {
 		text-decoration: none;
 		outline: none;
 		color: inherit;
-	  }
-	  
-	  .no-outline:focus,
-	  .no-outline:active {
+	}
+
+	.no-outline:focus,
+	.no-outline:active {
 		outline: none;
 		box-shadow: none;
 		text-decoration: none;
-	  }
+	}
 
 	#header {
 		background-color: $header-color;
@@ -76,10 +76,10 @@
 				background-color: $header-color;
 				border: 2px $header-color solid;
 
-				img{
+				img {
 					filter: grayscale(100%) brightness(1000%) contrast(100%);
 				}
-			  }			
+			}
 
 			#header-category-button {
 				position: relative;
@@ -124,25 +124,55 @@
 			padding: 0rem;
 		}
 
-		#search-bar {
-			background-color: white;
-			min-height: calc(24px + rem);
+		#search-bar-dropdown-container {
 			width: 70%;
-			height: 2rem;
-			border: 2px $logo-color solid;
-			border-radius: 0.5rem;
-			padding: 0.2rem 0.4rem 0.2rem 0.4rem;
-			font-family: $default-font;
-			font-size: 16px;
+			min-height: calc(24px + rem);
+			height: auto;
 			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
-			overflow-x: hidden;
-			overflow-y: hidden;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: start;
+			position: relative;
 
-			#search-img {
+			#search-bar {
+				background-color: white;
+				min-height: calc(24px + rem);
+				width: 100%;
+				height: 2rem;
+				border: 2px $logo-color solid;
+				border-radius: 0.5rem;
+				padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+				font-family: $default-font;
+				font-size: 16px;
+				overflow-x: hidden;
+				overflow-y: hidden;
+
+				#search-img {
+					user-select: none;
+				}
+			}
+
+			#search-dropdown {
+				position: absolute;
+				width: 100%;
+				top: 110%;
+				left: 0;
+				z-index: 10;
+				padding: 0;
+				margin: 0;
+				background-color: $header-color;
 				user-select: none;
+				list-style-type: none;
+				padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+				border-radius:  0 0 0.5rem 0.5rem;
+
+				.search-dropdown-item {
+					font-family: $default-font;
+					font-size: 16px;
+					color: white;
+					margin: 0.5rem;
+					cursor: pointer;
+				}
 			}
 		}
 

@@ -34,5 +34,6 @@ router.get("/product/:productId/description", (productController_1["default"].ge
 router.get("/product/:productId/blobs", function (req, res) { (productController_1["default"].getProductBlobsById(req, res)); });
 router.get("/product/:productId/image-blobs", function (req, res) { (productController_1["default"].getProductBlobsById(req, res, "images")); });
 router.get("/product/ids", (productController_1["default"].getProductIds));
+router.get("/product/names/popular", (productController_1["default"].getPopularProductNames));
 router.post("/product/search", productController_1["default"].getProductIdsByQuery);
 exports["default"] = router;

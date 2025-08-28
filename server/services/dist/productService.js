@@ -128,6 +128,25 @@ var ProductService = /** @class */ (function () {
             });
         });
     };
+    ProductService.getPopularProductNames = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var result, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, db_1.pool.query('SELECT name FROM "Models" ORDER BY rating DESC LIMIT 5;')];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.rows];
+                    case 2:
+                        err_3 = _a.sent();
+                        throw err_3;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return ProductService;
 }());
 exports["default"] = ProductService;
