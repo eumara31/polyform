@@ -25,7 +25,6 @@ export default function RegisterForm({ isOpen, onClose, children }: Props) {
         password: password,
         mailing: mailing ? "true" : "false",
       };
-      console.log(data);
       try {
         const res = await api.post("/auth/signup", data);
         if (res.status >= 200 && res.status < 300) {

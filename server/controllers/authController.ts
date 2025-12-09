@@ -5,7 +5,6 @@ export default class AuthController {
   static async signup(req: Request, res: Response) {
     try {
       const { login, email, password, mailing } = req.body;
-      console.log(req.body);
       await AuthService.createUser(login, email, password, mailing);
       res.status(200).json({ msg: "Signup succesful" });
     } catch (err: any) {
@@ -17,7 +16,6 @@ export default class AuthController {
   static async login(req: Request, res: Response) {
     try {
       const { login, password } = req.body;
-      console.log(req.body);
       const result = await AuthService.authorizeUser(login, password);
       if (result.success) {
         req.session.user = {

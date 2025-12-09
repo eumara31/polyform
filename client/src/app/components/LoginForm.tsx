@@ -31,7 +31,6 @@ export default function LoginForm({ isOpen, onClose, children, updateHeaderStatu
       login: login,
       password: password,
     }
-    console.log(data)
     try {
       const res = await api.post('/auth/login', data);
       if (res.status >= 200 && res.status < 300) {

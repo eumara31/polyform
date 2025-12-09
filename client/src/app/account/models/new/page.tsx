@@ -69,10 +69,6 @@ export default function Page({}: Props) {
     }));
   }, []);
 
-  useEffect(() => {
-    console.log(modelJson);
-  }, [modelJson]);
-
   function isModelJsonComplete(): boolean {
     return (
       modelJson.name.trim() !== "" &&
@@ -139,10 +135,6 @@ export default function Page({}: Props) {
         Array.from(imageBinaryMap.values()).forEach((file) => {
           formData.append("images", file);
         });
-
-        for (const [key, value] of formData.entries()) {
-          console.log(key, value);
-        }
 
         await api.post("/account/model/upload", formData, {
           headers: {

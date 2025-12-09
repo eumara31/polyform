@@ -6,6 +6,7 @@ import multer from "multer";
 import ProductController from "../controllers/productController";
 import path from "path";
 import { fileURLToPath } from "url";
+import OrderController from "../controllers/orderController";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +30,7 @@ router.post("/auth/logout", AuthController.logout);
 router.get("/account/info", AccountController.getAccountInfo);
 router.get(
   "/account/info/asCookies",
-  AccountController.getAccountInfoAsCookies
+  (req, res) => {AccountController.getAccountInfoAsCookies(req, res)}
 );
 //require auth не рабоатет после первой отправки файла
 router.post(
@@ -41,10 +42,12 @@ router.post(
   AccountController.uploadUserModel
 );
 router.get("/product/:productId/description", (ProductController.getProductDescriptionById))
-router.get("/product/:productId/blobs", (req, res) => {(ProductController.getProductBlobsById(req, res))})
-router.get("/product/:productId/image-blobs", (req, res) => {(ProductController.getProductBlobsById(req, res, "images"))})
+router.get("/product/:productId/blobs", (req, res) => {ProductController.getProductBlobsById(req, res)})
+router.get("/product/:productId/image-blobs", (req, res) => {ProductController.getProductBlobsById(req, res, "images")})
 router.get("/product/ids", (ProductController.getProductIds))
 router.get("/product/names/popular", (ProductController.getPopularProductNames))
+router.get("/product/initialPrice", ProductController.getInitialPrice)
 router.post("/product/search", ProductController.getProductIdsByQuery);
+router.post("/product/order/", requireAuth, OrderController.submitOrder)
 
 export default router;

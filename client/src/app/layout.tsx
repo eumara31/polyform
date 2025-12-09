@@ -17,7 +17,6 @@ export default async function RootLayout({
 
   const usernameCookie = cookieStore.get("username")?.value;
   const emailCookie = cookieStore.get("email")?.value;
-  console.log(usernameCookie, emailCookie)
 
   return (
     <html lang="en">

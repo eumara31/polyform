@@ -30,10 +30,6 @@ export default function ItemSwiper({
   swiperSlideClass,
 }: Props) {
 
-  useEffect(()=>{
-    console.log(swiperSlideClass)
-  }, [])
-
   return (
     <Swiper
     id={swiperId? styles[swiperId] : styles["item-swiper"]}

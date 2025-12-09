@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const __parentdir = path.dirname(__dirname)
+const __parentdir = path.dirname(__dirname);
 
 const getMimeType = (filename: string): string => {
   const ext = path.extname(filename).toLowerCase();
@@ -39,7 +39,6 @@ export default class ProductController {
   static async getProductDescriptionById(req, res) {
     try {
       const { productId } = req.params;
-      console.log(123)
       const result = await ProductService.getProductById(productId);
       res.status(200).json({
         text: {
@@ -53,78 +52,90 @@ export default class ProductController {
           licence: result.licence,
           rating: result.rating,
           rating_votes: result.rating_votes,
-          author: result.username
-        }
+          author: result.username,
+        },
       });
     } catch (err) {
       res.status(404).json({ error: err.message });
     }
   }
- static async getProductBlobsById(req, res, blobType?: "model" | "images") {
-  try {
-    const { productId } = req.params;
-    const result = await ProductService.getProductById(productId);
-    
-    const response: any = {};
+  static async getProductBlobsById(req, res, blobType?: "model" | "images") {
+    try {
+      const { productId } = req.params;
+      const result = await ProductService.getProductById(productId);
 
-    // Если тип не указан или запрошены оба типа данных
-    if (!blobType) {
-      response.model = {
-        data: fs.readFileSync(__parentdir + `/uploads/${result.url}`).toString("base64"),
-        name: result.url,
-        type: getMimeType(result.url),
-      };
-      response.images = result.image_urls.map((imageUrl) => ({
-        data: fs.readFileSync(__parentdir + `/uploads/${imageUrl}`).toString("base64"),
-        name: imageUrl,
-        type: getMimeType(imageUrl),
-      }));
+      const response: any = {};
+
+      // Если тип не указан или запрошены оба типа данных
+      if (!blobType) {
+        response.model = {
+          data: fs
+            .readFileSync(__parentdir + `/uploads/${result.url}`)
+            .toString("base64"),
+          name: result.url,
+          type: getMimeType(result.url),
+        };
+        response.images = result.image_urls.map((imageUrl) => ({
+          data: fs
+            .readFileSync(__parentdir + `/uploads/${imageUrl}`)
+            .toString("base64"),
+          name: imageUrl,
+          type: getMimeType(imageUrl),
+        }));
+      } else if (blobType === "model") {
+        response.model = {
+          data: fs
+            .readFileSync(__parentdir + `/uploads/${result.url}`)
+            .toString("base64"),
+          name: result.url,
+          type: getMimeType(result.url),
+        };
+      } else if (blobType === "images") {
+        response.images = result.image_urls.map((imageUrl) => ({
+          data: fs
+            .readFileSync(__parentdir + `/uploads/${imageUrl}`)
+            .toString("base64"),
+          name: imageUrl,
+          type: getMimeType(imageUrl),
+        }));
+      }
+
+      res.status(200).json(response);
+    } catch (err) {
+      res.status(404).json({ error: err.message });
     }
-
-    else if (blobType === "model") {
-      response.model = {
-        data: fs.readFileSync(__parentdir + `/uploads/${result.url}`).toString("base64"),
-        name: result.url,
-        type: getMimeType(result.url),
-      };
+  }
+  static async getProductIds(req, res) {
+    try {
+      const ids = await ProductService.getProductIds();
+      res.status(200).json({ ids });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-
-    else if (blobType === "images") {
-      response.images = result.image_urls.map((imageUrl) => ({
-        data: fs.readFileSync(__parentdir + `/uploads/${imageUrl}`).toString("base64"),
-        name: imageUrl,
-        type: getMimeType(imageUrl),
-      }));
+  }
+  static async getPopularProductNames(req, res) {
+    try {
+      const names = await ProductService.getPopularProductNames();
+      res.status(200).json({ names });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-
-    res.status(200).json(response);
-  } catch (err) {
-    res.status(404).json({ error: err.message });
   }
-}
-static async getProductIds(req, res) {
-  try {
-    const ids = await ProductService.getProductIds();
-    res.status(200).json({ ids });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  static async getProductIdsByQuery(req, res) {
+    try {
+      const query = req.body;
+      const ids = await ProductService.getProductIdsByQuery(query);
+      res.status(200).json({ ids });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
   }
-}
-static async getPopularProductNames(req, res){
-  try {
-    const names = await ProductService.getPopularProductNames();
-    res.status(200).json({ names });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  static async getInitialPrice(req, res) {
+    try {
+      const initialPrice = await ProductService.getInitialPrice();
+      res.status(200).json({initialPrice})
+    } catch (err) {
+      console.log(err);
+    }
   }
-}
-static async getProductIdsByQuery(req, res) {
-  try {
-    const query = req.body;
-    const ids = await ProductService.getProductIdsByQuery(query);
-    res.status(200).json({ ids });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
 }

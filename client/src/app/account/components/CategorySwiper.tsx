@@ -58,7 +58,6 @@ export default function CategorySwiper({
   }
 
   useEffect(() => {
-    console.log("categoryRefDict обновился:", categoryRefDict);
   }, [categoryRefDict]);
 
   return (

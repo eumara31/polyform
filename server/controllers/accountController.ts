@@ -16,7 +16,6 @@ export default class AccountController {
       const sessionLogin = req.session.user?.login;
       const data = await AccountService.getAccountInfo(sessionLogin);
       const { login, email, mailing } = data[0];
-      console.log(login, email, mailing);
       res.cookie("username", login, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
@@ -31,6 +30,7 @@ export default class AccountController {
       });
       return res.status(200).json({ login: login, email: email });
     } catch (err) {
+      console.log(err)
       return res.status(500).json(err);
     }
   }

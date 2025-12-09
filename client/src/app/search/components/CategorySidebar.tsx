@@ -2,10 +2,11 @@
 import React, { useEffect } from "react";
 import styles from "@/app/styles/CategorySidebar.module.css";
 import PriceSlider from "./PriceSlider";
-import CollapsibleList from "./CollapsibleList";
+import CollapsibleCategorySpoiler from "./CollapsibleCategorySpoiler";
 import MultipleToggleGroup from "./MultipleToggleGroup";
 import { useSearchStore } from "@/app/store";
-import { shallow } from 'zustand/shallow';
+import { shallow } from "zustand/shallow";
+import api from "@/app/utilities/api";
 
 type Props = {
   children: React.ReactNode;
@@ -14,20 +15,38 @@ type Props = {
 export default function CategorySidebar({ children }: Props) {
   const categoryImageSize = 28;
 
-const categories = useSearchStore(state => state.categories);
-const features = useSearchStore(state => state.features);
-const materials = useSearchStore(state => state.materials);
-const licenses = useSearchStore(state => state.licenses);
-const minPrice = useSearchStore(state => state.minPrice);
-const maxPrice = useSearchStore(state => state.maxPrice);
+  const categories = useSearchStore((state) => state.categories);
+  const features = useSearchStore((state) => state.features);
+  const materials = useSearchStore((state) => state.materials);
+  const licenses = useSearchStore((state) => state.licenses);
+  const minPrice = useSearchStore((state) => state.minPrice);
+  const maxPrice = useSearchStore((state) => state.maxPrice);
 
-const setCategories = useSearchStore(state => state.setCategories);
-const setFeatures = useSearchStore(state => state.setFeatures);
-const setMaterials = useSearchStore(state => state.setMaterials);
-const setLicenses = useSearchStore(state => state.setLicenses);
-const setMinPrice = useSearchStore(state => state.setMinPrice);
-const setMaxPrice = useSearchStore(state => state.setMaxPrice);
+  const setCategories = useSearchStore((state) => state.setCategories);
+  const setFeatures = useSearchStore((state) => state.setFeatures);
+  const setMaterials = useSearchStore((state) => state.setMaterials);
+  const setLicenses = useSearchStore((state) => state.setLicenses);
+  const setMinPrice = useSearchStore((state) => state.setMinPrice);
+  const setMaxPrice = useSearchStore((state) => state.setMaxPrice);
 
+  useEffect(() => {
+    const setInitialPrice = async () => {
+      try {
+        const res = await api.get("/product/initialPrice");
+        const priceRange = res.data.initialPrice;
+        if (Array.isArray(priceRange)) {
+          setMinPrice(priceRange[0]);
+          setMaxPrice(priceRange[1]);
+        } else if (typeof priceRange === "number") {
+          setMinPrice(priceRange);
+          setMaxPrice(priceRange);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    setInitialPrice();
+  }, []);
 
   const toggleArrayItem = (arr: string[], item: string) =>
     arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
@@ -56,7 +75,7 @@ const setMaxPrice = useSearchStore(state => state.setMaxPrice);
     <div id={styles["category-layout"]}>
       <div id={styles["category-sidebar"]}>
         <h1 className={styles["sidebar-h1"]}>Категории</h1>
-        <CollapsibleList
+        <CollapsibleCategorySpoiler 
           elements={[
             { src: "person.svg", text: "Персонажи" },
             { src: "cottage.svg", text: "Архитектура" },
@@ -79,8 +98,9 @@ const setMaxPrice = useSearchStore(state => state.setMaxPrice);
         />
 
         <h1 className={styles["sidebar-h1"]}>Цена</h1>
-        <PriceSlider />
-
+        {minPrice !== 0 && maxPrice !== 0 && (
+  <PriceSlider minPrice={minPrice} maxPrice={maxPrice} />
+)}
         <h1 className={styles["sidebar-h1"]}>Функциональность</h1>
         <div className={styles["checkbox-container"]}>
           {[

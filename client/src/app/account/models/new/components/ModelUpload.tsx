@@ -16,7 +16,6 @@ export default function ModelUpload({setModelURL, setModelFormat, setShowModelPr
             const format = model.name.split('.').pop().toLowerCase();
             const url = URL.createObjectURL(model);
             setModelFormat(format);
-            console.log(format);
             setModelURL(url);
             setShowModelPreview(true);
             setModelFile(model);

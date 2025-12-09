@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { pool } from "../config/db";
 import multer from "multer";
-import ModelCompressor from "../utils/modelCompressor";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -36,14 +35,6 @@ export default class AccountService {
       const imageFiles = (req.files as any)["images"] || [];
       const imageFilenames = imageFiles.map((file: Express.Multer.File) => file.filename)
 
-      console.log(req.session.user?.userId);
-      // const baseFilePath = path.join(__parentdir, "uploads", file.filename);
-      // const minFilePath = path.join(
-      //   __parentdir,
-      //   "uploads",
-      //   "min_" + file.filename
-      // );
-      // await ModelCompressor.createMin(baseFilePath);
       await pool.query(
         `INSERT INTO "Models"
         (name, description, category, tags, materials, formats, price, currency, url, licence, image_urls, uploader_id)

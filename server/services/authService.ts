@@ -37,8 +37,6 @@ export default class AuthService {
         [loginOrEmail]
       );
       const hashedPassword = result.rows[0]?.password;
-      console.log(loginOrEmail, password);
-      console.log(hashedPassword)
       const credentials = await PasswordHasher.checkPassword(password, hashedPassword);
       if (credentials) {
         return {
