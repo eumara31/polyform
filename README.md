@@ -12,7 +12,7 @@
 Next.js, Three.js, Zustand, Gsap, Axios, Lodash, Express, Postgres
 
 ## Установка
-Перед запуском проекта потребуется создать базу данных Postgres с помощью схемы project_scheme.sql
+Перед запуском проекта потребуется создать базу данных Postgres с помощью схемы project_scheme.sql, а затем указать в .env файле порт сервера Postgres, имя аккаунта, под которым вы создали базу, пароль и имя базы.
 ```bash
 git clone https://github.com/eumara31/polyform
 cd polyform
