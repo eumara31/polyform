@@ -16,7 +16,6 @@ export default class AccountService {
         `SELECT login, email, mailing FROM "Users" WHERE login = $1;`,
         [login]
       );
-      console.log(123);
       return result.rows;
     } catch (err: any) {
       throw {

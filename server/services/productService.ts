@@ -82,7 +82,7 @@ export default class ProductService {
       throw err;
     }
   }
-  static async getPopularProductNames(){
+  static async getPopularProductNames() {
     try {
       const result = await pool.query(
         'SELECT name FROM "Models" ORDER BY rating DESC LIMIT 5;'
@@ -90,6 +90,24 @@ export default class ProductService {
       return result.rows;
     } catch (err) {
       throw err;
+    }
+  }
+  static async getInitialPrice() {
+    try {
+      const result = await pool.query(
+        'SELECT MIN(price), MAX(price) FROM "Models"'
+      );
+      const minPrice = result.rows[0].min;
+      const maxPrice = result.rows[0].max;
+      if (minPrice && maxPrice) {
+        return [minPrice, maxPrice];
+      } else if (maxPrice) {
+        return maxPrice;
+      } else {
+        return 0;
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 }
